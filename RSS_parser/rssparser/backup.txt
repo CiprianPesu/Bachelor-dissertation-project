@@ -1,0 +1,696 @@
+[
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/Jayapal-Pelosi-Getty.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/politics/pelosi-progressives-infrastructure-reconciliation",
+        "dc:creator": "Tyler Olson",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/politics/pelosi-progressives-infrastructure-reconciliation"
+        },
+        "description": "House Speaker Nancy Pelosi, with slim margins and massive internal disagreement, was unable to get the job done on infrastructure and reconciliation last week.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "dd88870b-f146-5cfc-9ec4-246ad16b7af6"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/congress"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/house-of-representatives"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/person/nancy-pelosi"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/infrastructure-across-america"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/house-of-representatives/democrats"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/politics"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Tyler Olson"
+            }
+        ],
+        "title": "Pelosi handed major defeat by rising progressive Democrat stars, as Biden agenda put on ice",
+        "pubDate": "Tue, 05 Oct 2021 10:03:10 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2019/12/Jayapal-Pelosi-Getty.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/Jayapal-Pelosi-Getty.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/stephanie-ruhle-reports.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/msnbc-stephanie-ruhle-dnc-chair-jaime-harrison",
+        "dc:creator": "Joseph Wulfsohn",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/msnbc-stephanie-ruhle-dnc-chair-jaime-harrison"
+        },
+        "description": "MSNBC anchor Stephanie Ruhle challenged Democratic National Committee chair Jaime Harrison Monday over the Democratic in-fighting over the trillion-dollar spending bills on Capitol Hill.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "3a02c285-d20d-5031-810d-51a4eab2b37a"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/elections/democrats"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/congress"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Joseph Wulfsohn"
+            }
+        ],
+        "title": "MSNBC's Stephanie Ruhle grills DNC chair amid Dem spending drama: 'Republicans are not in power, you are'",
+        "pubDate": "Tue, 05 Oct 2021 10:00:58 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/stephanie-ruhle-reports.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/stephanie-ruhle-reports.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjIyNDFmOTNfYTkzODI2ZGViNjUwOGQyN2E5Yzg1YTU2YzY4ODU4ZGRmMGI3MDk1MTQwMGQ0NTFkMmI0OWIwZjdmNWJhNmQ0OQ%3D%3D",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/opinion/power-independent-american-citizen-victor-davis-hanson",
+        "dc:creator": "Victor Davis Hanson",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/opinion/power-independent-american-citizen-victor-davis-hanson"
+        },
+        "description": "The last two years seem to have been one continual crisis\u2014well aside from the coronavirus pandemic.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "a3eaa544-828b-56a6-ab40-661b1a53afb1"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/opinion"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/executive/white-house"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/critical-race-theory"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/topic/cancel-culture"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/opinion"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Victor Davis Hanson"
+            }
+        ],
+        "title": "Victor Davis Hanson: The dangerous, diminishing power of the independent American citizen",
+        "pubDate": "Tue, 05 Oct 2021 10:00:57 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://manifest.prod.boltdns.net/manifest/v1/hls/v4/clear/694940094001/b444e61a-a7e6-44e0-9c6b-52f9aaa9db04/10s/master.m3u8?fastly_token=NjIyNDFmOTNfYTkzODI2ZGViNjUwOGQyN2E5Yzg1YTU2YzY4ODU4ZGRmMGI3MDk1MTQwMGQ0NTFkMmI0OWIwZjdmNWJhNmQ0OQ%3D%3D"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjIyNDFmOTNfYTkzODI2ZGViNjUwOGQyN2E5Yzg1YTU2YzY4ODU4ZGRmMGI3MDk1MTQwMGQ0NTFkMmI0OWIwZjdmNWJhNmQ0OQ%3D%3D",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/france-catholic-church-abuse.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/world/french-report-there-have-been-estimated-330000-victims-of-child-sex-abuse-within-frances-catholic-church",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/world/french-report-there-have-been-estimated-330000-victims-of-child-sex-abuse-within-frances-catholic-church"
+        },
+        "description": "A major French report released Tuesday found that an estimated 330,000 children were victims of sex abuse within France's Catholic Church over the past 70 years, in France's first major reckoning with the devastating phenomenon.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "f4a8ab62-87f9-50eb-8984-527632af18cb"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/crime/sex-crimes"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/world"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Associated Press"
+            },
+            {"domain": "foxnews.com/dateline"}
+        ],
+        "title": "French report: There have been estimated 330,000 victims of child sex abuse within France's Catholic Church",
+        "pubDate": "Tue, 05 Oct 2021 09:12:18 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/france-catholic-church-abuse.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/france-catholic-church-abuse.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/AP21111511787535.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/us/doj-launching-effort-combat-threats-violence-against-school-officials",
+        "dc:creator": "David Aaro",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/us/doj-launching-effort-combat-threats-violence-against-school-officials"
+        },
+        "description": "",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "3a34d360-3d99-595e-a1b5-aad57d8434c5"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/columns/fox-news-first"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/us"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "David Aaro"
+            }
+        ],
+        "title": "DOJ launching effort to combat threats of violence against school officials across US",
+        "pubDate": "Tue, 05 Oct 2021 07:52:19 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/AP21111511787535.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/AP21111511787535.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/Biden2.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/biden-leftward-lurch-political-paralysis",
+        "dc:creator": "Howard Kurtz",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/biden-leftward-lurch-political-paralysis"
+        },
+        "description": "Nancy Pelosi didn\u2019t have the votes on the $1.2-trillion infrastructure bill because the progressives are holding it hostage to get their $3.5-trillion Democratic wish list bill\u2014which was in fact largely written by Bernie Sanders.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "a5c0c3a0-eea1-5d9c-8173-1495a8af79ef"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/columns/media-buzz"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Howard Kurtz"
+            }
+        ],
+        "title": "Overreach: How Biden\u2019s leftward lurch led to political paralysis",
+        "pubDate": "Tue, 05 Oct 2021 07:46:44 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/Biden2.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/Biden2.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/AP21252736112931.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/politics/garland-deeply-saddened-by-2-recent-deaths-of-federal-agents-while-on-duty",
+        "dc:creator": "Edmund DeMarche",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/politics/garland-deeply-saddened-by-2-recent-deaths-of-federal-agents-while-on-duty"
+        },
+        "description": "U.S. Attorney General Merrick Garland issued a statement late Monday honoring the recent deaths of two federal officers who died in the line of duty.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "c0b69c2e-88f1-5803-957b-1baf424b45a8"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/justice-department"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/politics"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Edmund DeMarche"
+            }
+        ],
+        "title": "Garland \u2018deeply saddened\u2019 by 2 recent deaths of federal agents while on duty",
+        "pubDate": "Tue, 05 Oct 2021 06:42:23 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/09/AP21252736112931.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/AP21252736112931.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI0ZDIzNDdfODNhMjRiNTFjODM2YWMyNjg0MDIxYTRjNGQ5MWEyNzEwMjExYzYyNzI0ZDFmNGI0ZjlhMWQzN2M3Yjg5NjE0OQ%3D%3D",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/opinion/greg-gutfeld-woke-left-nonsense-world",
+        "dc:creator": "Greg Gutfeld",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/opinion/greg-gutfeld-woke-left-nonsense-world"
+        },
+        "description": "This kind of invasive harassment is the type of discourse the left champions. From harassing diners to looting businesses, it\u2019s all part of the same strategy. And it's no coincidence they do their best work in the toilet.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "89f23e0f-ccc6-590a-9ba9-fc34acc223c2"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/opinion"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/shows/gutfeld"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/person/joe-biden"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/nashville"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/new-york-city"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/democratic-party"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/topic/cancel-culture"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/elections/senate"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/opinion"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Greg Gutfeld"
+            }
+        ],
+        "title": "Greg Gutfeld: The woke Left has dragged us into the nonsense world they live in",
+        "pubDate": "Tue, 05 Oct 2021 06:20:31 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://manifest.prod.boltdns.net/manifest/v1/hls/v4/clear/694940094001/528b81f3-8c64-47a4-a8e5-96b1202c2a5e/10s/master.m3u8?fastly_token=NjI0ZDIzNDdfODNhMjRiNTFjODM2YWMyNjg0MDIxYTRjNGQ5MWEyNzEwMjExYzYyNzI0ZDFmNGI0ZjlhMWQzN2M3Yjg5NjE0OQ%3D%3D"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI0ZDIzNDdfODNhMjRiNTFjODM2YWMyNjg0MDIxYTRjNGQ5MWEyNzEwMjExYzYyNzI0ZDFmNGI0ZjlhMWQzN2M3Yjg5NjE0OQ%3D%3D",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/2021-07-21T190238Z_783006157_MT1USATODAY16432218_RTRMADP_3_ROCHESTER-MAYOR-LOVELY-WARREN-WITH-HER-ATTORNEY-JOSEPH.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/politics/lovely-warren-rochester-mayor-will-resign-as-part-of-plea-deal",
+        "dc:creator": "Edmund DeMarche",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/politics/lovely-warren-rochester-mayor-will-resign-as-part-of-plea-deal"
+        },
+        "description": "Lovely Warren, the embattled mayor of Rochester, N.Y., admitted Monday that she violated campaign finance rules during her 2017 reelection campaign and\u2014as part of her plea deal\u2014will vacate the office by December.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "e9497d99-0844-5fae-84b3-1829b1750533"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/state-and-local"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/politics"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Edmund DeMarche"
+            }
+        ],
+        "title": "Lovely Warren, Rochester mayor, will resign as part of plea deal",
+        "pubDate": "Tue, 05 Oct 2021 05:51:20 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/2021-07-21T190238Z_783006157_MT1USATODAY16432218_RTRMADP_3_ROCHESTER-MAYOR-LOVELY-WARREN-WITH-HER-ATTORNEY-JOSEPH.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/2021-07-21T190238Z_783006157_MT1USATODAY16432218_RTRMADP_3_ROCHESTER-MAYOR-LOVELY-WARREN-WITH-HER-ATTORNEY-JOSEPH.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/Laura-Ingraham-.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/laura-ingraham-democrats-last-chance",
+        "dc:creator": "Hannah Grossman",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/laura-ingraham-democrats-last-chance"
+        },
+        "description": "Laura Ingraham went after Democrats for dragging their feet in re-opening the country and causing economic injury to low-skilled workers.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "b4d83ea6-e0e6-551f-b801-642470ab2cc8"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media/fox-news-flash"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/topic/fox-news-flash"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/shows/ingraham-angle/transcript/lauras-monologue"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/shows/ingraham-angle"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/person/joe-biden"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/congress"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/house-of-representatives/domestic-policies"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Hannah Grossman"
+            }
+        ],
+        "title": "Ingraham: It's the last chance for the Democrats to show they haven't been taken over by the looney left",
+        "pubDate": "Tue, 05 Oct 2021 05:22:16 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/Laura-Ingraham-.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/Laura-Ingraham-.jpg",
+                "height": 60
+            }
+        ]}
+    }
+]
