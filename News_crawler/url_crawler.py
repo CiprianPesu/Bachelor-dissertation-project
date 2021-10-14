@@ -120,37 +120,27 @@ def eliminate_ads(content):
     lines=content.splitlines()
     new_content=""
     for line in lines:
-        if line.isupper() != True:
-            new_content=new_content+line+"\n"
+        if IsValidContent(line) == True:
+            new_content=new_content+" "+line
 
     return new_content
+
+
+def IsValidContent(line):
+    if line.isupper() == True: return False
+    elif line.find("Last updated on")!= -1 : return False
+    elif line.find("The BBC is not responsible for the content of external sites")!= -1 : return False
+    else: return True
+
+def IsValidLink(link):
+    if link.find("vpx") != -1: return False
+    elif link.find("/videos/") != -1:return False
+    else: return True
 
 class ArticleFetcher():
 
     def __init__(self):
         super(ArticleFetcher, self).__init__()
-
-    def _extract_title(self, soup):
-        if soup.title is not None:
-            return soup.title.get_text()
-
-    def _extract_published_date(self, date):
-        return date.strftime('%Y-%m-%d')
-
-    def _extract_authors(self, soup):
-        authors_elements = soup.find_all('meta', property='article:author')
-        if authors_elements is not None:
-            return [authors_element['content'] for authors_element in authors_elements]
-
-    def _extract_description(self, soup):
-        description_element = soup.find('meta', property='og:description')
-        if description_element is not None:
-            return description_element['content']
-
-    def _extract_section(self, soup):
-        section_element = soup.find('meta', property='article:section')
-        if section_element is not None:
-            return section_element['content']
 
     def _extract_content(self, html):
         ContentExtractor.calculate_best_node = calculate_best_node
@@ -197,27 +187,30 @@ try:
             f2 = ContentExtractor.post_cleanup
 
             url=rss_json["link"]
-            print(url)
-            try:
-                url_page = urllib.request.urlopen(url)
-                page_bytes = url_page.read()
-                url_page.close()
+            if IsValidLink(url) == True:
+                print(url)
+                try:
+                    url_page = urllib.request.urlopen(url)
+                    page_bytes = url_page.read()
+                    url_page.close()
 
-                html = page_bytes.decode()
+                    html = page_bytes.decode()
 
-                article_fatcher=ArticleFetcher()
+                    article_fatcher=ArticleFetcher()
 
-                rss_json["description"]=unidecode.unidecode(rss_json["description"])
-                rss_json["title"]=unidecode.unidecode(rss_json["title"])
+                    rss_json["description"]=unidecode.unidecode(rss_json["description"])
+                    rss_json["title"]=unidecode.unidecode(rss_json["title"])
 
-                content=article_fatcher._html_to_infomation(html,url)
-                
-                rss_json["content"]=content
-                count+=1
-                outfile=open(str(count)+"outfile.json","w");
-                json.dump(rss_json,outfile)
-            except:
-                print("The news URL is not working")
+                    content=article_fatcher._html_to_infomation(html,url)
+                    
+                    rss_json["content"]=content
+                    count+=1
+                    outfile=open(str(count)+"outfile.json","w");
+                    json.dump(rss_json,outfile)
+                except:
+                    print("The news URL is not working")
+            else:
+                print(url + "    --->Invalid")
 finally:
     # Close down consumer to commit final offsets.
     consumer.close()
