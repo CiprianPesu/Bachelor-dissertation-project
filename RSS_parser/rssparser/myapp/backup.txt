@@ -1,0 +1,668 @@
+[
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/Meghan-McCain-The-View.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/meghan-mccain-reveals-biggest-regret",
+        "dc:creator": "Brian Flood",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/meghan-mccain-reveals-biggest-regret"
+        },
+        "description": "EXCLUSIVE -- Conservative firebrand Meghan McCain doesn\u2019t regret walking away from \"The View,\" or standing up for what she believes in. However, the \"Bad Republican\" author has one regret that has nothing to do with television, politics or ideology.?",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "4698ae2e-8813-5f65-af49-3de95e47745f"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/person/meghan-mccain"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/entertainment/the-view"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Brian Flood"
+            }
+        ],
+        "title": "Meghan McCain reveals biggest regret -- and it has nothing to do with 'The View'",
+        "pubDate": "Wed, 20 Oct 2021 10:00:44 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2020/06/Meghan-McCain-The-View.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/Meghan-McCain-The-View.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/BIDEN-HOLDING-SEMICONDUCTOR-MICROCHIP.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/opinion/america-joe-biden-scarcity-sen-josh-hawley",
+        "dc:creator": "Josh Hawley",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/opinion/america-joe-biden-scarcity-sen-josh-hawley"
+        },
+        "description": "Long a land of abundance, the United States has become a land of scarcity under President Joe Biden.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "3aec6fd5-3abe-5cc0-bb3e-568e368bec2f"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/opinion"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/person/joe-biden"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/economy"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/opinion"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Josh Hawley"
+            }
+        ],
+        "title": "Sen. Josh Hawley: America under Joe Biden is a land of scarcity and want",
+        "pubDate": "Wed, 20 Oct 2021 10:00:37 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/BIDEN-HOLDING-SEMICONDUCTOR-MICROCHIP.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/BIDEN-HOLDING-SEMICONDUCTOR-MICROCHIP.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/via-alloro.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/us/attempted-robbery-outside-beverly-hills-restaurant-leaves-patron-shot-in-leg-police-say",
+        "dc:creator": "Brie Stimson",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/us/attempted-robbery-outside-beverly-hills-restaurant-leaves-patron-shot-in-leg-police-say"
+        },
+        "description": "An attempted robbery outside of a Beverly Hills Italian restaurant two blocks from Rodeo Drive left a man shot in the leg Tuesday evening, according to reports.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "7e8d0a4f-a6d6-5e2a-a39a-936077f972e0"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/los-angeles"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/crime"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/lifestyle/restaurants"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/us"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Brie Stimson"
+            }
+        ],
+        "title": "Beverly Hills shooting: Attempted robbery outside restaurant leaves patron shot in leg, police say",
+        "pubDate": "Wed, 20 Oct 2021 09:24:44 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/via-alloro.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/via-alloro.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI2MGU4ODdfODlkOGQwOTBjMjUzYTJiYjQxNzE0ZTQzMGQ0YzdhZDIzYjA0MzUzYTc5N2YyYmZhMThiOGM4MjAzNTM2NjU3OA%3D%3D",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/john-beatty-its-incredibly-important-we-have-investigation-into-alleged-sex-assaults",
+        "dc:creator": "Fox News Staff",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/john-beatty-its-incredibly-important-we-have-investigation-into-alleged-sex-assaults"
+        },
+        "description": "A school board member in Loudoun County, Virginia, agreed with Glenn Youngkin, the state's Republican gubernatorial candidate, and called for a probe into sexual assault allegations against students in the district.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "b2564b17-213b-538f-928a-30370258f5ed"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media/fox-news-flash"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Fox News Staff"
+            }
+        ],
+        "title": "Loudoun County School Board member: Important we have investigation into alleged sex assaults",
+        "pubDate": "Wed, 20 Oct 2021 08:42:08 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://manifest.prod.boltdns.net/manifest/v1/hls/v4/clear/694940094001/a3041969-ac02-4432-9e07-eac8fc80c49c/10s/master.m3u8?fastly_token=NjI2MGU4ODdfODlkOGQwOTBjMjUzYTJiYjQxNzE0ZTQzMGQ0YzdhZDIzYjA0MzUzYTc5N2YyYmZhMThiOGM4MjAzNTM2NjU3OA%3D%3D"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI2MGU4ODdfODlkOGQwOTBjMjUzYTJiYjQxNzE0ZTQzMGQ0YzdhZDIzYjA0MzUzYTc5N2YyYmZhMThiOGM4MjAzNTM2NjU3OA%3D%3D",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/krem-2.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/washington-news-station-investigated-for-showing-pornographic-content-during-weather-segment",
+        "dc:creator": "Brie Stimson",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/washington-news-station-investigated-for-showing-pornographic-content-during-weather-segment"
+        },
+        "description": "A local news station in Eastern Washington is being investigated by the police after a pornographic video reportedly played on a screen behind a meteorologist giving the forecast last Sunday evening at 6 p.m.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "48154444-0d8a-5260-8ae7-931dcc221d86"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/us-regions/west/washington"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/crime/police-and-law-enforcement"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Brie Stimson"
+            }
+        ],
+        "title": "Washington news station investigated after airing pornographic content during segment: report",
+        "pubDate": "Wed, 20 Oct 2021 08:03:19 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/krem-2.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/krem-2.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/joe-biden-newsletter-xxx.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/us/biden-optimistic-agreement-can-be-reached-on-social-spending-capped-at-1-9t",
+        "dc:creator": "Jack Durschlag",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/us/biden-optimistic-agreement-can-be-reached-on-social-spending-capped-at-1-9t"
+        },
+        "description": "",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "b4c4bb30-3586-556e-825e-debf7cb2c97c"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/columns/fox-news-first"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/us"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Jack Durschlag"
+            }
+        ],
+        "title": "Biden optimistic deal can be reached on social spending bill capped at $1.9T: report",
+        "pubDate": "Wed, 20 Oct 2021 07:34:36 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/joe-biden-newsletter-xxx.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/joe-biden-newsletter-xxx.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI2MGNmMGFfMjI2NDBmYjQ2MTdjM2UyYWQxMmM4MTk3YTk5YTg2ODgxY2EyZDRjYzY5YWFmNzYwNDEzZDA4Njk3NzNhZjgwZA%3D%3D",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/mike-pompeo-warning-china-hypersonic-missile",
+        "dc:creator": "Fox News Staff",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/mike-pompeo-warning-china-hypersonic-missile"
+        },
+        "description": "Former Secretary of State Mike Pompeo described China as an \u201cadversary\u201d on \u201cHannity\u201d Tuesday night and how \u201cAmerica is showing weakness\u201d",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "b08fb6ca-294c-5934-883e-fc6be976ce49"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/executive/national-security"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/shows/hannity"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/world/world-regions/china"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/foreign-policy/secretary-of-state"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Fox News Staff"
+            }
+        ],
+        "title": "Mike Pompeo issues stark warning after China fires nuclear-capable hypersonic missile",
+        "pubDate": "Wed, 20 Oct 2021 07:29:45 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://manifest.prod.boltdns.net/manifest/v1/hls/v4/clear/694940094001/d2606388-18a4-479f-965a-8df99cc79da7/10s/master.m3u8?fastly_token=NjI2MGNmMGFfMjI2NDBmYjQ2MTdjM2UyYWQxMmM4MTk3YTk5YTg2ODgxY2EyZDRjYzY5YWFmNzYwNDEzZDA4Njk3NzNhZjgwZA%3D%3D"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI2MGNmMGFfMjI2NDBmYjQ2MTdjM2UyYWQxMmM4MTk3YTk5YTg2ODgxY2EyZDRjYzY5YWFmNzYwNDEzZDA4Njk3NzNhZjgwZA%3D%3D",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/AP21147773196833.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/media/capitol-riot-history-battle-january-legacy",
+        "dc:creator": "Howard Kurtz",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/media/capitol-riot-history-battle-january-legacy"
+        },
+        "description": "Donald Trump sued Congress and the National Archives to block the release of any documents related to January 6th on grounds of executive privilege. A Democratic-led committee argues this is obstructionism and that nothing could be more important than investigating an attack on American democracy.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "002d3013-1209-53cc-9fa3-0d5627161b2f"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/columns/media-buzz"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/media"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Howard Kurtz"
+            }
+        ],
+        "title": "The Capitol riot and revisionist history: the battle over the Jan. 6 legacy",
+        "pubDate": "Wed, 20 Oct 2021 07:26:45 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/05/AP21147773196833.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/AP21147773196833.jpg",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI2MGRjNGZfMWI1MDQ2NDVlZThjZmRjMjVlNTA5Y2YzNmJiYzY3NDRiMDUzODAzYjU5YjYwZjA4ZmIzY2E5M2I5ZWRlMmYxZg%3D%3D",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/opinion/greg-gutfeld-world-men-nervous",
+        "dc:creator": "Greg Gutfeld",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/opinion/greg-gutfeld-world-men-nervous"
+        },
+        "description": "It\u2019s not fear of toxic masculinity \u2013 it\u2019s fear of competency. Dudes show up, work hard, and solve problems. It\u2019s the opposite of spoiled college kids, so soft and pampered, who have to create problems to give their lives meaning.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "a9319d9b-5c8d-5535-8f4e-bbd2a57471cc"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/opinion"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/shows/gutfeld"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/media"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/topic/cancel-culture"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/education/college"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/us/us-regions/midwest/ohio"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/opinion"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Greg Gutfeld"
+            }
+        ],
+        "title": "Greg Gutfeld: The world is full of men who make you nervous and they don't know it",
+        "pubDate": "Wed, 20 Oct 2021 07:18:29 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://manifest.prod.boltdns.net/manifest/v1/hls/v4/clear/694940094001/3bb63db9-6976-4ebd-9daa-04fb73e7e216/10s/master.m3u8?fastly_token=NjI2MGRjNGZfMWI1MDQ2NDVlZThjZmRjMjVlNTA5Y2YzNmJiYzY3NDRiMDUzODAzYjU5YjYwZjA4ZmIzY2E5M2I5ZWRlMmYxZg%3D%3D"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/master.m3u8?fastly_token=NjI2MGRjNGZfMWI1MDQ2NDVlZThjZmRjMjVlNTA5Y2YzNmJiYzY3NDRiMDUzODAzYjU5YjYwZjA4ZmIzY2E5M2I5ZWRlMmYxZg%3D%3D",
+                "height": 60
+            }
+        ]}
+    },
+    {
+        "media:thumbnail": {
+            "width": 60,
+            "url": "http://a57.foxnews.com60/60/AP21293018512321.jpg",
+            "height": 60
+        },
+        "link": "https://www.foxnews.com/politics/blinkens-good-news-bad-news-comment-on-drug-seizures-criticized",
+        "dc:creator": "Edmund DeMarche",
+        "guid": {
+            "isPermaLink": true,
+            "content": "https://www.foxnews.com/politics/blinkens-good-news-bad-news-comment-on-drug-seizures-criticized"
+        },
+        "description": "U.S. Secretary of State Antony Blinken was criticized late Tuesday after a video emerged of him at a press conference in Ecuador calling a record number of drug seizures in the country a \"good news, bad news\" story.",
+        "category": [
+            {
+                "domain": "foxnews.com/metadata/dc.identifier",
+                "content": "571facce-cffc-5ea2-b780-d399408ec945"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/foreign-policy/secretary-of-state"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/politics/foreign-policy/state-department"
+            },
+            {
+                "domain": "foxnews.com/taxonomy",
+                "content": "fox-news/travel/regions/south-america"
+            },
+            {
+                "domain": "foxnews.com/metadata/prism.channel",
+                "content": "fnc"
+            },
+            {
+                "domain": "foxnews.com/section-path",
+                "content": "fnc/politics"
+            },
+            {
+                "domain": "foxnews.com/content-type",
+                "content": "article"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.source",
+                "content": "Fox News"
+            },
+            {
+                "domain": "foxnews.com/metadata/dc.creator",
+                "content": "Edmund DeMarche"
+            }
+        ],
+        "title": "Blinken\u2019s \u2018good news, bad news\u2019 comment on drug seizures criticized",
+        "pubDate": "Wed, 20 Oct 2021 06:13:35 GMT",
+        "media:group": {"media:content": [
+            {
+                "isDefault": true,
+                "medium": "image",
+                "url": "https://static.foxnews.com/foxnews.com/content/uploads/2021/10/AP21293018512321.jpg"
+            },
+            {
+                "width": 60,
+                "medium": "image",
+                "url": "http://a57.foxnews.com60/60/AP21293018512321.jpg",
+                "height": 60
+            }
+        ]}
+    }
+]
