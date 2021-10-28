@@ -26,11 +26,12 @@ spec:
         - containerPort: 9200
         - containerPort: 9300
         volumeMounts:
-        - mountPath: /home/newuser/
-          name: my-volume
+        - name: elastic-volume
+          mountPath: /usr/share/elasticsearch/data
       volumes:
-      - name: my-volume
-        emptyDir: {}  # I wouldnt use emptydir
+      - name: elastic-volume
+        persistentVolumeClaim:
+          claimName: elastic-volume
 ---
 apiVersion: v1
 kind: Service

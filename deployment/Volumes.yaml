@@ -1,15 +1,14 @@
+kind: PersistentVolumeClaim
 apiVersion: v1
-kind: PersistentVolume
 metadata:
-  name: my-volume
   labels:
-    type: local
+    app: elasticsearch
+  name: elastic-volume
+  annotations:
+    "helm.sh/resource-policy": keep
 spec:
-  storageClassName: manual
-  capacity:
-    storage: 3Gi
   accessModes:
     - ReadWriteOnce
-  hostPath:
-    path: "/home/ciprian/Desktop/Proiect_Licenta/Elastic2/"
----
+  resources:
+    requests:
+      storage: 3Gi
