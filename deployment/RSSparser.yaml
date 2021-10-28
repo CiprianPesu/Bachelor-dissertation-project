@@ -18,7 +18,15 @@ spec:
         app: rssparser
     spec:
       containers:
-      - image: localhost:32000/rssparser2
+      - image: localhost:32000/rssparser
         name: rssparser
         resources: {}
+        volumeMounts:
+        - name: rssparser-volume
+          mountPath: /usr/src/myapp/Logs/
+      volumes:
+      - name: rssparser-volume
+        persistentVolumeClaim:
+          claimName: rssparser-volume
 status: {}
+

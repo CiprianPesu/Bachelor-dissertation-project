@@ -6,7 +6,7 @@ import java.io.IOException;
 
 
 public class RSSreaderLogger {
-    static String logFile="log.txt";
+    static String logFile="./Logs/log.txt";
     static File file = new File(logFile);
     
 

@@ -32,7 +32,7 @@ public class RSSreader
 
     private void writeBackup(JSONArray toBackup)
     {
-        File file = new File("backup.txt");
+        File file = new File("./Logs/backup.txt");
         try
         {
             FileWriter fr = new FileWriter(file, false);
@@ -47,7 +47,7 @@ public class RSSreader
 
     private void readBackup()
     {
-        File file = new File("backup.txt");
+        File file = new File("./Logs/backup.txt");
         byte data[] = new byte[(int)file.length()];
         try
         {
