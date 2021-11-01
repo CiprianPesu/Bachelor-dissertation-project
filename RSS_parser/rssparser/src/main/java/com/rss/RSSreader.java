@@ -137,6 +137,7 @@ public class RSSreader
             URL oracle = new URL(rssURL);
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setJavascriptEnabled(true);
+            caps.setCapability("takesScreenshot", false);
             caps.setCapability("phantomjs.binary.path", "phantomjs");
             WebDriver driver = new PhantomJSDriver(caps);
             driver.get(rssURL);

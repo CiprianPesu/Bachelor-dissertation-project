@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: url-crawler
+  name: url-crawler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: url-crawler
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: url-crawler
+    spec:
+      hostNetwork: true
+      containers:
+      - image: localhost:32000/url_crawler
+        name: url-crawler
+        resources: {}
+status: {}
+

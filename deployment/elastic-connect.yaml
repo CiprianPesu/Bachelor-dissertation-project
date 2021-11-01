@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: elastic-connection
+  name: elastic-connection
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elastic-connection
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: elastic-connection
+    spec:
+      hostNetwork: true
+      containers:
+      - image: localhost:32000/elastic-connection
+        name: elastic-connection
+        resources: {}
+status: {}
+

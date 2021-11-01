@@ -6,3 +6,5 @@ microk8s kubectl apply -f Volumes.yaml
 
 microk8s kubectl apply -f ElasticSearch.yaml
 microk8s kubectl apply -f kibana.yaml
+
+microk8s kubectl apply -f url_crawler.yaml

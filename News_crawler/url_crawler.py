@@ -1,6 +1,7 @@
+from ast import Str
+from datetime import date, datetime
 import json
-from os import fdopen
-import sys
+from time import time
 from goose3.extractors import content
 import unidecode
 import urllib.request
@@ -8,9 +9,12 @@ import urllib.request
 from bs4 import BeautifulSoup
 from goose3 import Goose
 from goose3.extractors.content import ContentExtractor
-from requests import NullHandler
+
+from dateutil import parser, tz
 
 from confluent_kafka import Consumer
+from confluent_kafka import Producer
+
 
 def post_cleanup(ce_inst):
     """\
@@ -169,7 +173,11 @@ conf = {'bootstrap.servers': "10.0.0.1:9092",
         'group.id': "group1",
         'auto.offset.reset': 'earliest'}
 
+conf_p = {'bootstrap.servers': '10.0.0.1:9092'}
+
 consumer = Consumer(conf)
+
+producer = Producer(conf_p)
 
 
 try:
@@ -187,28 +195,46 @@ try:
             f2 = ContentExtractor.post_cleanup
 
             url=rss_json["link"]
+
+            
+            try:
+
+                rss_json['pubDate']= parser.parse(rss_json["pubDate"])
+                time=(rss_json["pubDate"]).strftime("%H:%M:%S")
+                day=(rss_json["pubDate"]).strftime("%Y%m%d")
+                rss_json["pubDate"]=day
+                rss_json["pubTime"]=time
+            except:
+                unknown_time=datetime(1000, 1, 1, 0, 0)
+                time=unknown_time.strftime("%H:%M:%S")
+                day=unknown_time.strftime("%Y%m%d")
+                rss_json["pubDate"]=day
+                rss_json["pubTime"]=time
+                print("----Unlnown Date--")
+                print(day)
+                print(time)
+                print("------------------")
+            
+
             if IsValidLink(url) == True:
                 print(url)
-                try:
-                    url_page = urllib.request.urlopen(url)
-                    page_bytes = url_page.read()
-                    url_page.close()
+                
+                url_page = urllib.request.urlopen(url)
+                page_bytes = url_page.read()
+                url_page.close()
 
-                    html = page_bytes.decode()
+                html = page_bytes.decode()
 
-                    article_fatcher=ArticleFetcher()
+                article_fatcher=ArticleFetcher()
 
-                    rss_json["description"]=unidecode.unidecode(rss_json["description"])
-                    rss_json["title"]=unidecode.unidecode(rss_json["title"])
+                rss_json["description"]=unidecode.unidecode(rss_json["description"])
+                rss_json["title"]=unidecode.unidecode(rss_json["title"])
 
-                    content=article_fatcher._html_to_infomation(html,url)
-                    
-                    rss_json["content"]=content
-                    count+=1
-                    outfile=open(str(count)+"outfile.json","w");
-                    json.dump(rss_json,outfile)
-                except:
-                    print("The news URL is not working")
+                content=article_fatcher._html_to_infomation(html,url)
+                
+                rss_json["content"]=content
+                producer.poll(0)
+                producer.produce('crawled_news',json.dumps(rss_json).encode('utf-8'))
             else:
                 print(url + "    --->Invalid")
 finally:
