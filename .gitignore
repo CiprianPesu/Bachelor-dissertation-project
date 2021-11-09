@@ -2,3 +2,7 @@
 RSS_parser/rssparser/Logs/log.txt
 RSS_parser/rssparser/myapp/log.txt
 RSS_parser/rssparser/phantomjsdriver.log
+Sentiment_Rec/Datasets/*
+Sentiment_Rec/CNN/Models/*
+Sentiment_Rec/DCNN/Models/*
+
