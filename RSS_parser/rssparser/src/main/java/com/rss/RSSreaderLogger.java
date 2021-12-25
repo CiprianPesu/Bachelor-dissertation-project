@@ -10,10 +10,7 @@ public class RSSreaderLogger {
     static File file = new File(logFile);
     
 
-    public RSSreaderLogger()
-    {
-        
-    }
+    public RSSreaderLogger(){}
 
     static void logText(String text){
         

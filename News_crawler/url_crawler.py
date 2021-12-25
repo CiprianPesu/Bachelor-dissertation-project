@@ -218,23 +218,25 @@ try:
 
             if IsValidLink(url) == True:
                 print(url)
-                
-                url_page = urllib.request.urlopen(url)
-                page_bytes = url_page.read()
-                url_page.close()
+                try:
+                    url_page = urllib.request.urlopen(url)
+                    page_bytes = url_page.read()
+                    url_page.close()
 
-                html = page_bytes.decode()
+                    html = page_bytes.decode()
 
-                article_fatcher=ArticleFetcher()
+                    article_fatcher=ArticleFetcher()
 
-                rss_json["description"]=unidecode.unidecode(rss_json["description"])
-                rss_json["title"]=unidecode.unidecode(rss_json["title"])
+                    rss_json["description"]=unidecode.unidecode(rss_json["description"])
+                    rss_json["title"]=unidecode.unidecode(rss_json["title"])
 
-                content=article_fatcher._html_to_infomation(html,url)
-                
-                rss_json["content"]=content
-                producer.poll(0)
-                producer.produce('crawled_news',json.dumps(rss_json).encode('utf-8'))
+                    content=article_fatcher._html_to_infomation(html,url)
+
+                    rss_json["content"]=content
+                    producer.poll(0)
+                    producer.produce('crawled_news',json.dumps(rss_json).encode('utf-8'))
+                except Exception:
+                    print(url + "    --->Invalid Link 404")
             else:
                 print(url + "    --->Invalid")
 finally:

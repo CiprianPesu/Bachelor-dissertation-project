@@ -17,8 +17,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   labels:
-    app: rssparser
-  name: rssparser-volume
+    app: bbc-rss
+  name: bbc-rss-volume
   annotations:
     "helm.sh/resource-policy": keep
 spec:
@@ -27,3 +27,34 @@ spec:
   resources:
     requests:
       storage: 1Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  labels:
+    app: cnn-rss
+  name: cnn-rss-volume
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  labels:
+    app: fox-rss
+  name: fox-rss-volume
+  annotations:
+    "helm.sh/resource-policy": keep
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---

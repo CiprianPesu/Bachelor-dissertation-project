@@ -97,6 +97,7 @@ public class RSSreader
                 standard_news.put("source", channel);
                 standard_news.put("link", item.getString("link"));
                 standard_news.put("title", item.getString("title"));
+                standard_news.put("RSSTag",key);
                 try
                 {
                     standard_news.put("description", item.getString("description"));

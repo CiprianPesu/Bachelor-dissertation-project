@@ -3,30 +3,108 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: rssparser
-  name: rssparser
+    app: bbc-rss
+  name: bbc-rss
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rssparser
+      app: bbc-rss
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: rssparser
+        app: bbc-rss
     spec:
       containers:
       - image: localhost:32000/rssparser
-        name: rssparser
+        name: bbc-rss
+        env:
+        - name: RSSLink
+          value: "http://feeds.bbci.co.uk/news/rss.xml"
+        - name: RSSTag
+          value: "bbc"
         resources: {}
         volumeMounts:
-        - name: rssparser-volume
+        - name: bbc-rss-volume
           mountPath: /usr/src/myapp/Logs/
       volumes:
-      - name: rssparser-volume
+      - name: bbc-rss-volume
         persistentVolumeClaim:
-          claimName: rssparser-volume
+          claimName: bbc-rss-volume
 status: {}
-
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cnn-rss
+  name: cnn-rss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cnn-rss
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cnn-rss
+    spec:
+      containers:
+      - image: localhost:32000/rssparser
+        name: cnn-rss
+        env:
+        - name: RSSLink
+          value: "http://rss.cnn.com/rss/edition.rss"
+        - name: RSSTag
+          value: "cnn"
+        resources: {}
+        volumeMounts:
+        - name: cnn-rss-volume
+          mountPath: /usr/src/myapp/Logs/
+      volumes:
+      - name: cnn-rss-volume
+        persistentVolumeClaim:
+          claimName: cnn-rss-volume
+status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: fox-rss
+  name: fox-rss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fox-rss
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: fox-rss
+    spec:
+      containers:
+      - image: localhost:32000/rssparser
+        name: fox-rss
+        env:
+        - name: RSSLink
+          value: "http://feeds.foxnews.com/foxnews/latest"
+        - name: RSSTag
+          value: "fox"
+        resources: {}
+        volumeMounts:
+        - name: fox-rss-volume
+          mountPath: /usr/src/myapp/Logs/
+      volumes:
+      - name: fox-rss-volume
+        persistentVolumeClaim:
+          claimName: fox-rss-volume
+status: {}
