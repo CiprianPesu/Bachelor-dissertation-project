@@ -198,24 +198,23 @@ try:
 
             
             try:
-
+                
+                print( rss_json['pubDate'])
                 rss_json['pubDate']= parser.parse(rss_json["pubDate"])
-                time=(rss_json["pubDate"]).strftime("%H:%M:%S")
-                day=(rss_json["pubDate"]).strftime("%Y%m%d")
-                rss_json["pubDate"]=day
-                rss_json["pubTime"]=time
+                print( rss_json['pubDate'])
+                pub_datetime=(rss_json["pubDate"]).strftime("%Y-%m-%d %H:%M:%S")
+                rss_json["pubDate"]=pub_datetime
+                print(rss_json['pubDate'])
+                print("-------------")
             except:
                 unknown_time=datetime(1000, 1, 1, 0, 0)
-                time=unknown_time.strftime("%H:%M:%S")
-                day=unknown_time.strftime("%Y%m%d")
-                rss_json["pubDate"]=day
-                rss_json["pubTime"]=time
+                pub_datetime=unknown_time.strftime("%Y-%m-%d %H:%M:%S")
+                rss_json["pubDate"]=pub_datetime
                 print("----Unlnown Date--")
-                print(day)
-                print(time)
                 print("------------------")
             
 
+            now=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             if IsValidLink(url) == True:
                 print(url)
                 try:
@@ -231,13 +230,51 @@ try:
                     rss_json["title"]=unidecode.unidecode(rss_json["title"])
 
                     content=article_fatcher._html_to_infomation(html,url)
-
+                    rss_json["Crawlerd_datetime"]=now
                     rss_json["content"]=content
                     producer.poll(0)
                     producer.produce('crawled_news',json.dumps(rss_json).encode('utf-8'))
+
+                    
+
+                    json_logs = json.dumps({'link':  rss_json["link"],
+                                            'source':  rss_json["source"],
+                                            'RSSTag':  rss_json["RSSTag"],
+                                            'Action_datetime': now,
+                                            'status': 'success',
+                                            'service': 'URL-Crawler',
+                                            })
+
+                    print(json.dumps(json_logs))
+                    producer.poll(0)
+                    producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
+
                 except Exception:
+                    json_logs = json.dumps({'link':  rss_json["link"],
+                                        'source':  rss_json["source"],
+                                        'RSSTag':  rss_json["RSSTag"],
+                                        'Action_datetime': now,
+                                        'status': 'invalid link',
+                                        'service': 'URL-Crawler',
+                                        })
+
+                    print(json.dumps(json_logs))
+                    producer.poll(0)
+                    producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
+
                     print(url + "    --->Invalid Link 404")
             else:
+                json_logs = json.dumps({'link':  rss_json["link"],
+                                        'source':  rss_json["source"],
+                                        'RSSTag':  rss_json["RSSTag"],
+                                        'Action_datetime': now,
+                                        'status': 'invalid link',
+                                        'service': 'URL-Crawler',
+                                        })
+
+                print(json.dumps(json_logs))
+                producer.poll(0)
+                producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
                 print(url + "    --->Invalid")
 finally:
     # Close down consumer to commit final offsets.

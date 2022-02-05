@@ -2,21 +2,6 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   labels:
-    app: elasticsearch
-  name: elastic-volume
-  annotations:
-    "helm.sh/resource-policy": keep
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 3Gi
----
-kind: PersistentVolumeClaim
-apiVersion: v1
-metadata:
-  labels:
     app: bbc-rss
   name: bbc-rss-volume
   annotations:

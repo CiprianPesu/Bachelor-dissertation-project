@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: logs-controler
+  name: logs-controler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logs-controler
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: logs-controler
+    spec:
+      hostNetwork: true
+      containers:
+      - image: localhost:32000/logs-controler
+        name: logs-controler
+        resources: {}
+status: {}
+
+

@@ -9,3 +9,5 @@ microk8s kubectl apply -f kibana.yaml
 
 microk8s kubectl apply -f url_crawler.yaml
 microk8s kubectl apply -f elastic-connect.yaml
+
+microk8s kubectl apply -f logging-controler.yaml

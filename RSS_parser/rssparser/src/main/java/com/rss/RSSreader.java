@@ -114,7 +114,7 @@ public class RSSreader
                 {
                     standard_news.put("pubDate", " ");
                 }
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date date = new Date(System.currentTimeMillis());
                 RSSreaderLogger.logText((new StringBuilder(String.valueOf(formatter.format(date)))).append("  -->  ").append(item.getString("title")).toString());
                 ProducerRecord prodRec = new ProducerRecord("rss_data", key, standard_news.toString(4));
