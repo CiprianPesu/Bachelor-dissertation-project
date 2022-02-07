@@ -6,3 +6,4 @@ Sentiment_Rec/Datasets/*
 Sentiment_Rec/CNN/Models/*
 Sentiment_Rec/DCNN/Models/*
 
+Sentiment_Rec/Burt/classfication_model.pt
