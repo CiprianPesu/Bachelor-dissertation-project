@@ -1,0 +1,168 @@
+
+
+.Container{
+  position: relative;
+  min-height: 500px;
+  transform: translateX(-200px);
+
+  height: 47%;
+  opacity: 1;
+	animation-name: fade;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 2s;
+  text-align: center;
+  display:inline-block;
+  justify-content: center;
+  align-items:center;
+  vertical-align: middle;
+
+}
+.loginForm{
+
+  position:fixed;
+  backface-visibility:hidden;
+  background-color:white;
+  width: 400px;
+  height: 500px;
+  border-radius: 30px;
+}
+
+.RegisterForm{
+  transform: rotateY(180deg);
+
+  position: absolute;
+  backface-visibility:hidden;
+  background-color:white;
+  width: 400px;
+  height: 500px;
+  border-radius: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.Text{
+  display: flex;
+  font-size:28px;
+  height: 100px;
+  justify-content: center;
+  align-items:center;
+  vertical-align: middle;
+
+}
+
+.MyInput{
+  height: 30px;
+  padding: 10px;
+}
+
+.MyInput input{
+  height: 30px;
+  width: 250px;
+  background-color: rgb(56, 49, 49);
+  color:white;
+  padding: 20px;
+}
+
+.ButtonsDiv{
+  margin: 60px;
+  margin-top: 110px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.InputDiv{
+  height: 120px;
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.btn{
+  margin: 20px;
+  padding:10px;
+  width: 120px;
+  height: 50px;
+}
+
+
+.flip-appear{
+   opacity: 0;
+}
+
+.flip-appear.flip-appear-active{
+  opacity: 1;
+  transition: opacity 1000ms linear;
+}
+
+.flip-enter{
+  opacity: 0;
+}
+
+.loginForm[page='ToRegister'] {
+  animation: wobble 1s 1;
+}
+
+
+.loginForm[page='Register'] {
+  transform: rotateY(180deg);
+}
+
+.loginForm[page='Login'] {
+  transform: rotateY(0deg);
+}
+
+.loginForm[page='ToLogin'] {
+  animation: wobble2 1s 1;
+}
+
+
+.RegisterForm[page='ToRegister'] {
+  animation: wobble2 1s 1;
+}
+
+.RegisterForm[page='Register'] {
+  transform: rotateY(0deg);
+}
+
+.RegisterForm[page='ToLogin'] {
+  animation: wobble 1s 1;
+}
+
+.RegisterForm[page='Login'] {
+  transform: rotateY(-180deg);
+
+}
+.Container[page='Login']{
+  transform: fade 3s 1;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes wobble {
+  0% {
+    transform: rotateY(0deg) ;
+  }
+  100% {
+    transform: rotateY(180deg) ;
+  }
+}
+
+@keyframes wobble2 {
+  0% {
+    transform: rotateY(-180deg);
+
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}

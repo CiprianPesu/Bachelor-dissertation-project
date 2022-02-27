@@ -7,3 +7,5 @@ Sentiment_Rec/CNN/Models/*
 Sentiment_Rec/DCNN/Models/*
 
 Sentiment_Rec/Burt/classfication_model.pt
+*.pb
+*.data-00000-of-00001

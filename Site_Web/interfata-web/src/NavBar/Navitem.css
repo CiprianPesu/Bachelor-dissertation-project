@@ -1,0 +1,57 @@
+
+.icon-right{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  align-self: center;
+}
+
+.nav-item {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+.icon-button{
+  background: linear-gradient(90deg,  #0c8858 0%, rgb(24, 201, 118) 50%, rgb(0, 240, 0)100%);
+  background-size: 500%;
+  border: none;
+  border-radius: 5rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  color: white;
+  cursor: pointer;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.05em;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.icon-button:hover {
+  transform: scale(.98);
+  animation-name: gradient;
+  -webkit-animation-name: gradient;
+  animation-duration: 2s;
+  -webkit-animation-duration: s;
+  animation-iteration-count: 1;
+  -webkit-animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100%;
+    }
+  }

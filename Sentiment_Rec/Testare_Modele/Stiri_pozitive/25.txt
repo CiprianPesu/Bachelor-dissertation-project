@@ -1,0 +1,22 @@
+Former Google CEO Eric Schmidt and his wife, Wendy, announced Wednesday they are launching an initiative aimed at advancing artificial intelligence and preparing for the "unintended consequences" the technology could present as it evolves, committing $125 million over the next five years to the effort.
+
+The project, dubbed AI2050, is being launched through the couple's philanthropic organization Schmidt Futures, which funds ventures that serve a purpose for advancing society.
+
+"AI will cause us to rethink what it means to be human," Mr. Schmidt said in a statement. "As we chart a path forward to a future with AI, we need to prepare for the unintended consequences that might come along with doing so."
+
+
+"In the early days of the internet and social media, no one thought these platforms would be used to disrupt elections or to shape every aspect of our lives, opinions and actions," said Schmidt, who also chaired the U.S. National Commission on Artificial Intelligence from 2018 to 2021. 
+
+
+"Lessons like these make it even more urgent to be prepared moving forward," he said, adding, "Artificial intelligence can be a massive force for good in society, but now is the time to ensure that the AI we build has human interests at its core."
+
+The AI2050 project will be co-chaired by Schmidt and James Manyika, Google's head of technology and society, who has been an unpaid adviser to Schmidt Futures since 2019.
+
+
+Manyika has compiled a working list of "hard problems" the initiative aims to tackle.
+
+"Through our conversations and the extensive research that has been published by many academics there are several themes that have emerged," Manyika told FOX Business in an email. 
+
+"What we aim to do is simultaneously maximize the upside potential, while mitigating the downside risks," he explained. "Paramount to both of these goals is developing more capable and more general AI that is safe and earns public trust, making sure AI performs technically well and does not harm people, and that AI systems which are developed remain aligned and compatible with the way humans designed them."
+
+Manyika added, "Some specific examples of things we need to get right include intelligibility and explainability, bias and fairness, toxicity of outputs, goal misspecification, provably beneficial systems, and human compatibility."
