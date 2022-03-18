@@ -11,5 +11,5 @@ Sentiment_Rec/Burt/classfication_model.pt
 *.data-00000-of-00001
 */build/*
 .*/node_modules/.*
-Site_Web/backend/node_modules*
+Site_Web/backend/node_modules/*
 
