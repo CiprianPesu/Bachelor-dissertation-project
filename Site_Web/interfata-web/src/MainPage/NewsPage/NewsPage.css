@@ -1,0 +1,103 @@
+
+.PageContent{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.Filters-Space[FiltersActive="true"]{
+    width: 100vw;
+    max-width:350px ;
+    height: calc(100% - 40px);
+    background: rgba(190, 190, 190, 0.8);;
+    transition: max-width 0.50s,filter 0.50s;
+}
+
+.Filters-Space[FiltersActive="false"]{
+    width: 100vw;
+    max-width:0 ;
+    transition: max-width 0.50s,filter 0.50s;
+    background: rgba(190, 190, 190, 0.8);
+    filter: blur(40px);
+}
+
+
+
+.News-Space{
+    width: 100vw;
+    height: calc(100% - 40px);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    color: var(--pastel_3);
+  }
+
+::-webkit-scrollbar:hover{
+    color: var(--pastel_3);
+}
+
+.List{
+    height: 100%;
+    margin-left: auto;
+    margin-right: max(1vw,10px);
+    overflow: auto;
+    scrollbar-color: transparent;
+    scrollbar-width: auto;
+    width: 100%;
+}
+
+.CardsSpace{
+    display: flex;
+    flex-wrap:wrap;
+}
+
+.FiltersSpace{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Filters-Space-Toggle{
+    height: calc(100% - 40px);
+    width: 30px;
+    background: transparent;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+}
+
+.Filters-Space-Toggle-spacer{
+    height: 100%;
+    width: 20px;
+    background: rgba(81, 81, 81, 0.8);
+    overflow: hidden;
+}
+
+.Filters-Space-Toggle-Button{
+    position: relative;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 10px;
+    padding: 10px;
+    background: rgba(81, 81, 81, 0.8);
+    border-radius:0 20px 20px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.Filters-Space-Toggle-Button > p {
+    padding: 0px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+   
+}
+
+.Filters-Space-Toggle-Button:hover{
+    color: var(--pastel_3);
+}

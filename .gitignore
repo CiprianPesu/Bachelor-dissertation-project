@@ -9,3 +9,7 @@ Sentiment_Rec/DCNN/Models/*
 Sentiment_Rec/Burt/classfication_model.pt
 *.pb
 *.data-00000-of-00001
+*/build/*
+.*/node_modules/.*
+Site_Web/backend/node_modules*
+

@@ -1,19 +1,26 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React from 'react';
 import "./stores/CurentUser";
 import { observer } from "mobx-react";
 import Navbar from "./NavBar/Navbar";
-import LoginPage from "./LoginPage/login_page.js";
-
+import MainPage from "./MainPage/MainPage";
 import CurentUser from "./stores/CurentUser";
+import background from "./icons/images.jpg";
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      myaccount: "false",
-      admin: "false",
+      activ: "Main",
     };
+  }
+
+  setCurentUser(username, loading, isLoggedIn, admin) {
+    CurentUser.username = username;
+    CurentUser.loading = loading;
+    CurentUser.isLoggedIn = isLoggedIn;
+    CurentUser.admin = admin;
   }
 
   async componentDidMount() {
@@ -28,65 +35,43 @@ class App extends React.Component {
       });
 
       await res.json().then((response) => {
-        response=JSON.parse(response);
+        response = JSON.parse(response);
         if (response.success == true) {
-          CurentUser.username = response.username;
-          CurentUser.loading = false;
-          CurentUser.isLoggedIn = true;
-          CurentUser.admin = response.admin;
+          this.setCurentUser(response.username, false, true, response.admin);
         }
         else {
-          CurentUser.loading = false;
-          CurentUser.isLoggedIn = false;
+          this.setCurentUser(CurentUser.username, false, false, CurentUser.admin);
         }
       });
     } catch (error) {
-      CurentUser.loading = false;
-      CurentUser.isLoggedIn = false;
+      this.setCurentUser(CurentUser.username, false, false, CurentUser.admin);
     }
   }
 
-  async doLogOut() {
-    try {
-      let res = await fetch("/logout", {
-        method: "post",
-        Headers: {
-          Accep: "application/json",
-          "Content-Type": "application/json",
-        },
-      });
 
-      await res.json().then((response) => {
-        response=JSON.parse(response);
-        if (response.success == true) {
-          CurentUser.isLoggedIn = false;
-          CurentUser.username = "";
-        }
-      });
-
-     
-    } catch (error) {
-      console.log(error);
-    }
+  callbackFunctionToMain() {
+    console.log("ToMain");
+    this.setState({ activ: "Main" })
   }
+
+  callbackFunctionToLogIn() {
+    console.log("LogIn");
+    this.setState({ activ: "LogIn" })
+  }
+
 
   render() {
-    if (CurentUser.isLoggedIn) {
+    if (CurentUser.loading) {
       return (
-        <div className="App">
+        <div className="App" style={{
+          backgroundImage: `url(${background})`, backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          width: '100vw',
+          height: '100vh'
+        }}>
           <div className='Navbar-space'>
-            <Navbar></Navbar>
-          </div>
-          <div className='Page-content-space'>
-          </div>
-        </div>
-      );
-    }
-    else if(CurentUser.loading){
-      return (
-        <div className="App">
-          <div className='Navbar-space'>
-            <Navbar empty = "True"></Navbar>
+            <Navbar empty="True"></Navbar>
           </div>
           <div className='Page-content-space'>
           </div>
@@ -95,12 +80,23 @@ class App extends React.Component {
     }
     else {
       return (
-        <div className="App">
+        <div className="App" style={{
+          backgroundImage: `url(${background})`, backgroundPosition: 'center',
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          width: '100vw',
+          height: '100vh'
+        }}>
           <div className='Navbar-space'>
-            <Navbar></Navbar>
+            <Navbar
+              ToLogIn={() => this.callbackFunctionToLogIn()}
+              ToMain={() => this.callbackFunctionToMain()}
+            ></Navbar>
           </div>
           <div className='Page-content-space'>
-            <LoginPage></LoginPage>
+            <MainPage
+              page={this.state.activ}
+              ToMain={() => this.callbackFunctionToMain()} ></MainPage>
           </div>
         </div>
       );

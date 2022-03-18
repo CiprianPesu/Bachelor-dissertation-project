@@ -1,0 +1,76 @@
+.paginationItem {
+    position:relative;
+    display: flex;
+    background:var(--pastel_1);
+    border: 3px solid black;
+    border-radius: 30%;
+    height: 25px;
+    width: 25px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 10px;
+
+}
+
+.paginationItem:hover{
+    transform: scale(0.8);
+    filter: brightness(1.1);
+}
+
+.paginationItem.active {
+    position:relative;
+    display: flex;
+    background:var(--pastel_3);
+    border: 2px solid black;
+    border-radius: 30%;
+    height: 30px;
+    width: 30px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: black;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
+.PrevButton, .NextButton {
+    background:var(--pastel_1);
+    border: none;
+    padding: 5px;
+    color: black;
+    border: 1px solid black;
+    margin: 0 10px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+.PrevButton:hover, .NextButton:hover {
+    background:var(--pastel_3);
+    transform: scale(0.9);
+}
+
+
+.Spacer{
+    font-weight: bold;
+    user-select: none;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 37px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    background: var(--pastel_2);
+    border-top: 3px solid black;
+  }

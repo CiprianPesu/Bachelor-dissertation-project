@@ -1,0 +1,75 @@
+
+
+
+.loginForm{
+  background-color:var(--pastel_2);
+  border-radius: 30px;
+  width: 20vw;
+  max-height: fit-content;
+  animation: fade 3s 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.RegisterForm{
+  background-color:var(--pastel_2);
+  max-height: fit-content;
+  border-radius: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 20vw;
+  animation: fade 3s 1;
+  min-width: 300px;
+  max-width: 500px;
+}
+
+.Text{
+  color: var(--pastel_4);
+  display: flex;
+  font-size:28px;
+  height: 100px;
+  justify-content: center;
+  align-items:center;
+  vertical-align: middle;
+}
+
+.ButtonsDiv{
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.InputDiv{
+  padding: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.ButtonsDiv > Button{
+
+  min-width: 100px;
+  width: 5vw;
+  max-width: 200px;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-items: center;
+  border-radius: 15px;
+  background: var(--pastel_3);
+}
+
+.ButtonsDiv > Button:hover{
+  background: var(--pastel_1);
+  transform: scale(1.05);
+}
+
+
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

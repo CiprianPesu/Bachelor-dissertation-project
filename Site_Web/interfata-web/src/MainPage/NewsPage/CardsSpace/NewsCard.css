@@ -1,0 +1,82 @@
+.OuterCard{
+    width: fit-content;
+    height: fit-content;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    animation: fade 3s 1;
+    padding: 10px;
+}
+
+.News{
+    border: 0px solid black;
+    height: fit-content;
+    background: rgba(116,170 ,157, 0.85);
+    width: 100%;
+    max-width: 350px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    animation: scaleCard 0.1s 1;
+    
+}
+
+.News:hover{
+    animation: scaleCard-Hover 0.1s 1;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
+.News-Title{
+    width: 100%;
+    font-weight: bold;
+    font-size: 18px;
+    justify-content: left;
+    display: flex;
+    margin-bottom: 1.2vw;
+    text-align: left;
+}
+
+.News-Description{
+    width: 100%;
+    justify-content: left;
+    align-items: flex-end;
+    display: flex;
+    margin-bottom: 1.2vw;
+    font-size: 14px;
+    text-align: justify;
+}
+
+.News-pubDate{
+    width: 100%;
+    justify-content: right;
+    display: flex;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: justify;
+}
+
+
+@keyframes scaleCard-Hover {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes scaleCard {
+    0% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

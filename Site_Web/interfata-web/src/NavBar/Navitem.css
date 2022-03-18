@@ -3,23 +3,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   align-self: center;
 }
 
 .nav-item {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
   }
 
 .icon-button{
-  background: linear-gradient(90deg,  #0c8858 0%, rgb(24, 201, 118) 50%, rgb(0, 240, 0)100%);
+  background:var(--pastel_2);
   background-size: 500%;
   border: none;
   border-radius: 5rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   color: white;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
@@ -36,8 +34,8 @@
 
 .icon-button:hover {
   transform: scale(.98);
-  animation-name: gradient;
-  -webkit-animation-name: gradient;
+  animation-name: color;
+  -webkit-animation-name: color;
   animation-duration: 2s;
   -webkit-animation-duration: s;
   animation-iteration-count: 1;

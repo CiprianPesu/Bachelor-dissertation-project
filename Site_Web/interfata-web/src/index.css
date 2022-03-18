@@ -13,10 +13,17 @@ code {
 }
 
 :root {
-  --blue_gradient:linear-gradient(to right, #0575e6, #021b79);;
-  --green_gradient:linear-gradient(to right, #11998e, #38ef7d);
+  --blue_gradient:linear-gradient(to right, #393E46,  #00ADB5);;
+  --green_gradient:linear-gradient(to right, hsl(175, 80%, 33%), #38ef7d);
   --red_gradient:linear-gradient(to right, #691d1d, #dd1818);
   --gray_gradient:linear-gradient(to right, #232526, #414345);
   --yellow_gradient:linear-gradient(to right, #41471e, #8cb815);
   --speed: 500ms; 
+
+  --pastel_1:#9f9f9f;
+  --pastel_2:rgb(81, 81, 81);
+  --pastel_3:#74aa9d;
+  --pastel_4:rgb(238, 238, 238);
+
+  background: var(--pastel_2);
 }

@@ -7,18 +7,13 @@ body > #root > div {
   height: 100vh;
 }
 
-
 .Navbar-space{
-  background-color: rgba(39, 38, 38, 0.603);
-  min-height: 32px;
-  height:5vh;
-  max-height:5vh;
+  height: max(4vh,53px);
 }
 
 .Page-content-space{
-  background: rgb(0, 0, 0);
-  height:auto;
-  min-height: 95vh;
+  max-height:calc(100vh - 53px);
+  height: 96vh;
   display: flex;
   align-items: center;
   justify-content: center;

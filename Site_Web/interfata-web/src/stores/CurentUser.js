@@ -8,6 +8,7 @@ class CurentUser {
       username: "",
       password: "",
       admin: 0,
+      curentPage:1,
     });
   }
 }

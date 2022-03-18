@@ -108,3 +108,33 @@ spec:
         persistentVolumeClaim:
           claimName: fox-rss-volume
 status: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: fox-travel-rss
+  name: fox-travel-rss
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fox-travel-rss
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: fox-travel-rss
+    spec:
+      containers:
+      - image: localhost:32000/rssparser
+        name: fox-travel-rss
+        env:
+        - name: RSSLink
+          value: "http://rss.cnn.com/rss/edition_travel.rss"
+        - name: RSSTag
+          value: "fox-travel"
+        resources: {}
+status: {}

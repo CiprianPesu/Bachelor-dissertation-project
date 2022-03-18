@@ -1,0 +1,80 @@
+.OuterFilter{
+    background: rgba(190, 190, 190, 1);
+    width: 90%;
+    height:fit-content ;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 8px;
+    padding: 10px;
+    user-select: none;
+}
+
+.FilterTitle{
+    display: flex;
+    margin-left: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.OuterFilter:hover{
+    transform: scale(1.02);
+}
+
+.FilterContent[active="false"]{
+    overflow: hidden;
+    max-height: 0px;
+    transition: max-height 0.30s ease-out;
+}
+
+.FilterContent[active="true"]{
+    overflow: hidden;
+    max-height: 500px;
+    transition: max-height 0.50s ease-in;
+    
+}
+
+.FilterContent{
+    display: flex;
+    margin-left: 20px;
+}
+
+.TextFiledsSpace{
+    display: flex;
+}
+
+
+.FilterTitle svg { 
+    fill: black;
+    width: 15px;
+    height: 15px;
+}
+
+.SliderSpace{
+    width: 100%;
+    min-height: 70px;
+    display: flex;
+    align-items:center;
+    flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.TextFiledsSpace{
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    justify-items: center;
+    text-align: center;
+}
+
+.Spacer{
+    width: 30px;
+}
+
+.FilterTitle-button{
+    margin-left: auto;
+    margin-right: 0px;
+}

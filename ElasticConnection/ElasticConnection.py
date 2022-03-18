@@ -11,7 +11,7 @@ conf = {'bootstrap.servers': "10.0.0.1:9092",
 es = Elasticsearch([{'host': 'localhost', 'port': 30200}])
 
 consumer = Consumer(conf)
-consumer.subscribe(["crawled_news"])
+consumer.subscribe(["procesed_news"])
 
 
 conf_p = {'bootstrap.servers': '10.0.0.1:9092'}
@@ -26,7 +26,6 @@ while True:
             news_json = json.loads(msg.value())
             news_json["Inserted_datetime"]=now
             es.index(index='news', document=news_json)
-
 
             json_logs = json.dumps({'link':  news_json["link"],
                             'source':  news_json["source"],

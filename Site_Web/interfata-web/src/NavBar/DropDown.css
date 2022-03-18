@@ -1,12 +1,13 @@
 .dropdown {
     position:absolute;
-    top: 5vh;
+    top:max(4vh - 3px ,50px);
     right: 0vw;
-    min-width: 200px;
-    width: 10vw;
+    font-size:max(0.75vw, 15px);
+    min-width: 180px;
+    width: 15vw;
     height: auto;
     max-width: 100%;
-    background:var( --green_gradient);
+    background:gray;
     border: var(--border);
     border-bottom-left-radius: 5%;
     border-bottom-right-radius: 5%;
@@ -25,10 +26,12 @@
   }
   
   .menu-item {
+    min-width: 160px;
     border-bottom: 4px solid black;
+    border-left: 4px solid black;
     display: flex;
     align-items: center;
-    transition: background var(--speed);
+    background: transparent;
     padding: 0.5rem;
     color: black;
   }
@@ -43,8 +46,9 @@
   }
   
   .menu-item:hover {
-    background-color: #525357;
-    color: white;
+    animation: color 0.5s;
+    background-color: var(--pastel_3);
+    color: black;
   }
   
   .icon-right {
@@ -92,10 +96,9 @@
     --button-size: calc(var(--nav-size) * 0.5);
     width: var(--button-size);
     height: var(--button-size);
-    background-color: #484a4d;
+
     border-radius: 50%;
     padding: 5px;
-    margin: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -103,18 +106,27 @@
   }
   
   .icon-button:hover {
-    filter: brightness(1.2);
+    filter: brightness(1.1);
+    scale: 1.2;
   }
   
   .icon-button svg { 
-    fill: var(--text-color);
-    width: 20px;
-    height: 20px;
+    fill: black;
+    width: 25px;
+    height: 25px;
   }
 
   .icon-right svg { 
     fill: var(--text-color);
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
   }
 
+  @keyframes color {
+    0% {
+      background-color: transparent;
+    }
+    100% {
+      background-color: var(--pastel_3)  ;
+    }
+  }

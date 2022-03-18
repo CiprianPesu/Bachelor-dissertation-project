@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import CurentUser from "../stores/CurentUser";
 
-
 import { ReactComponent as CogIcon } from "../icons/cog.svg";
 import { ReactComponent as ChevronIcon } from "../icons/chevron.svg";
 import { ReactComponent as ArrowIcon } from "../icons/arrow.svg";
@@ -25,7 +24,6 @@ function DropdownMenu(props) {
 
   const parentRef = props.parentRef;
   function handleResize() {
-
     if (window.innerHeight < 190) {
       setMenuHeight(0);
       setMenuBorder(0);
@@ -33,8 +31,6 @@ function DropdownMenu(props) {
     }
     setMenuTop(window.innerHeight)
   }
-
-
 
   useEffect(() => {
     if (window.innerHeight > 190) {
@@ -44,7 +40,7 @@ function DropdownMenu(props) {
       setMenuTop(window.innerHeight)
     }
 
-  }, [props.dropDown,CurentUser.isLoggedIn]);
+  }, [props.dropDown, CurentUser.isLoggedIn]);
 
   function calcHeight(el) {
     const height = el.offsetHeight;
@@ -163,6 +159,13 @@ function DropdownMenu(props) {
             onEnter={calcHeight}
           >
             <div className="menu">
+
+              <DropdownItemButton 
+               link="#"
+               onClick={props.ToLogIn} 
+               leftIcon={<UserIcon />}>
+                Log In
+              </DropdownItemButton>
               <DropdownItem
                 leftIcon={<CogIcon />}
                 rightIcon={<ChevronIcon />}
@@ -170,6 +173,7 @@ function DropdownMenu(props) {
               >
                 Settings
               </DropdownItem>
+
             </div>
           </CSSTransition>
 
@@ -207,7 +211,7 @@ function DropdownMenu(props) {
       return (
         <div
           className="dropdown"
-          style={{ height: menuHeight, padding: 0, border: menuBorder, top: 32 }}
+          style={{ height: menuHeight, padding: 0, border: menuBorder }}
           ref={dropdownRef}
         >
           <CSSTransition
@@ -267,11 +271,11 @@ function DropdownMenu(props) {
         </div>
       );
     }
-    else{
+    else {
       return (
         <div
           className="dropdown"
-          style={{ height: menuHeight, padding: 0, border: menuBorder, top: 32 }}
+          style={{ height: menuHeight, padding: 0, border: menuBorder}}
           ref={dropdownRef}
         >
           <CSSTransition
@@ -282,6 +286,12 @@ function DropdownMenu(props) {
             onEnter={calcHeight}
           >
             <div className="menu">
+            <DropdownItemButton 
+               link="#"
+               onClick={props.ToLogIn} 
+               leftIcon={<UserIcon />}>
+                Log In
+              </DropdownItemButton>
               <DropdownItem
                 leftIcon={<CogIcon />}
                 rightIcon={<ChevronIcon />}

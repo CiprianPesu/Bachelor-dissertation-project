@@ -1,6 +1,11 @@
 const bcrypt = require("bcrypt");
 const { json, raw } = require("express");
 const { response } = require("express");
+const { Client } = require('@elastic/elasticsearch')
+const ElasticClient = new Client({
+  node: 'http://localhost:30200',
+})
+
 
 class Router {
   constructor(app, db) {
@@ -14,6 +19,7 @@ class Router {
     this.GetUsers(app, db);
     this.toggleAdmin(app, db);
     this.DeleteUser(app, db);
+    this.getNews(app, db);
   }
 
   DeleteUser(app, db) {
@@ -198,9 +204,10 @@ class Router {
       let password = req.body.password;
 
       CheckLoginCreds(db, username, password).then((response) => {
-        let responseJ=JSON.parse(response);
-        req.session.userID=responseJ.id;
-        res.json(response)});
+        let responseJ = JSON.parse(response);
+        req.session.userID = responseJ.id;
+        res.json(response)
+      });
       return;
     })
   }
@@ -225,7 +232,7 @@ class Router {
   isLoggedIn(app, db) {
     app.post("/isLoggedIn", (req, res) => {
       if (req.session.userID) {
-        CheckIsLoggedIn(db,req.session.userID).then((response)=>{res.json(response)})
+        CheckIsLoggedIn(db, req.session.userID).then((response) => { res.json(response) })
         return;
       } else {
         res.json({
@@ -236,13 +243,59 @@ class Router {
     });
   }
 
+  getNews(app, db) {
+    app.post("/getNews", (req, res) => {
+
+      queryElastic(ElasticClient,req.body.maxItems,req.body.from).then((response) => {
+        res.json({
+          success: "true",
+          data: response,
+        });
+      });
+      return
+    });
+  }
+
 }
 
-async function CheckIsLoggedIn(db,sessionId){
+async function queryElastic(ElasticClient,maxItems,from) {
+  const result = await ElasticClient.search({
+    index: 'news',
+    from: from,
+    query: {
+      match_all: {}
+    },
+    sort: [{
+      "pubDate": {
+        "order": "desc",
+      }
+    }],
+    size: maxItems
+  })
+
+  data = result["hits"]["hits"].map((news) => {
+    return {
+      id: news._id,
+      title: news._source.title,
+      description: news._source.description,
+      pubDate: news._source.pubDate,
+      source: news._source.source,
+    }
+  })
+
+  return({
+    success: true,
+    data: data,
+    total_returns: result["hits"]["total"]["value"],
+  });
+}
+
+
+async function CheckIsLoggedIn(db, sessionId) {
   let values = sessionId;
   const result = await db.query("SELECT * FROM users WHERE ID = ? LIMIT 1", values);
 
-  let rows=result[0]
+  let rows = result[0]
   let count = 0
   rows.forEach(item => {
     count++;
@@ -257,7 +310,7 @@ async function CheckIsLoggedIn(db,sessionId){
       })
     }
   }
-  else{
+  else {
     return JSON.stringify({
       success: error,
     })
@@ -283,7 +336,7 @@ async function CheckLoginCreds(db, username, password) {
     if (count > 0) {
       for (const item in rows) {
         if (rows[item].Username == username) {
-          if (await bcrypt.compare(password,rows[item].Password)){
+          if (await bcrypt.compare(password, rows[item].Password)) {
             return JSON.stringify({
               success: true,
               msg: "Success",
