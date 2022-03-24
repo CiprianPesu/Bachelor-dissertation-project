@@ -7,15 +7,20 @@ import { styled } from '@mui/material/styles';
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
     'label + &': {
         marginTop: theme.spacing(3),
-        fontSize: "10px",
+        fontSize: "14px",
     },
+    
     '& .MuiInputBase-input': {
-        borderRadius: 4,
+        borderRadius: 5,
         position: 'relative',
         backgroundColor: "transparent",
         border: '2px solid #000',
+        textAlign: "center",
+        "vertical-align":"baseline",
         fontSize: 18,
-        padding: '0',
+        "min-width":"fit-content",
+        padding:"0px",
+        margin:"0",
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {
             borderRadius: 4,
@@ -31,33 +36,26 @@ class SelectFilter extends React.Component {
         super(props);
         this.state = {
             activeMenu: "false",
-
-            ID: props.ID,
-            Title: props.Title,
-            Type: props.Type,
-            Options: props.Options,
             value: "",
         };
     }
-
     handleChange = (event) => {
-        this.props.callBack(event.target.value, event.target.checked);
+        this.props.callBack(this.props.Type,this.props.FilterTarget , event.target.value);
     };
-
-
 
     render() {
         return (
             <div className="OuterFilter">
-                <div className="FilterTitle">{this.state.Title}
+                <div className="FilterTitle">{this.props.Title}
                     <div className="Spacer"></div>
                     <div>
                         <FormControl fullWidth>
                             <NativeSelect
-                                defaultValue={30}
+                                defaultValue={this.props.Default}
+                                onChange={this.handleChange}
                                 input={<BootstrapInput />}
                             >
-                                {this.state.Options.map((i, index) => (
+                                {this.props.Options.map((i, index) => (
                                     <option value={i}>{i}</option>
                                 ))}
                             </NativeSelect>

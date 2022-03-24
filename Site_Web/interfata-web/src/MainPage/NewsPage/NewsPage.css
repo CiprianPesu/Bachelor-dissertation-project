@@ -88,6 +88,7 @@
     flex-direction: column;
     align-items: center;
     color: white;
+    z-index: 2;
 }
 
 .Filters-Space-Toggle-Button > p {
@@ -100,4 +101,13 @@
 
 .Filters-Space-Toggle-Button:hover{
     color: var(--pastel_3);
+}
+
+.News-Space-Loader{
+    display: flex;
+    justify-content: center;
+    transform: translateX(-30px);
+    align-items: center;
+    width: 100vw;
+    height: calc(100% - 40px);
 }

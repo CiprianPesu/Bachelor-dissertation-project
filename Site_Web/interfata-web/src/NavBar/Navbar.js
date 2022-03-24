@@ -21,7 +21,7 @@ const CostumeInput = styled(InputBase)(({ theme }) => ({
     borderRadius: 5,
     position: 'relative',
     backgroundColor: 'transparent',
-    
+
     fontSize: 18,
     width: '600px',
     padding: '5px',
@@ -79,11 +79,8 @@ class Navbar extends React.Component {
       return (
         <nav className="navbar">
           <div className="left-box">
-            <a>BBC</a>
-            <a>CNN</a>
-            <a>FOX</a>
-            <a>Costume</a>
             <a onClick={() => this.props.ToMain()}>Latest</a>
+            <a>Costume</a>
           </div>
 
           <div className="SearchBox">

@@ -200,6 +200,13 @@ class Login_Page extends React.Component {
                 onChange={this.handleChange}
                 variant="standard"
               />
+              <CostumeField className="HiddenFiled"
+                fullWidth
+                id="standard-search"
+                label="Password"
+                type="password"
+                name="password"
+                variant="standard"/>
             </div>
             <div className="ButtonsDiv">
               <Button

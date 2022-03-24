@@ -24,7 +24,7 @@ spec:
         - name: RSSLink
           value: "http://feeds.bbci.co.uk/news/rss.xml"
         - name: RSSTag
-          value: "bbc"
+          value: "BBC"
         resources: {}
         volumeMounts:
         - name: bbc-rss-volume
@@ -61,7 +61,7 @@ spec:
         - name: RSSLink
           value: "http://rss.cnn.com/rss/edition.rss"
         - name: RSSTag
-          value: "cnn"
+          value: "CNN"
         resources: {}
         volumeMounts:
         - name: cnn-rss-volume
@@ -98,7 +98,7 @@ spec:
         - name: RSSLink
           value: "http://feeds.foxnews.com/foxnews/latest"
         - name: RSSTag
-          value: "fox"
+          value: "FOX News"
         resources: {}
         volumeMounts:
         - name: fox-rss-volume
@@ -107,34 +107,4 @@ spec:
       - name: fox-rss-volume
         persistentVolumeClaim:
           claimName: fox-rss-volume
-status: {}
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  creationTimestamp: null
-  labels:
-    app: fox-travel-rss
-  name: fox-travel-rss
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: fox-travel-rss
-  strategy: {}
-  template:
-    metadata:
-      creationTimestamp: null
-      labels:
-        app: fox-travel-rss
-    spec:
-      containers:
-      - image: localhost:32000/rssparser
-        name: fox-travel-rss
-        env:
-        - name: RSSLink
-          value: "http://rss.cnn.com/rss/edition_travel.rss"
-        - name: RSSTag
-          value: "fox-travel"
-        resources: {}
 status: {}

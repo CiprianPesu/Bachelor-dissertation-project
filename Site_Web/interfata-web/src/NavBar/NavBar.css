@@ -91,21 +91,21 @@
 
 .left-box > a{
   text-align: center;
-  padding-left: 1vw;
-  padding-right: 1vw;
+  padding-left: max(0.75vw, 16px);;
+  padding-right: max(0.75vw, 16px);;
   text-align: center;
   cursor:pointer;
   color: var(--pastel_4);
-  font-size:max(0.75vw, 10px);
+  font-size:max(0.75vw, 16px);
   overflow: hidden;
 }
 
 .left-box > a:hover{
-  padding-left: 1vw;
-  padding-right: 1vw;
+  padding-left: max(0.75vw, 16px);;
+  padding-right: max(0.75vw, 16px);;
   scale: 1.1;
   color: var(--pastel_3);
-  animation: scale 0.2s 1;
+  animation: scale 0.05s 1;
 }
 
 

@@ -5,8 +5,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Card from "./CardsSpace/NewsCard";
 import Footer from "./Footer"
 import Filter from "./FiltersSpace/Filter";
+import BeatLoader from "react-spinners/BeatLoader";
 
-import { ReactComponent as ChevronIcon } from "../../icons/chevron.svg";
 
 class NewsPage extends React.Component {
     constructor(props) {
@@ -14,7 +14,7 @@ class NewsPage extends React.Component {
         this.state = {
             buttonDisable: false,
             FiltersActive: "false",
-
+            loading: true,
             items: [
                 {
                     "id": "yLuAbX8BYr_j-SWxgAG4",
@@ -194,19 +194,19 @@ class NewsPage extends React.Component {
             ],
 
             Filters: {
-                ItemsPerPage: [10, 25, 50, 100],
-                Publications: ["CNN", "BBC", "Fox News"],
-                WordsCount:[0,100],
+                Publications: [],
+                WordsCount: [0, 0],
             },
 
-            selectedFilters:{
-                ItemsPerPage:25,
-                Publications:[],
-                WordsCount:[],
+            selectedFilters: {
+                ItemsPerPage: 25,
+                OrderBy: "leatest",
+                Publications: [],
+                WordsCount: [],
             },
 
-            pageNr: 25,
-            currentPage: 25,
+            pageNr: 1,
+            currentPage: 1,
 
 
         };
@@ -214,7 +214,10 @@ class NewsPage extends React.Component {
         this.goToPrevPage = this.goToPrevPage.bind(this);
         this.changePage = this.changePage.bind(this);
         this.getNews = this.getNews.bind(this);
-        this.getNews(0);
+        this.getFiters = this.getFiters.bind(this);
+        this.changeSelectedFilters = this.changeSelectedFilters.bind(this);
+
+        this.getFiters();
     }
 
 
@@ -227,12 +230,82 @@ class NewsPage extends React.Component {
         }
     }
 
-    changeSelectedFilters(FilterName,FilterValue){
-        console.log(FilterName+" "+FilterValue);
+    async getFiters() {
+        try {
+            let res = await fetch("/getFilters", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                }),
+            });
+
+            await res.json().then((result) => {
+                if (result && result.success) {
+
+                    let oldFilters = this.state.Filters;
+                    let oldSelectedFilters = this.state.selectedFilters
+
+
+                    oldFilters["Publications"] = result.Publications;
+                    oldSelectedFilters["Publications"] = result.Publications;
+
+                    oldFilters["WordsCount"] = result.WordsCount;
+                    oldSelectedFilters["WordsCount"] = result.WordsCount;
+
+                    console.log(oldFilters);
+
+                    this.setState({
+                        Filters: oldFilters,
+                        selectedFilters: oldSelectedFilters,
+                    });
+
+                    this.getNews(oldSelectedFilters, 0);
+
+                } else {
+                    alert(result.msg);
+                }
+            });
+        }
+        catch (error) {
+            this.setState({
+            });
+            console.log(error);
+        };
+
     }
 
 
-    async getNews(from) {
+    changeSelectedFilters(FilterType, FilterName, FilterValue) {
+
+        let curentFilters = this.state.selectedFilters;
+        if (FilterType === "Select") {
+            curentFilters[FilterName] = FilterValue;
+        }
+        else if (FilterType === "CheckBox") {
+            if (curentFilters[FilterName].indexOf(FilterValue) > -1) {
+                curentFilters[FilterName] = curentFilters[FilterName].filter(e => e !== FilterValue);
+            }
+            else {
+                curentFilters[FilterName].push(FilterValue)
+            }
+
+            console.log(curentFilters[FilterName]);
+
+        }
+        else if (FilterType === "DoubleSlider") {
+            curentFilters[FilterName] = FilterValue;
+        }
+
+        console.log(curentFilters);
+        this.setState({ selectedFilters: curentFilters,loading: true });
+        this.getNews(curentFilters, 0);
+    }
+
+
+    async getNews(filters, from) {
         try {
             let res = await fetch("/getNews", {
                 method: "post",
@@ -241,7 +314,7 @@ class NewsPage extends React.Component {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    filters: this.state.selectedFilters,
+                    filters: filters,
                     from: from,
                 }),
             });
@@ -250,22 +323,22 @@ class NewsPage extends React.Component {
                 if (result && result.success) {
                     var PageNr;
 
-                    if (result.data.total_returns % this.state.maxItemsPerPage === 0) {
-                        PageNr = result.data.total_returns / this.state.maxItemsPerPage;
+                    if (result.data.total_returns % filters.ItemsPerPage === 0) {
+                        PageNr = result.data.total_returns / filters.ItemsPerPage;
                     }
                     else {
-                        PageNr = Math.floor(result.data.total_returns / this.state.maxItemsPerPage) + 1;
+                        PageNr = Math.floor(result.data.total_returns / filters.ItemsPerPage) + 1;
                     }
 
                     if (PageNr > 99) {
                         PageNr = 99;
                     }
-
                     if (from == 0) {
                         this.setState({
                             currentPage: 1,
                         })
                     }
+
 
                     if (PageNr != this.state.pageNr) {
 
@@ -273,12 +346,14 @@ class NewsPage extends React.Component {
                             items: result.data.data,
                             pageNr: PageNr,
                             buttonDisable: false,
+                            loading: false,
                         });
                     }
                     else {
                         this.setState({
                             items: result.data.data,
                             buttonDisable: false,
+                            loading: false,
                         });
 
                     }
@@ -286,6 +361,7 @@ class NewsPage extends React.Component {
                 } else {
                     this.setState({
                         buttonDisable: false,
+                        loading: false,
                     });
                     alert(result.msg);
                 }
@@ -294,6 +370,7 @@ class NewsPage extends React.Component {
         catch (error) {
             this.setState({
                 buttonDisable: false,
+                loading: false,
             });
             console.log(error);
         };
@@ -307,8 +384,9 @@ class NewsPage extends React.Component {
             buttonDisable: true,
             currentPage: pageNumber,
             items: [],
+            loading: true,
         }, () => {
-            this.getNews((this.state.currentPage - 1) * this.state.maxItemsPerPage);
+            this.getNews(this.state.selectedFilters, (this.state.currentPage - 1) * this.state.selectedFilters.ItemsPerPage);
         });
     }
 
@@ -321,11 +399,11 @@ class NewsPage extends React.Component {
                 buttonDisable: true,
                 currentPage: old,
                 items: [],
+                loading: true,
 
             }, () => {
-                this.getNews((this.state.currentPage - 1) * this.state.maxItemsPerPage);
+                this.getNews(this.state.selectedFilters, (this.state.currentPage - 1) * this.state.selectedFilters.ItemsPerPage);
             })
-
         }
     }
 
@@ -336,8 +414,9 @@ class NewsPage extends React.Component {
                 buttonDisable: true,
                 currentPage: this.state.currentPage - 1,
                 items: [],
+                loading: true,
             }, () => {
-                this.getNews((this.state.currentPage - 1) * this.state.maxItemsPerPage)
+                this.getNews(this.state.selectedFilters, (this.state.currentPage - 1) * this.state.selectedFilters.ItemsPerPage)
             });
         }
     }
@@ -345,92 +424,165 @@ class NewsPage extends React.Component {
     render() {
         let filters = [
             {
+                "Title": "Order by :",
+                "Type": "Select",
+                "Options": ["leatest", "earliest"],
+                "Default": "leatest",
+                "FilterTarget": "OrderBy",
+
+            },
+            {
                 "Title": "News per page :",
                 "Type": "Select",
-                "Options": this.state.Filters.ItemsPerPage,
+                "Options": [10, 25, 50, 100],
+                "Default": 25,
+                "FilterTarget": "ItemsPerPage",
+
             },
             {
                 "Title": "Publications",
                 "Type": "CheckBox",
                 "Options": this.state.Filters.Publications,
+                "Default": this.state.Filters.Publications,
+                "FilterTarget": "Publications",
             },
             {
                 "Title": "Word Count",
                 "Type": "DoubleSlider",
-                "Options":{
+                "Options": {
                     "Limits": this.state.Filters.WordsCount,
-                }
+                },
+                "FilterTarget": "WordsCount",
             },
         ]
 
+        if (this.state.loading === true) {
+            return (
+                <div className="PageContent">
+                    <div className="Filters-Space" FiltersActive={this.state.FiltersActive} >
+                        <div className="List" id="scrollableDivFilters">
+                            <InfiniteScroll
+                                dataLength={filters.length}
+                                scrollableTarget="scrollableDivFilters"
+                            >
+                                <div className="FiltersSpace">
+                                    {
+                                        filters.map((i, index) => (
+                                            <Filter
+                                                callBack={this.changeSelectedFilters}
+                                                key={index}
+                                                Title={i["Title"]}
+                                                Type={i["Type"]}
+                                                Options={i["Options"]}
+                                                Default={i["Default"]}
+                                                FilterTarget={i["FilterTarget"]}
+                                            ></Filter>
+                                        ))}
+                                </div>
+                            </InfiniteScroll>
+                        </div>
+                    </div>
+                    <div className="Filters-Space-Toggle" onClick={() => this.toggleStateFiltersActive()} >
+                        <div className="Filters-Space-Toggle-spacer"></div>
+                        <div className="Filters-Space-Toggle-Button">
+                            <p>F</p>
+                            <p>I</p>
+                            <p>L</p>
+                            <p>T</p>
+                            <p>E</p>
+                            <p>R</p>
+                            <p>S</p>
+                        </div>
+                    </div>
+                    <div className="News-Space-Loader">
+                        <BeatLoader  />
+                    </div>
 
-        return (
-            <div className="PageContent">
-                <div className="Filters-Space" FiltersActive={this.state.FiltersActive} >
-                    <div className="List" id="scrollableDivFilters">
-                        <InfiniteScroll
-                            dataLength={filters.length}
-                            scrollableTarget="scrollableDivFilters"
-                        >
-                            <div className="FiltersSpace">
-                                {
-                                    filters.map((i, index) => (
-                                        <Filter
-                                            callBack={this.changeSelectedFilters}
+                    <Footer
+                        PageNr={this.state.pageNr}
+                        currentPage={this.state.currentPage}
+                        goToPrevPage={this.goToPrevPage}
+                        goToNextPage={this.goToNextPage}
+                        changePage={this.changePage}
+                        buttonDisable={this.state.buttonDisable}
+                    >
+                    </Footer>
+                </div>
+            );
+        }
+        else {
+            return (
+                <div className="PageContent">
+                    <div className="Filters-Space" FiltersActive={this.state.FiltersActive} >
+                        <div className="List" id="scrollableDivFilters">
+                            <InfiniteScroll
+                                dataLength={filters.length}
+                                scrollableTarget="scrollableDivFilters"
+                            >
+                                <div className="FiltersSpace">
+                                    {
+                                        filters.map((i, index) => (
+                                            <Filter
+                                                callBack={this.changeSelectedFilters}
+                                                key={index}
+                                                Title={i["Title"]}
+                                                Type={i["Type"]}
+                                                Options={i["Options"]}
+                                                Default={i["Default"]}
+                                                FilterTarget={i["FilterTarget"]}
+                                            ></Filter>
+                                        ))}
+                                </div>
+                            </InfiniteScroll>
+                        </div>
+                    </div>
+                    <div className="Filters-Space-Toggle" onClick={() => this.toggleStateFiltersActive()} >
+                        <div className="Filters-Space-Toggle-spacer"></div>
+                        <div className="Filters-Space-Toggle-Button">
+                            <p>F</p>
+                            <p>I</p>
+                            <p>L</p>
+                            <p>T</p>
+                            <p>E</p>
+                            <p>R</p>
+                            <p>S</p>
+                        </div>
+                    </div>
+                    <div className="News-Space">
+                        <div className="List" id="scrollableDivNews">
+                            <InfiniteScroll
+                                dataLength={this.state.items.length}
+                                scrollableTarget="scrollableDivNews"
+                            >
+                                <div className="CardsSpace">
+                                    {this.state.items.map((i, index) => (
+                                        <Card
                                             key={index}
-                                            Title={i["Title"]}
-                                            Type={i["Type"]}
-                                            Options={i["Options"]}
-                                        ></Filter>
+                                            ID={i["id"]}
+                                            Title={i["title"]}
+                                            Description={i["description"]}
+                                            pubDate={i["pubDate"]}
+                                        ></Card>
                                     ))}
-                            </div>
-                        </InfiniteScroll>
+                                </div>
+                            </InfiniteScroll>
+                        </div>
                     </div>
-                </div>
-                <div className="Filters-Space-Toggle" onClick={() => this.toggleStateFiltersActive()} >
-                    <div className="Filters-Space-Toggle-spacer"></div>
-                    <div className="Filters-Space-Toggle-Button">
-                        <p>F</p>
-                        <p>I</p>
-                        <p>L</p>
-                        <p>T</p>
-                        <p>E</p>
-                        <p>R</p>
-                        <p>S</p>
-                    </div>
-                </div>
-                <div className="News-Space">
-                    <div className="List" id="scrollableDivNews">
-                        <InfiniteScroll
-                            dataLength={this.state.items.length}
-                            scrollableTarget="scrollableDivNews"
-                        >
-                            <div className="CardsSpace">
-                                {this.state.items.map((i, index) => (
-                                    <Card
-                                        key={index}
-                                        ID={i["id"]}
-                                        Title={i["title"]}
-                                        Description={i["description"]}
-                                        pubDate={i["pubDate"]}
-                                    ></Card>
-                                ))}
-                            </div>
-                        </InfiniteScroll>
-                    </div>
-                </div>
 
-                <Footer
-                    PageNr={this.state.pageNr}
-                    currentPage={this.state.currentPage}
-                    goToPrevPage={this.goToPrevPage}
-                    goToNextPage={this.goToNextPage}
-                    changePage={this.changePage}
-                    buttonDisable={this.state.buttonDisable}
-                >
-                </Footer>
-            </div>
-        );
+                    <Footer
+                        PageNr={this.state.pageNr}
+                        currentPage={this.state.currentPage}
+                        goToPrevPage={this.goToPrevPage}
+                        goToNextPage={this.goToNextPage}
+                        changePage={this.changePage}
+                        buttonDisable={this.state.buttonDisable}
+                    >
+                    </Footer>
+                </div>
+            );
+        }
+
+
     }
 
 

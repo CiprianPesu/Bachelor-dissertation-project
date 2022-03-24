@@ -19,7 +19,8 @@ class Router {
     this.GetUsers(app, db);
     this.toggleAdmin(app, db);
     this.DeleteUser(app, db);
-    this.getNews(app, db);
+    this.getNews(app);
+    this.getFilters(app);
   }
 
   DeleteUser(app, db) {
@@ -243,10 +244,10 @@ class Router {
     });
   }
 
-  getNews(app, db) {
+  getNews(app) {
     app.post("/getNews", (req, res) => {
 
-      queryElastic(ElasticClient,req.body.maxItems,req.body.from).then((response) => {
+      queryElasticNews(ElasticClient, req.body.filters, req.body.from).then((response) => {
         res.json({
           success: "true",
           data: response,
@@ -256,21 +257,82 @@ class Router {
     });
   }
 
+  getFilters(app) {
+    app.post("/getFilters", (req, res) => {
+      queryElasticFilters(ElasticClient).then((response) => {
+        let publications = [];
+        response.total_returns.aggregations.publications.buckets.forEach(element => publications.push(element.key))
+
+        res.json({
+          success: "true",
+          Publications: publications,
+          WordsCount: [response.total_returns.aggregations.min_wordCount.value, response.total_returns.aggregations.max_wordCount.value],
+        });
+      });
+      return
+    });
+  }
 }
 
-async function queryElastic(ElasticClient,maxItems,from) {
+async function queryElasticFilters(ElasticClient) {
+  const result = await ElasticClient.search({
+    index: 'news',
+    "size": 0,
+    "aggs": {
+      "publications": {
+        "terms": { "field": "RSSTag" }
+      },
+      "max_wordCount": { "max": { "field": "Word_Count" } },
+      "min_wordCount": { "min": { "field": "Word_Count" } }
+    }
+
+  })
+
+  return ({
+    success: true,
+    total_returns: result,
+  });
+}
+
+
+async function queryElasticNews(ElasticClient, filters, from) {
+
+  let order = "";
+  if (filters.OrderBy === "leatest") {
+    order = "desc";
+  }
+  else {
+    order = "asc";
+  }
+
+
   const result = await ElasticClient.search({
     index: 'news',
     from: from,
     query: {
-      match_all: {}
+      bool: {
+        must: [
+          {
+            terms: {
+              "RSSTag": filters.Publications,
+            }
+          },
+          {
+            range: {
+              "Word_Count": {
+                "gte": filters.WordsCount[0],
+                "lte": filters.WordsCount[1]
+              }
+            }
+          }]
+      }
     },
     sort: [{
       "pubDate": {
-        "order": "desc",
+        "order": order,
       }
     }],
-    size: maxItems
+    size: filters.ItemsPerPage
   })
 
   data = result["hits"]["hits"].map((news) => {
@@ -283,7 +345,7 @@ async function queryElastic(ElasticClient,maxItems,from) {
     }
   })
 
-  return({
+  return ({
     success: true,
     data: data,
     total_returns: result["hits"]["total"]["value"],

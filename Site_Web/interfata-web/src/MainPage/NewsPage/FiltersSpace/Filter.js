@@ -8,66 +8,28 @@ import SelectFilter from "./Filters/SelectFilter";
 class Filter extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeMenu: "false",
-
-      ID: props.ID,
-      Title: props.Title,
-      Type: props.Type,
-      Options: props.Options,
-
-      value: [0, 100]
-    };
   }
-
-  calcHeight() {
-    const height = this.offsetHeight;
-    this.setState({ menuHeight: height })
-  }
-
-  sendBack() {
-    this.props.parentCallback({
-      cardID: this.state.ID,
-      IBAN: this.state.IBAN,
-      Suma: this.state.Suma,
-      Moneda: this.state.Moneda,
-      Denumire: this.state.Denumire,
-      UserId: this.state.UserId,
-    });
-  }
-
-  handleChange = (event, newValue) => {
-    this.setState({ value: newValue });
-  };
-
-
-  changeHandleData0 = e => {
-    this.setState({ value: [e.target.value, this.state.value[1]] })
-  }
-
-  changeHandleData1 = e => {
-    this.setState({ value: [this.state.value[0], e.target.value] })
-  }
-
-
 
   render() {
-    if (this.state.Type == "CheckBox") {
+    if (this.props.Type == "CheckBox") {
       return (
         <CheckBoxFilter
           callBack={this.props.callBack}
-          Title={this.state.Title}
-          Type={this.state.Type}
-          Options={this.state.Options}>
-        </CheckBoxFilter>)
+          Title={this.props.Title}
+          Type={this.props.Type}
+          Options={this.props.Options}
+          Default={this.props.Default}
+          FilterTarget={this.props.FilterTarget}
+          ></CheckBoxFilter>)
     }
-    else if (this.state.Type == "DoubleSlider") {
+    else if (this.props.Type == "DoubleSlider") {
       return (
         <DoubleSliderFilter
           callBack={this.props.callBack}
-          Title={this.state.Title}
-          Type={this.state.Type}
-          Limits={this.state.Options.Limits}
+          Title={this.props.Title}
+          Type={this.props.Type}
+          Limits={this.props.Options.Limits}
+          FilterTarget={this.props.FilterTarget}
         ></DoubleSliderFilter>
       )
     }
@@ -75,10 +37,12 @@ class Filter extends React.Component {
       return (
         <SelectFilter
           callBack={this.props.callBack}
-          Title={this.state.Title}
-          Type={this.state.Type}
-          Options={this.state.Options}>
-        </SelectFilter>)
+          Title={this.props.Title}
+          Type={this.props.Type}
+          Options={this.props.Options}
+          Default={this.props.Default}
+          FilterTarget={this.props.FilterTarget}
+        ></SelectFilter>)
     }
   }
 }

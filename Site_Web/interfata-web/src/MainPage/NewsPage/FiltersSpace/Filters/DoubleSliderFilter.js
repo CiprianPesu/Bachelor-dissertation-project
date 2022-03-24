@@ -35,21 +35,24 @@ class DoubleSliderFilter extends React.Component {
         super(props);
         this.state = {
             activeMenu: "false",
-
-            ID: props.ID,
-            Title: props.Title,
-            value: props.Limits,
-            Limits: props.Limits,
-
-            OldValues: props.Limits,
+            value: this.props.Limits,
+            OldValues: this.props.Limits,
         };
     }
 
     handleChangeRelease = (event, newValue) => {
-        this.props.callBack("Slider", newValue);
+        this.props.callBack(this.props.Type,this.props.FilterTarget, newValue);
     };
 
     toggleState() {
+
+        if((this.state.value[0] === 0) && (this.state.value[1]===0)){
+            this.setState({
+                value:this.props.Limits,
+            })
+        }
+        
+
         if (this.state.activeMenu === "true") {
             this.setState({ activeMenu: "false" })
         }
@@ -59,9 +62,13 @@ class DoubleSliderFilter extends React.Component {
     }
 
 
-
-
     handleChange = (event, newValue) => {
+        if((this.state.value[0] === 0) && (this.state.value[1]===0)){
+            this.setState({
+                value:this.props.Limits,
+            })
+        }
+
         if (newValue[0] < newValue[1]) {
             this.setState({ value: newValue });
         }
@@ -76,34 +83,34 @@ class DoubleSliderFilter extends React.Component {
     };
 
     changeHandleData0 = e => {
-        if ((this.state.Limits[1] >= e.target.value) && (this.state.Limits[0] <= e.target.value)) {
+        if ((this.props.Limits[1] >= e.target.value) && (this.props.Limits[0] <= e.target.value)) {
             this.setState({ value: [e.target.value, this.state.value[1]] })
         }
 
     }
 
     changeHandleData1 = e => {
-        if ((this.state.Limits[1] >= e.target.value) && (this.state.Limits[0] <= e.target.value)) {
+        if ((this.props.Limits[1] >= e.target.value) && (this.props.Limits[0] <= e.target.value)) {
             this.setState({ value: [this.state.value[0], e.target.value] })
         }
     }
 
 
     changeHandleDataRelease0 = e => {
-        if ((this.state.Limits[1] >= e.target.value) && (this.state.Limits[0] <= e.target.value)) {
+        if ((this.props.Limits[1] >= e.target.value) && (this.props.Limits[0] <= e.target.value)) {
             if (e.target.value <= this.state.OldValues[1]) {
                 this.setState({
-                    value: [e.target.value, this.state.OldValues[1]],
-                    OldValues: [e.target.value, this.state.OldValues[1]]
+                    value: [parseInt(e.target.value), parseInt(this.state.OldValues[1])],
+                    OldValues: [parseInt(e.target.value), parseInt(this.state.OldValues[1])]
                 })
-                this.props.callBack("Slider", [e.target.value, this.state.OldValues[1]]);
+                this.props.callBack(this.props.Type,this.props.FilterTarget, [parseInt(e.target.value), parseInt(this.state.OldValues[1])]);
             }
             else {
                 this.setState({
-                    value: [this.state.OldValues[1], e.target.value],
-                    OldValues: [this.state.OldValues[1], e.target.value],
+                    value: [parseInt(this.state.OldValues[1]), parseInt(e.target.value)],
+                    OldValues: [parseInt(this.state.OldValues[1]), parseInt(e.target.value)],
                 })
-                this.props.callBack("Slider", [this.state.OldValues[1], e.target.value]);
+                this.props.callBack(this.props.Type,this.props.FilterTarget, [parseInt(this.state.OldValues[1]), parseInt(e.target.value)]);
             }
         }
         else {
@@ -112,20 +119,20 @@ class DoubleSliderFilter extends React.Component {
     }
 
     changeHandleDataRelease1 = e => {
-        if ((this.state.Limits[1] >= e.target.value) && (this.state.Limits[0] <= e.target.value)) {
+        if ((this.props.Limits[1] >= e.target.value) && (this.props.Limits[0] <= e.target.value)) {
             if (e.target.value >= this.state.OldValues[0]) {
                 this.setState({
-                    value: [this.state.OldValues[0], e.target.value],
-                    OldValues: [this.state.OldValues[0], e.target.value],
+                    value: [parseInt(this.state.OldValues[0]), parseInt(e.target.value)],
+                    OldValues: [parseInt(this.state.OldValues[0]), parseInt(e.target.value)],
                 })
-                this.props.callBack("Slider", [this.state.OldValues[0], e.target.value]);
+                this.props.callBack(this.props.Type,this.props.FilterTarget, [parseInt(this.state.OldValues[0]), parseInt(e.target.value)]);
             }
             else {
                 this.setState({
-                    value: [e.target.value, this.state.OldValues[0]],
-                    OldValues: [e.target.value, this.state.OldValues[0]],
+                    value: [parseInt(e.target.value), parseInt(this.state.OldValues[0])],
+                    OldValues: [parseInt(e.target.value), parseInt(this.state.OldValues[0])],
                 })
-                this.props.callBack("Slider", [e.target.value, this.state.OldValues[0]]);
+                this.props.callBack(this.props.Type,this.props.FilterTarget, [parseInt(e.target.value), parseInt(this.state.OldValues[0])]);
             }
 
         }
@@ -138,7 +145,7 @@ class DoubleSliderFilter extends React.Component {
     render() {
         return (
             <div className="OuterFilter">
-                <div className="FilterTitle" onClick={() => this.toggleState()}>{this.state.Title}
+                <div className="FilterTitle" onClick={() => this.toggleState()}>{this.props.Title}
                     <div className="FilterTitle-button">
                         <IconButton> <ChevronIcon></ChevronIcon></IconButton>
                     </div>
@@ -151,6 +158,8 @@ class DoubleSliderFilter extends React.Component {
                             onChange={this.handleChange}
                             onChangeCommitted={this.handleChangeRelease}
                             valueLabelDisplay="off"
+                            max={this.props.Limits[1]}
+                            min={this.props.Limits[0]}
                         />
                         <div className="TextFiledsSpace">
                             <TextField

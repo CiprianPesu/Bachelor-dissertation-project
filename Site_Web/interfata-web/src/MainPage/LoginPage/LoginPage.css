@@ -4,11 +4,11 @@
 .loginForm{
   background-color:var(--pastel_2);
   border-radius: 30px;
-  width: 20vw;
+  width: 30vw;
   max-height: fit-content;
   animation: fade 3s 1;
   min-width: 300px;
-  max-width: 500px;
+  max-width: 400px;
 }
 
 .RegisterForm{
@@ -17,10 +17,10 @@
   border-radius: 30px;
   margin-left: auto;
   margin-right: auto;
-  width: 20vw;
+  width: 30vw;
   animation: fade 3s 1;
   min-width: 300px;
-  max-width: 500px;
+  max-width: 400px;
 }
 
 .Text{
@@ -63,6 +63,9 @@
   transform: scale(1.05);
 }
 
+.HiddenFiled{
+  visibility: hidden;
+}
 
 
 @keyframes fade {
