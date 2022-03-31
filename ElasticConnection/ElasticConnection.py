@@ -8,7 +8,7 @@ conf = {'bootstrap.servers': "10.0.0.1:9092",
         'group.id': "group1",
         'auto.offset.reset': 'earliest'}
 
-es = Elasticsearch([{'host': 'localhost', 'port': 30200}])
+es = Elasticsearch([{'host': 'localhost', 'port': 30200,'scheme':""}])
 
 consumer = Consumer(conf)
 consumer.subscribe(["procesed_news"])
@@ -24,22 +24,37 @@ while True:
         now=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         try:
             news_json = json.loads(msg.value())
-            news_json["Inserted_datetime"]=now
-            es.index(index='news', document=news_json)
 
-            json_logs = json.dumps({'link':  news_json["link"],
-                            'source':  news_json["source"],
-                            'RSSTag':  news_json["RSSTag"],
-                            'Action_datetime': now,
-                            'status': 'success',
-                            'service': 'elastic-connection',
-                            })
+            url = news_json["link"]
 
-            print(json.dumps(json_logs))
-            producer.poll(0)
-            producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
+            try:
+                resp = es.search(index="news", 
+                query={'term': 
+                    {
+                        'link': url,
+                    }
+                })
+            except:
+                print("Index does not exist yet")
+                resp={"hits": {"hits":""}}
 
-            print(news_json["link"]+"---Sent")
+            if len(resp["hits"]["hits"]) == 0:
+                news_json["Inserted_datetime"]=now
+                es.index(index='news', document=news_json)
+
+                json_logs = json.dumps({'link':  news_json["link"],
+                                'source':  news_json["source"],
+                                'RSSTag':  news_json["RSSTag"],
+                                'Action_datetime': now,
+                                'status': 'success',
+                                'service': 'elastic-connection',
+                                })
+
+                print(json.dumps(json_logs))
+                producer.poll(0)
+                producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
+
+                print(news_json["link"]+"---Sent")
         except:
             json_logs = json.dumps({'link':  news_json["link"],
                             'source':  news_json["source"],

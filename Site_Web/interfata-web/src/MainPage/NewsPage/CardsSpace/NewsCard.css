@@ -26,6 +26,19 @@
     
 }
 
+.News[Publication="BBC"]{
+    background: rgba(187,187,204, 0.75);
+}
+
+.News[Publication="CNN"]{
+    background: rgba(234,0 ,0, 0.75);
+}
+
+.News[Publication="FOX News"]{
+    background: rgba(0,101 ,202, 0.75);
+}
+
+
 .News:hover{
     animation: scaleCard-Hover 0.1s 1;
     transform: scale(1.05);
@@ -35,8 +48,8 @@
 
 .News-Title{
     width: 100%;
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 1000;
+    font-size: 20px;
     justify-content: left;
     display: flex;
     margin-bottom: 1.2vw;
@@ -49,8 +62,8 @@
     align-items: flex-end;
     display: flex;
     margin-bottom: 1.2vw;
-    font-size: 14px;
     text-align: justify;
+    font-weight: 700;
 }
 
 .News-pubDate{
@@ -60,6 +73,22 @@
     font-size: 16px;
     font-weight: bold;
     text-align: justify;
+}
+
+.SvgSpace{
+    display: flex;
+    height: 20px;
+    width: 70px;
+    padding-bottom: 10px;
+}
+
+.SvgSpace > svg {
+    display: flex;
+    height: 20px;
+    width: 80px;
+    margin-right: auto;
+    margin-left: 5px;
+    background: transparent;
 }
 
 

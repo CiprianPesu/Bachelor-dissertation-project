@@ -8,12 +8,11 @@ body > #root > div {
 }
 
 .Navbar-space{
-  height: max(4vh,53px);
+  height: 40px;
 }
 
 .Page-content-space{
-  max-height:calc(100vh - 53px);
-  height: 96vh;
+  height: calc(100vh - 40px);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -6,7 +6,7 @@ import { observer } from "mobx-react";
 import { styled } from '@mui/material/styles';
 import { TextField } from '@mui/material/';
 import { Button } from '@mui/material/';
-
+import { Navigate } from 'react-router-dom';
 
 const CostumeField = styled(TextField)(({ theme }) => ({
   margin: " 0 0 10px 0",
@@ -30,11 +30,11 @@ const CostumeField = styled(TextField)(({ theme }) => ({
 
 
   '& label.Mui-focused': {
-    color: '#74aa9d',
+    color: '#000',
     fontSize: 25,
   },
   '& .MuiInput-underline:after': {
-    borderBottomColor: '#74aa9d',
+    borderBottomColor: '#FFF',
   },
 }));
 
@@ -48,7 +48,10 @@ class Login_Page extends React.Component {
       email: "",
       page: "Login",
       buttonDisable: false,
+      redirect:false
     };
+
+    this.doLogIn = this.doLogIn.bind(this);
   }
 
   handleChange = (event) => {
@@ -119,6 +122,8 @@ class Login_Page extends React.Component {
   }
 
   async doLogIn() {
+    
+   
     if (!this.state.username) {
       return;
     }
@@ -151,7 +156,9 @@ class Login_Page extends React.Component {
           CurentUser.username = name;
           CurentUser.isLoggedIn = true;
           CurentUser.admin = response.admin;
-          this.props.ToMain();
+
+          this.setState({redirect:true})
+          
         }
         else {
           this.reset();
@@ -223,6 +230,7 @@ class Login_Page extends React.Component {
                 onClick={() => this.goRegister()}>
                 Register
               </Button>
+              {this.state.redirect && <Navigate to='/' replace={true} />}
             </div>
         </div>)
     }

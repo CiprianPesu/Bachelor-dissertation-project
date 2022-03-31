@@ -1,3 +1,4 @@
+from __future__ import barry_as_FLUFL
 from ast import Str
 from datetime import date, datetime
 import json
@@ -14,6 +15,10 @@ from dateutil import parser, tz
 
 from confluent_kafka import Consumer
 from confluent_kafka import Producer
+
+from elasticsearch import Elasticsearch
+
+es = Elasticsearch([{'host': 'localhost', 'port': 30200,"scheme":""}])
 
 
 def post_cleanup(ce_inst):
@@ -34,7 +39,7 @@ def post_cleanup(ce_inst):
         if e_tag not in parse_tags:
             if ce_inst.is_highlink_density(elm) or ce_inst.is_table_and_no_para_exist(elm):
                 ce_inst.parser.remove(elm)
-            
+
     return node
 
 
@@ -50,7 +55,8 @@ def calculate_best_node(ce_inst, doc):
 
     for node in nodes_to_check:
         text_node = ce_inst.parser.getText(node)
-        word_stats = ce_inst.stopwords_class(language=ce_inst.get_language()).get_stopword_count(text_node)
+        word_stats = ce_inst.stopwords_class(
+            language=ce_inst.get_language()).get_stopword_count(text_node)
         high_link_density = ce_inst.is_highlink_density(node)
         if word_stats.get_stopword_count() > 2 and not high_link_density:
             nodes_with_text.append(node)
@@ -69,14 +75,16 @@ def calculate_best_node(ce_inst, doc):
         # nodes_number
         if nodes_number > 15:
             if (nodes_number - i) <= bottom_negativescore_nodes:
-                booster = float(bottom_negativescore_nodes - (nodes_number - i))
+                booster = float(bottom_negativescore_nodes -
+                                (nodes_number - i))
                 boost_score = float(-pow(booster, float(2)))
                 negscore = abs(boost_score) + negative_scoring
                 if negscore > 40:
                     boost_score = float(5)
 
         text_node = ce_inst.parser.getText(node)
-        word_stats = ce_inst.stopwords_class(language=ce_inst.get_language()).get_stopword_count(text_node)
+        word_stats = ce_inst.stopwords_class(
+            language=ce_inst.get_language()).get_stopword_count(text_node)
         upscore = int(word_stats.get_stopword_count() + boost_score)
 
         # parent node
@@ -97,10 +105,12 @@ def calculate_best_node(ce_inst, doc):
 
         # parentparentparent node
         if parent_parent_node != None:
-            parent_parent_parent_node = ce_inst.parser.getParent(parent_parent_node)
+            parent_parent_parent_node = ce_inst.parser.getParent(
+                parent_parent_node)
             if parent_parent_parent_node is not None:
                 ce_inst.update_node_count(parent_parent_parent_node, 1)
-                ce_inst.update_score(parent_parent_parent_node, upscore - 2 * eps)
+                ce_inst.update_score(
+                    parent_parent_parent_node, upscore - 2 * eps)
                 if parent_parent_parent_node not in parent_nodes:
                     parent_nodes.append(parent_parent_parent_node)
         cnt += 1
@@ -119,31 +129,45 @@ def calculate_best_node(ce_inst, doc):
 
     return top_node
 
+
 def eliminate_ads(content):
 
-    lines=content.splitlines()
-    new_content=""
+    lines = content.splitlines()
+    new_content = ""
     for line in lines:
         if IsValidContent(line) == True:
-            new_content=new_content+" "+line
+            new_content = new_content+" "+line
 
     return new_content
 
 
 def IsValidContent(line):
-    if line.isupper() == True: return False
-    elif line.find("Last updated on")!= -1 : return False
-    elif line.find("The BBC is not responsible for the content of external sites")!= -1 : return False
-    elif line.find("enable JavaScript")!= -1 : return False
-    elif line.find("You can now listen to Fox News articles")!= -1 : return False
-    elif line.find("video can not be played")!= -1 : return False
-    elif line.find("Editor's Note")!= -1 : return False
-    else: return True
+    if line.isupper() == True:
+        return False
+    elif line.find("Last updated on") != -1:
+        return False
+    elif line.find("The BBC is not responsible for the content of external sites") != -1:
+        return False
+    elif line.find("enable JavaScript") != -1:
+        return False
+    elif line.find("You can now listen to Fox News articles") != -1:
+        return False
+    elif line.find("video can not be played") != -1:
+        return False
+    elif line.find("Editor's Note") != -1:
+        return False
+    else:
+        return True
+
 
 def IsValidLink(link):
-    if link.find("vpx") != -1: return False
-    elif link.find("/videos/") != -1:return False
-    else: return True
+    if link.find("vpx") != -1:
+        return False
+    elif link.find("/videos/") != -1:
+        return False
+    else:
+        return True
+
 
 class ArticleFetcher():
 
@@ -167,7 +191,7 @@ class ArticleFetcher():
             content = self._extract_content(html)
             content = eliminate_ads(content)
             content = unidecode.unidecode(content)
-            
+
             return content
         except Exception:
             return None
@@ -187,10 +211,11 @@ producer = Producer(conf_p)
 try:
     consumer.subscribe(["rss_data"])
 
-    count=0
+    count = 0
     while True:
         msg = consumer.poll(timeout=1.0)
-        if msg is None: continue
+        if msg is None:
+            continue
         else:
             rss_json = json.loads(msg.value())
 
@@ -198,91 +223,97 @@ try:
             f1 = ContentExtractor.calculate_best_node
             f2 = ContentExtractor.post_cleanup
 
-            url=rss_json["link"]
+            url = rss_json["link"]
 
-            
             try:
-                
-                print( rss_json['pubDate'])
-                rss_json['pubDate']= parser.parse(rss_json["pubDate"])
-                print( rss_json['pubDate'])
-                pub_datetime=(rss_json["pubDate"]).strftime("%Y-%m-%d %H:%M:%S")
-                rss_json["pubDate"]=pub_datetime
-                print(rss_json['pubDate'])
-                print("-------------")
+                resp = es.search(index="news", 
+                query={'term': 
+                    {
+                        'link': url,
+                    }
+                })
             except:
-                unknown_time=datetime(1000, 1, 1, 0, 0)
-                pub_datetime=unknown_time.strftime("%Y-%m-%d %H:%M:%S")
-                rss_json["pubDate"]=pub_datetime
-                print("----Unlnown Date--")
-                print("------------------")
+                print("Index does not exist yet")
+                resp={"hits": {"hits":""}}
+
             
+            print("-----")
 
-            now=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            if IsValidLink(url) == True:
-                print(url)
+            if len(resp["hits"]["hits"]) == 0:
+                
                 try:
-                    url_page = urllib.request.urlopen(url)
-                    page_bytes = url_page.read()
-                    url_page.close()
 
-                    html = page_bytes.decode()
+                    rss_json['pubDate'] = parser.parse(rss_json["pubDate"])
 
-                    article_fatcher=ArticleFetcher()
+                    pub_datetime = (rss_json["pubDate"]).strftime(
+                        "%Y-%m-%d %H:%M:%S")
+                    rss_json["pubDate"] = pub_datetime
+                    print(rss_json['pubDate'])
+                    print("-------------")
+                except:
+                    print("--Unknown Date--")
+                    print("----------------")
+                    continue
 
-                    rss_json["description"]=unidecode.unidecode(rss_json["description"])
-                    rss_json["title"]=unidecode.unidecode(rss_json["title"])
+                now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                if IsValidLink(url) == True:
+                    print(url)
+                    try:
+                        url_page = urllib.request.urlopen(url)
+                        page_bytes = url_page.read()
+                        url_page.close()
 
-                    content=article_fatcher._html_to_infomation(html,url)
-                    rss_json["Crawlerd_datetime"]=now
-                    rss_json["content"]=content
-                    producer.poll(0)
-                    producer.produce('crawled_news',json.dumps(rss_json).encode('utf-8'))
+                        html = page_bytes.decode()
 
-                    
+                        article_fatcher = ArticleFetcher()
 
+                        rss_json["description"] = unidecode.unidecode(
+                            rss_json["description"])
+                        rss_json["title"] = unidecode.unidecode(rss_json["title"])
+
+                        content = article_fatcher._html_to_infomation(html, url)
+                        rss_json["Crawlerd_datetime"] = now
+                        rss_json["content"] = content
+                        producer.poll(0)
+                        producer.produce('crawled_news', json.dumps(
+                            rss_json).encode('utf-8'))
+
+                        json_logs = json.dumps({'link':  rss_json["link"],
+                                                'source':  rss_json["source"],
+                                                'RSSTag':  rss_json["RSSTag"],
+                                                'Action_datetime': now,
+                                                'status': 'success',
+                                                'service': 'URL-Crawler',
+                                                })
+
+                        producer.poll(0)
+                        producer.produce('logs', json.dumps(
+                            json_logs).encode('utf-8'))
+
+                    except Exception:
+                        json_logs = json.dumps({'link':  rss_json["link"],
+                                                'source':  rss_json["source"],
+                                                'RSSTag':  rss_json["RSSTag"],
+                                                'Action_datetime': now,
+                                                'status': 'invalid link',
+                                                'service': 'URL-Crawler',
+                                                })
+                        producer.poll(0)
+                        producer.produce('logs', json.dumps(
+                            json_logs).encode('utf-8'))
+
+                        print(url + "    --->Invalid Link 404")
+                else:
                     json_logs = json.dumps({'link':  rss_json["link"],
                                             'source':  rss_json["source"],
                                             'RSSTag':  rss_json["RSSTag"],
                                             'Action_datetime': now,
-                                            'status': 'success',
+                                            'status': 'invalid link',
                                             'service': 'URL-Crawler',
                                             })
-
-                    print(json.dumps(json_logs))
                     producer.poll(0)
-                    producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
-
-                except Exception:
-                    json_logs = json.dumps({'link':  rss_json["link"],
-                                        'source':  rss_json["source"],
-                                        'RSSTag':  rss_json["RSSTag"],
-                                        'Action_datetime': now,
-                                        'status': 'invalid link',
-                                        'service': 'URL-Crawler',
-                                        })
-
-                    print(json.dumps(json_logs))
-                    producer.poll(0)
-                    producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
-
-                    print(url + "    --->Invalid Link 404")
-            else:
-                json_logs = json.dumps({'link':  rss_json["link"],
-                                        'source':  rss_json["source"],
-                                        'RSSTag':  rss_json["RSSTag"],
-                                        'Action_datetime': now,
-                                        'status': 'invalid link',
-                                        'service': 'URL-Crawler',
-                                        })
-
-                print(json.dumps(json_logs))
-                producer.poll(0)
-                producer.produce('logs',json.dumps(json_logs).encode('utf-8'))
-                print(url + "    --->Invalid")
+                    producer.produce('logs', json.dumps(json_logs).encode('utf-8'))
+                    print(url + "    --->Invalid")
 finally:
     # Close down consumer to commit final offsets.
     consumer.close()
-
-
-

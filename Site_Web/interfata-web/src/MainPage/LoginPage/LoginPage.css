@@ -1,8 +1,8 @@
 
 
 
-.loginForm{
-  background-color:var(--pastel_2);
+.loginForm, .RegisterForm{
+  background-color:var(--pastel_3);
   border-radius: 30px;
   width: 30vw;
   max-height: fit-content;
@@ -11,17 +11,7 @@
   max-width: 400px;
 }
 
-.RegisterForm{
-  background-color:var(--pastel_2);
-  max-height: fit-content;
-  border-radius: 30px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 30vw;
-  animation: fade 3s 1;
-  min-width: 300px;
-  max-width: 400px;
-}
+
 
 .Text{
   color: var(--pastel_4);
@@ -47,7 +37,9 @@
 }
 
 .ButtonsDiv > Button{
-
+  
+  color: black;
+  font-weight: bold;;
   min-width: 100px;
   width: 5vw;
   max-width: 200px;
@@ -55,7 +47,7 @@
   margin-right: 10px;
   align-items: center;
   border-radius: 15px;
-  background: var(--pastel_3);
+  background: var(--pastel_4);
 }
 
 .ButtonsDiv > Button:hover{

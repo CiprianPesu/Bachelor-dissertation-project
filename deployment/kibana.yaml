@@ -21,7 +21,7 @@ spec:
           value: http://elasticsearch-9200:9200/ #elasticsearch is the same name as service resrouce name  
         - name: ELASTICSEARCH_HOSTS
           value: http://elasticsearch-9200:9200  
-        image: kibana:7.14.2 #fix this 
+        image: localhost:32000/kibana:7.14.2
         name: kibana
         
 ---

@@ -1,17 +1,17 @@
 
 .navbar {
   -webkit-appearance: none;
-  background: var(--pastel_2);
+  background: rgba(0 ,0, 0, 0.95);
   padding: 0 ;
   margin: 0;
   border-bottom: var(--border);
   display:flex;
   justify-content: flex-start; 
   width: 100%;
-  min-height: 50px;
-  height:calc(4vh - 3px );
-  border-bottom: 3px solid black;
+  height: 40px;
   }
+
+
 
 
 .navbar-nav {
@@ -32,7 +32,8 @@
   font-weight: bold;
   margin: 0;
   border: 0;
-  width:calc(100% - 80px);
+  width:calc(100%);
+  border-left: 2px solid var(--pastel_1);
   transition: border-color 0.2s;
   cursor: pointer;
   animation: scaleReverse 0.2s 1;
@@ -41,14 +42,14 @@
 
 .Inputfield:hover{
   color: white;
-  scale: 1.05;
+  transform:scale(1.03);
   animation: scale 0.2s 1;
 }
 
 
 .Inputfield:focus {
   color: white;
-  scale: 1.05;
+  transform:scale(1.03);
   outline: 0px;
 }
 
@@ -59,12 +60,11 @@
   min-width: 200px;
   width: 60vw;
   margin: 0px;
-  min-height: 50px;
-  height:calc(4vh - 3px );
-  border-right: 2px solid black;
+  height: 40px;
 }
 
 .Search-Button{
+  border-right: 2px solid var(--pastel_1);
   display:flex;
   justify-content: flex-start;
   height: 100%;
@@ -72,14 +72,12 @@
 }
 
 .left-box{
-  min-height: 50px;
+  height: 40px;
   min-width: fit-content;
-  height:calc(4vh - 3px );
   width: 20vw;
-  padding: 0;
+  padding-right: 5px;
   margin: 0;
   border: 0;
-  border-right: 2px solid black;
   font-size:max(0.75vw, 15px);
   display: flex;
   justify-content:left;
@@ -98,22 +96,23 @@
   color: var(--pastel_4);
   font-size:max(0.75vw, 16px);
   overflow: hidden;
+  border-left: 13px;
+  border-color: red;
 }
 
 .left-box > a:hover{
   padding-left: max(0.75vw, 16px);;
   padding-right: max(0.75vw, 16px);;
-  scale: 1.1;
+  transform:scale(1.03);
   color: var(--pastel_3);
   animation: scale 0.05s 1;
 }
 
 
 .right-box{
-  min-height: 50px;
+  height: 40px;
   width: 20vw;
   min-width: 50px;
-  height:calc(4vh - 3px);
   margin-left: auto;
   margin-right: 10px;
   display: flex;
@@ -131,18 +130,18 @@
 
 @keyframes scale {
   0% {
-    scale: 1.0;
+    transform:scale(1);
   }
   100% {
-    scale: 1.05;
+    transform:scale(1.03);
   }
 }
 
 @keyframes scaleReverse {
   0% {
-    scale: 1.05;
+    transform:scale(1.03);
   }
   100% {
-    scale: 1.0;
+    transform:scale(1);
   }
 }

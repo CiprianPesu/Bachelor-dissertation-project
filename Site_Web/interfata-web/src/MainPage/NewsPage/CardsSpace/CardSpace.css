@@ -1,0 +1,23 @@
+.News-Space-Loader,.News-Space-NoResult{
+    display: flex;
+    justify-content: center;
+    transform: translateX(-30px);
+    align-items: center;
+    width: 100vw;
+    height: calc(100% - 40px);
+    animation: fade 3s 1;
+}
+
+
+.News-Space-NoResult{
+    flex-direction: column;
+    font-size: 26px;
+    font-weight: bold;
+    user-select: none;
+}
+
+
+.News-Space-NoResult > svg{
+    width: 40px;
+    height: 40xp;
+}

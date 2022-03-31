@@ -20,9 +20,9 @@ code {
   --yellow_gradient:linear-gradient(to right, #41471e, #8cb815);
   --speed: 500ms; 
 
-  --pastel_1:#9f9f9f;
+  --pastel_1:rgb(159, 159, 159);
   --pastel_2:rgb(81, 81, 81);
-  --pastel_3:#74aa9d;
+  --pastel_3:#285279;
   --pastel_4:rgb(238, 238, 238);
 
   background: var(--pastel_2);

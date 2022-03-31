@@ -1,0 +1,99 @@
+{
+  "_routing": {
+    "required": false
+  },
+  "numeric_detection": false,
+  "dynamic_date_formats": [
+    "strict_date_optional_time",
+    "yyyy/MM/dd HH:mm:ss Z||yyyy/MM/dd Z"
+  ],
+  "_source": {
+    "excludes": [],
+    "includes": [],
+    "enabled": true
+  },
+  "dynamic": true,
+  "dynamic_templates": [],
+  "date_detection": true,
+  "properties": {
+    "Inserted_datetime": {
+      "format": "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss",
+      "index": true,
+      "ignore_malformed": false,
+      "store": false,
+      "type": "date",
+      "doc_values": true
+    },
+    "Crawlerd_datetime": {
+      "format": "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss",
+      "index": true,
+      "ignore_malformed": false,
+      "store": false,
+      "type": "date",
+      "doc_values": true
+    },
+    "link": {
+      "eager_global_ordinals": false,
+      "norms": false,
+      "index": true,
+      "store": false,
+      "type": "keyword",
+      "index_options": "docs",
+      "split_queries_on_whitespace": false,
+      "doc_values": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "source": {
+      "eager_global_ordinals": false,
+      "norms": false,
+      "index": true,
+      "store": false,
+      "type": "keyword",
+      "index_options": "docs",
+      "split_queries_on_whitespace": false,
+      "doc_values": true
+    },
+    "title": {
+      "type": "text"
+    },
+    "Word_Count": {
+      "coerce": true,
+      "index": true,
+      "ignore_malformed": false,
+      "store": false,
+      "type": "integer",
+      "doc_values": true
+    },
+    "pubDate": {
+      "format": "strict_date_optional_time||epoch_millis||yyyy-MM-dd HH:mm:ss",
+      "index": true,
+      "ignore_malformed": false,
+      "store": false,
+      "type": "date",
+      "doc_values": true
+    },
+    "Procent_Pozitiv": {
+      "coerce": true,
+      "index": true,
+      "ignore_malformed": false,
+      "store": false,
+      "type": "float",
+      "doc_values": true
+    },
+    "RSSTag": {
+      "eager_global_ordinals": false,
+      "norms": false,
+      "index": true,
+      "store": false,
+      "type": "keyword",
+      "index_options": "docs",
+      "split_queries_on_whitespace": false,
+      "doc_values": true
+    },
+    "content": {
+      "type": "text"
+    }
+  }
+}

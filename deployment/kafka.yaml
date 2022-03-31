@@ -16,7 +16,7 @@ spec:
         app: kafka
     spec:
       containers:
-      - image: wurstmeister/kafka
+      - image: localhost:32000/wurstmeister/kafka
         name: kafka
         env:
         - name: KAFKA_ADVERTISED_HOST_NAME

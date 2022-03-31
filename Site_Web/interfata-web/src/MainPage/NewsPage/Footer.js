@@ -10,31 +10,30 @@ class Footer extends React.Component {
 
     makeArr(startValue, stopValue) {
         var arr = [];
-        for (var i = startValue; i<=stopValue; i++){
+        for (var i = startValue; i <= stopValue; i++) {
             arr.push(i);
-        }  
+        }
         return arr;
-      }
+    }
 
     render() {
-        if(this.props.PageNr < 1 ){
+        if (this.props.PageNr < 1) {
             return (<div class="footer"></div>);
         }
         else if (this.props.PageNr < 11) {
             return (
                 <div class="footer">
-                    <button className="PrevButton" onClick={this.props.goToPrevPage} disabled={this.props.buttonDisable}>Prev</button>
-                    {this.makeArr(1,this.props.PageNr).map((item, index) => (
+                    <button className="PrevButton" onClick={this.props.goToPrevPage}>Prev</button>
+                    {this.makeArr(1, this.props.PageNr).map((item, index) => (
                         <button
                             key={index}
                             onClick={this.props.changePage}
-                            disabled={this.props.buttonDisable}
                             className={`paginationItem ${this.props.currentPage === item ? 'active' : null}`}
                         >
                             {item}
                         </button>
                     ))}
-                    <button className="NextButton" onClick={this.props.goToNextPage} disabled={this.props.buttonDisable}>Next</button>
+                    <button className="NextButton" onClick={this.props.goToNextPage}>Next</button>
                 </div>
             );
         }
@@ -43,12 +42,11 @@ class Footer extends React.Component {
                 return (
 
                     <div class="footer">
-                        <button className="PrevButton" onClick={this.props.goToPrevPage} disabled={this.props.buttonDisable}>Prev</button>
+                        <button className="PrevButton" onClick={this.props.goToPrevPage}>Prev</button>
                         {[1, 2, 3].map((item, index) => (
                             <button
                                 key={index}
                                 onClick={this.props.changePage}
-                                disabled={this.props.buttonDisable}
                                 className={`paginationItem ${this.props.currentPage === item ? 'active' : null}`}
                             >
                                 {item}
@@ -59,7 +57,7 @@ class Footer extends React.Component {
                             <button
                                 key={index}
                                 onClick={this.props.changePage}
-                                disabled={this.props.buttonDisable}
+
                                 className={`paginationItem ${this.props.currentPage === item ? 'active' : null}`}
                             >
                                 {item}
@@ -70,25 +68,25 @@ class Footer extends React.Component {
                             <button
                                 key={index}
                                 onClick={this.props.changePage}
-                                disabled={this.props.buttonDisable}
+
                                 className={`paginationItem ${this.props.currentPage === item ? 'active' : null}`}
                             >
                                 {item}
                             </button>
                         ))}
-                        <button className="NextButton" onClick={this.props.goToNextPage} disabled={this.props.buttonDisable}>Next</button>
+                        <button className="NextButton" onClick={this.props.goToNextPage}>Next</button>
                     </div>
                 );
             }
             else if (this.props.currentPage < 6) {
                 return (
                     <div class="footer">
-                        <button className="PrevButton" onClick={this.props.goToPrevPage} disabled={this.props.buttonDisable}>Prev</button>
+                        <button className="PrevButton" onClick={this.props.goToPrevPage}>Prev</button>
                         {[1, 2, 3, 4, 5, 6].map((item, index) => (
                             <button
                                 key={index}
                                 onClick={this.props.changePage}
-                                disabled={this.props.buttonDisable}
+
                                 className={`paginationItem ${this.props.currentPage == item ? 'active' : null}`}
                             >
                                 {item}
@@ -99,25 +97,25 @@ class Footer extends React.Component {
                             <button
                                 key={index}
                                 onClick={this.props.changePage}
-                                disabled={this.props.buttonDisable}
+
                                 className={`paginationItem ${this.props.currentPage === item ? 'active' : null}`}
                             >
                                 {item}
                             </button>
                         ))}
-                        <button className="NextButton" onClick={this.props.goToNextPage} disabled={this.props.buttonDisable}>Next</button>
+                        <button className="NextButton" onClick={this.props.goToNextPage}>Next</button>
                     </div>
                 );
             }
             else {
                 return (
                     <div class="footer">
-                        <button className="PrevButton" onClick={this.props.goToPrevPage} disabled={this.props.buttonDisable}>Prev</button>
+                        <button className="PrevButton" onClick={this.props.goToPrevPage}>Prev</button>
                         {[1, 2, 3].map((item, index) => (
                             <button
                                 key={index}
                                 onClick={this.props.changePage}
-                                disabled={this.props.buttonDisable}
+
                                 className={`paginationItem ${this.props.currentPage === item ? 'active' : null}`}
                             >
                                 {item}
@@ -128,13 +126,13 @@ class Footer extends React.Component {
                             <button
                                 key={index}
                                 onClick={this.props.changePage}
-                                disabled={this.props.buttonDisable}
+
                                 className={`paginationItem ${this.props.currentPage == item ? 'active' : null}`}
                             >
                                 {item}
                             </button>
                         ))}
-                        <button className="NextButton" onClick={this.props.goToNextPage} disabled={this.props.buttonDisable}>Next</button>
+                        <button className="NextButton" onClick={this.props.goToNextPage}>Next</button>
                     </div>
                 );
             }

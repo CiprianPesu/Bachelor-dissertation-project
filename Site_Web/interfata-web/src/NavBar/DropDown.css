@@ -1,13 +1,13 @@
 .dropdown {
     position:absolute;
-    top:max(4vh - 3px ,50px);
+    top:40px;
     right: 0vw;
     font-size:max(0.75vw, 15px);
     min-width: 180px;
     width: 15vw;
     height: auto;
     max-width: 100%;
-    background:gray;
+    background:var(--pastel_3);
     border: var(--border);
     border-bottom-left-radius: 5%;
     border-bottom-right-radius: 5%;
@@ -34,6 +34,8 @@
     background: transparent;
     padding: 0.5rem;
     color: black;
+    fill: black;
+    font-weight: bold;
   }
   
   .menu-item .icon-button {
@@ -111,7 +113,6 @@
   }
   
   .icon-button svg { 
-    fill: black;
     width: 25px;
     height: 25px;
   }
@@ -127,6 +128,6 @@
       background-color: transparent;
     }
     100% {
-      background-color: var(--pastel_3)  ;
+      background-color: var(--pastel_2)  ;
     }
   }

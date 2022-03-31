@@ -15,7 +15,7 @@ spec:
         app: elasticsearch
     spec:
       containers:
-      - image: elasticsearch:7.14.2 #fix this 
+      - image: localhost:32000/elasticsearch:7.14.2
         name: elasticsearch
         env:
         - name: discovery.type

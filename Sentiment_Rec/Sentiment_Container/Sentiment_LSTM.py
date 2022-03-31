@@ -51,7 +51,7 @@ conf = {'bootstrap.servers': "10.0.0.1:9092",
         'group.id': "group1",
         'auto.offset.reset': 'earliest'}
 
-es = Elasticsearch([{'host': 'localhost', 'port': 30200}])
+es = Elasticsearch([{'host': 'localhost', 'port': 30200, 'scheme':""}])
 
 consumer = Consumer(conf)
 consumer.subscribe(["crawled_news"])

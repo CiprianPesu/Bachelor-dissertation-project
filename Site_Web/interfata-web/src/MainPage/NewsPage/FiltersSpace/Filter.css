@@ -1,5 +1,5 @@
 .OuterFilter{
-    background: rgba(190, 190, 190, 1);
+    background: var(--pastel_1);
     width: 90%;
     height:fit-content ;
     margin-top: 10px;
@@ -8,6 +8,7 @@
     border-radius: 8px;
     padding: 10px;
     user-select: none;
+    
 }
 
 .FilterTitle{
@@ -46,7 +47,7 @@
 
 
 .FilterTitle svg { 
-    fill: black;
+    fill: var(--pastel_3);
     width: 15px;
     height: 15px;
 }

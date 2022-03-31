@@ -14,11 +14,11 @@
   }
 
 .icon-button{
-  background:var(--pastel_2);
+  fill:var(--pastel_3);
+  background:transparent;
   background-size: 500%;
   border: none;
   border-radius: 5rem;
-  color: white;
   cursor: pointer;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,18 +31,10 @@
   user-select: none;
 }
 
-
-.icon-button:hover {
-  transform: scale(.98);
-  animation-name: color;
-  -webkit-animation-name: color;
-  animation-duration: 2s;
-  -webkit-animation-duration: s;
-  animation-iteration-count: 1;
-  -webkit-animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
+a{
+  text-decoration: none;
 }
+
 
 
   @keyframes gradient {

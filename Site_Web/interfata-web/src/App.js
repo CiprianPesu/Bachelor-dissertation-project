@@ -6,13 +6,15 @@ import { observer } from "mobx-react";
 import Navbar from "./NavBar/Navbar";
 import MainPage from "./MainPage/MainPage";
 import CurentUser from "./stores/CurentUser";
-import background from "./icons/images.jpg";
+import background from "./icons/images-blue.jpg";
+import BeatLoader from "react-spinners/BeatLoader";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activ: "Main",
+      Searched: "",
     };
   }
 
@@ -48,15 +50,8 @@ class App extends React.Component {
     }
   }
 
-
-  callbackFunctionToMain() {
-    console.log("ToMain");
-    this.setState({ activ: "Main" })
-  }
-
-  callbackFunctionToLogIn() {
-    console.log("LogIn");
-    this.setState({ activ: "LogIn" })
+  callbackFunctionSearch = (childData) => {
+    this.setState({ Searched: childData })
   }
 
 
@@ -66,14 +61,13 @@ class App extends React.Component {
         <div className="App" style={{
           backgroundImage: `url(${background})`, backgroundPosition: 'center',
           backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          width: '100vw',
-          height: '100vh'
+          backgroundRepeat: 'repeat',
         }}>
           <div className='Navbar-space'>
             <Navbar empty="True"></Navbar>
           </div>
           <div className='Page-content-space'>
+            <BeatLoader></BeatLoader>
           </div>
         </div>
       );
@@ -83,20 +77,18 @@ class App extends React.Component {
         <div className="App" style={{
           backgroundImage: `url(${background})`, backgroundPosition: 'center',
           backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          width: '100vw',
-          height: '100vh'
+          backgroundRepeat: 'repeat',
         }}>
           <div className='Navbar-space'>
             <Navbar
-              ToLogIn={() => this.callbackFunctionToLogIn()}
-              ToMain={() => this.callbackFunctionToMain()}
+              DoSearch={this.callbackFunctionSearch}
             ></Navbar>
           </div>
           <div className='Page-content-space'>
             <MainPage
               page={this.state.activ}
-              ToMain={() => this.callbackFunctionToMain()} ></MainPage>
+              Searched={this.state.Searched}
+            ></MainPage>
           </div>
         </div>
       );

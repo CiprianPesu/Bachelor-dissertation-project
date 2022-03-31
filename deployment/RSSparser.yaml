@@ -26,13 +26,6 @@ spec:
         - name: RSSTag
           value: "BBC"
         resources: {}
-        volumeMounts:
-        - name: bbc-rss-volume
-          mountPath: /usr/src/myapp/Logs/
-      volumes:
-      - name: bbc-rss-volume
-        persistentVolumeClaim:
-          claimName: bbc-rss-volume
 status: {}
 ---
 apiVersion: apps/v1
@@ -63,13 +56,6 @@ spec:
         - name: RSSTag
           value: "CNN"
         resources: {}
-        volumeMounts:
-        - name: cnn-rss-volume
-          mountPath: /usr/src/myapp/Logs/
-      volumes:
-      - name: cnn-rss-volume
-        persistentVolumeClaim:
-          claimName: cnn-rss-volume
 status: {}
 ---
 apiVersion: apps/v1
@@ -100,11 +86,4 @@ spec:
         - name: RSSTag
           value: "FOX News"
         resources: {}
-        volumeMounts:
-        - name: fox-rss-volume
-          mountPath: /usr/src/myapp/Logs/
-      volumes:
-      - name: fox-rss-volume
-        persistentVolumeClaim:
-          claimName: fox-rss-volume
 status: {}

@@ -18,7 +18,7 @@ spec:
         app: zookeeper
     spec:
       containers:
-      - image: zookeeper
+      - image: localhost:32000/zookeeper
         name: zookeeper
         resources: {}
 status: {}

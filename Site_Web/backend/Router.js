@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const path = require('path');
 const { json, raw } = require("express");
 const { response } = require("express");
 const { Client } = require('@elastic/elasticsearch')
@@ -21,6 +22,15 @@ class Router {
     this.DeleteUser(app, db);
     this.getNews(app);
     this.getFilters(app);
+    this.getNewsByID(app);
+
+    app.get('/*', function (req, res) {
+      res.sendFile(path.join(__dirname, '/build/index.html'), function (err) {
+        if (err) {
+          res.status(500).send(err)
+        }
+      })
+    })
   }
 
   DeleteUser(app, db) {
@@ -64,6 +74,7 @@ class Router {
       );
     });
   }
+
 
   toggleAdmin(app, db) {
     app.post("/ToggleAdmin", (req, res) => {
@@ -272,6 +283,57 @@ class Router {
       return
     });
   }
+
+
+  getNewsByID(app) {
+    app.post("/GetNewsByID", (req, res) => {
+      queryElasticNewsByID(ElasticClient, req.body.ID).then((response) => {
+
+        if(response===false){
+          res.json({
+            success: false,
+          });
+        }
+        else{
+          res.json({
+            success: true,
+            data: response,
+          });
+        }
+      });
+      return
+    });
+
+  }
+}
+
+async function queryElasticNewsByID(ElasticClient, ID) {
+  result = await ElasticClient.search({
+    index: 'news',
+    query: {
+      "match": {
+        _id: ID,
+      }
+    },
+  })
+  try {
+    let response = {
+      link: result.hits.hits[0]._source.link,
+      title: result.hits.hits[0]._source.title,
+      pubDate: result.hits.hits[0]._source.pubDate,
+      content: result.hits.hits[0]._source.content,
+      Procent_Pozitiv: result.hits.hits[0]._source.Procent_Pozitiv,
+      Word_Count: result.hits.hits[0]._source.Word_Count,
+      RSSTag: result.hits.hits[0]._source.RSSTag,
+    }
+
+    return (response)
+  } catch (error) {
+    return false;
+  }
+
+
+ 
 }
 
 async function queryElasticFilters(ElasticClient) {
@@ -297,43 +359,111 @@ async function queryElasticFilters(ElasticClient) {
 
 async function queryElasticNews(ElasticClient, filters, from) {
 
+
   let order = "";
   if (filters.OrderBy === "leatest") {
-    order = "desc";
+    sortFilter = [
+      {
+        "pubDate": {
+          "order": "desc",
+        }
+      }];
+  }
+  else if (filters.OrderBy === "earliest") {
+    sortFilter = [
+      {
+        "pubDate": {
+          "order": "asc",
+        }
+      }];
   }
   else {
-    order = "asc";
+    sortFilter = ["_score"];
   }
 
+  let result = ""
 
-  const result = await ElasticClient.search({
-    index: 'news',
-    from: from,
-    query: {
-      bool: {
-        must: [
-          {
-            terms: {
-              "RSSTag": filters.Publications,
-            }
-          },
-          {
-            range: {
-              "Word_Count": {
-                "gte": filters.WordsCount[0],
-                "lte": filters.WordsCount[1]
+  if (filters.Search != null) {
+    result = await ElasticClient.search({
+      index: 'news',
+      from: from,
+      query: {
+        bool: {
+          must: [
+            {
+              terms: {
+                "RSSTag": filters.Publications,
               }
-            }
-          }]
-      }
-    },
-    sort: [{
-      "pubDate": {
-        "order": order,
-      }
-    }],
-    size: filters.ItemsPerPage
-  })
+            },
+            {
+              range: {
+                "Word_Count": {
+                  "gte": filters.WordsCount[0],
+                  "lte": filters.WordsCount[1]
+                }
+              }
+            },
+
+          ],
+          should: [
+            {
+              "multi_match": {
+                "query": filters.Search,
+                "fields": ["content", "description", "title"]
+              }
+            },
+            {
+              "multi_match": {
+                "query": filters.Search,
+                "fields": ["content", "description", "title"],
+                "operator": "and"
+              }
+            },
+            {
+              "multi_match": {
+                "query": filters.Search,
+                "fields": ["content", "description", "title"],
+                "type": "phrase",
+                "boost": 5,
+              }
+            }],
+          "minimum_should_match": 1,
+        },
+
+      },
+      sort: sortFilter,
+      size: filters.ItemsPerPage
+    })
+  }
+  else {
+    result = await ElasticClient.search({
+      index: 'news',
+      from: from,
+      query: {
+        bool: {
+          must: [
+            {
+              terms: {
+                "RSSTag": filters.Publications,
+              }
+            },
+            {
+              range: {
+                "Word_Count": {
+                  "gte": filters.WordsCount[0],
+                  "lte": filters.WordsCount[1]
+                }
+              }
+            },
+
+          ],
+        }
+      },
+      sort: sortFilter,
+      size: filters.ItemsPerPage
+    })
+  }
+
 
   data = result["hits"]["hits"].map((news) => {
     return {
@@ -342,6 +472,7 @@ async function queryElasticNews(ElasticClient, filters, from) {
       description: news._source.description,
       pubDate: news._source.pubDate,
       source: news._source.source,
+      publication: news._source.RSSTag,
     }
   })
 

@@ -3,7 +3,7 @@ import "./DropDown.css";
 import React, { useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import CurentUser from "../stores/CurentUser";
-
+import { Link } from "react-router-dom";
 import { ReactComponent as CogIcon } from "../icons/cog.svg";
 import { ReactComponent as ChevronIcon } from "../icons/chevron.svg";
 import { ReactComponent as ArrowIcon } from "../icons/arrow.svg";
@@ -159,13 +159,14 @@ function DropdownMenu(props) {
             onEnter={calcHeight}
           >
             <div className="menu">
+              <Link to="authentication">
+                <DropdownItemButton
+                  link="#"
+                  leftIcon={<UserIcon />}>
+                  Log In
+                </DropdownItemButton>
+              </Link>
 
-              <DropdownItemButton 
-               link="#"
-               onClick={props.ToLogIn} 
-               leftIcon={<UserIcon />}>
-                Log In
-              </DropdownItemButton>
               <DropdownItem
                 leftIcon={<CogIcon />}
                 rightIcon={<ChevronIcon />}
@@ -275,7 +276,7 @@ function DropdownMenu(props) {
       return (
         <div
           className="dropdown"
-          style={{ height: menuHeight, padding: 0, border: menuBorder}}
+          style={{ height: menuHeight, padding: 0, border: menuBorder }}
           ref={dropdownRef}
         >
           <CSSTransition
@@ -286,10 +287,10 @@ function DropdownMenu(props) {
             onEnter={calcHeight}
           >
             <div className="menu">
-            <DropdownItemButton 
-               link="#"
-               onClick={props.ToLogIn} 
-               leftIcon={<UserIcon />}>
+              <DropdownItemButton
+                link="#"
+                onClick={props.ToLogIn}
+                leftIcon={<UserIcon />}>
                 Log In
               </DropdownItemButton>
               <DropdownItem

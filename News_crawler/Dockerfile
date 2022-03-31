@@ -10,4 +10,5 @@ RUN pip install --no-input --upgrade pip
 RUN pip install --no-input confluent-kafka
 RUN pip install --no-input BeautifulSoup4
 RUN pip install --no-input goose3
+RUN pip install --no-input elasticsearch
 CMD bash ./bash.sh

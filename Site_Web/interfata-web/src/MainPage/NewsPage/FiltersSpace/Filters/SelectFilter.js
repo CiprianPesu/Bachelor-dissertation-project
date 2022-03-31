@@ -24,8 +24,8 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
         transition: theme.transitions.create(['border-color', 'box-shadow']),
         '&:focus': {
             borderRadius: 4,
-            borderColor: '#74aa9d',
-            boxShadow: '0 0 0 0.2rem rgba(116, 170, 157,.25)',
+            borderColor: 'rgb(40, 82, 121)',
+            boxShadow: '0 0 0 0.2rem rgba(40, 82, 121,.25)',
         },
     },
 }));

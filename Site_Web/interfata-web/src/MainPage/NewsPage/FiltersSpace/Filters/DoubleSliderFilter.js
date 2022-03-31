@@ -9,11 +9,11 @@ const CostumeSlider = styled(Slider)(({ theme }) => ({
     height: 3,
     display: "flex",
     justifyContent: "flex-end",
-    padding: '25px 0',
+    padding: '20px 0',
     '& .MuiSlider-thumb': {
         height: 20,
         width: 20,
-        backgroundColor: 'rgb(58, 133, 137)',
+        backgroundColor: '#285279',
         border: '1px solid currentColor',
         '&:hover': {
             boxShadow: '1 1 1 8px rgba(58, 133, 137, 0.16)',

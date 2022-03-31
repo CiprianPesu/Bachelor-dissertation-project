@@ -46,7 +46,8 @@ class CheckBoxFilter extends React.Component {
                                     value={i}
                                     control={<Checkbox sx={{
                                         '&.Mui-checked': {
-                                            color: "#74aa9d",
+                                            //color: "#74aa9d",
+                                            color:"#285279",
                                         },
                                     }
                                     }

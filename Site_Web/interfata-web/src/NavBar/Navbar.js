@@ -4,14 +4,12 @@ import { observer } from "mobx-react";
 import DropdownMenu from "./DropDown";
 import { ReactComponent as CaretIcon } from "../icons/caret.svg";
 import { ReactComponent as SearchIcon } from "../icons/search.svg";
-
 import NavItem from "./NavItem";
-
-
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import { InputBase } from '@mui/material/';
 
 import CurentUser from "../stores/CurentUser";
+import { Link } from "react-router-dom";
 
 const CostumeInput = styled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -31,10 +29,6 @@ const CostumeInput = styled(InputBase)(({ theme }) => ({
       'background-color',
       'box-shadow',
     ]),
-    '&:focus': {
-      boxShadow: `${alpha("#74aa9d", 0.25)} 0 0 0 0.2rem`,
-      border: '2px solid #74aa9d',
-    },
   },
 }));
 
@@ -44,7 +38,12 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.children = props.children;
+    this.state = {Searched:""}
+
+    this.handleSearchClick = this.handleSearchClick.bind(this);
   }
+
+
 
   async doLogOut() {
     try {
@@ -69,17 +68,25 @@ class Navbar extends React.Component {
     }
   }
 
-  back() {
-    this.props.ToMain();
-  }
+  handleChange = (event) => {
+    let val = event.target.value;
 
+    this.setState({
+      Searched: val,
+    });
+
+  };
+
+  handleSearchClick  = (event) =>{
+    this.props.DoSearch(this.state.Searched);
+  }
 
   render() {
     if (this.props.empty !== "True") {
       return (
         <nav className="navbar">
           <div className="left-box">
-            <a onClick={() => this.props.ToMain()}>Latest</a>
+            <Link to="/" ><a>Latest</a></Link>
             <a>Costume</a>
           </div>
 
@@ -92,13 +99,15 @@ class Navbar extends React.Component {
               variant="standard"
               className="Inputfield"
               placeholder="Search..."
+              value={this.state.Searched}
+              onChange={this.handleChange}
             />
             <div className="Spacer"></div>
             <div className="Search-Button">
               <NavItem
                 icon={<SearchIcon />}
                 dropdown="false"
-                onClick={this.props.ToMain}
+                onClick={this.handleSearchClick}
               ></NavItem>
             </div>
 
@@ -108,7 +117,7 @@ class Navbar extends React.Component {
             <NavItem icon={<CaretIcon />} dropdown="true">
               <DropdownMenu
                 logout={() => this.doLogOut()}
-                tomyaccount={() => this.tomyaccount()}
+                tomyaccount={() => this.tomyaccount}
                 ToLogIn={this.props.ToLogIn}
                 username={CurentUser.username}
               ></DropdownMenu>
