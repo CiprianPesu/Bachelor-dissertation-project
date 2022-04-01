@@ -4,17 +4,21 @@ import React from 'react';
 import "./stores/CurentUser";
 import { observer } from "mobx-react";
 import Navbar from "./NavBar/Navbar";
-import MainPage from "./MainPage/MainPage";
 import CurentUser from "./stores/CurentUser";
 import background from "./icons/images-blue.jpg";
 import BeatLoader from "react-spinners/BeatLoader";
+
+import { Routes, Route } from "react-router-dom";
+
+import LoginPage from "./MainPage/LoginPage/login_page";
+import GetViewNewsPage from "./MainPage/ViewNewsPage/GetViewNewsPage";
+import GetNewsPage from "./MainPage/NewsPage/GetNewsPage";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       activ: "Main",
-      Searched: "",
     };
   }
 
@@ -50,11 +54,6 @@ class App extends React.Component {
     }
   }
 
-  callbackFunctionSearch = (childData) => {
-    this.setState({ Searched: childData })
-  }
-
-
   render() {
     if (CurentUser.loading) {
       return (
@@ -64,7 +63,7 @@ class App extends React.Component {
           backgroundRepeat: 'repeat',
         }}>
           <div className='Navbar-space'>
-            <Navbar empty="True"></Navbar>
+            <Navbar form="empty"></Navbar>
           </div>
           <div className='Page-content-space'>
             <BeatLoader></BeatLoader>
@@ -79,17 +78,62 @@ class App extends React.Component {
           backgroundSize: 'cover',
           backgroundRepeat: 'repeat',
         }}>
-          <div className='Navbar-space'>
-            <Navbar
-              DoSearch={this.callbackFunctionSearch}
-            ></Navbar>
-          </div>
-          <div className='Page-content-space'>
-            <MainPage
-              page={this.state.activ}
-              Searched={this.state.Searched}
-            ></MainPage>
-          </div>
+          <Routes>
+
+            <Route path="/" element={
+              <div>
+                <div className='Navbar-space'>
+                  <Navbar form="Full"></Navbar>
+                </div>
+                <div className='Page-content-space'>
+                  <GetNewsPage></GetNewsPage>
+                </div>
+              </div>
+
+            }>
+            </Route>
+
+            <Route path="news">
+              <Route path=":ViewNewsId" element={
+                <div>
+                  <div className='Navbar-space'>
+                    <Navbar form="NoSearch"></Navbar>
+                  </div>
+                  <div className='Page-content-space'>
+                    <GetViewNewsPage></GetViewNewsPage>
+                  </div>
+                </div>
+              }></Route>
+            </Route>
+
+            <Route path="authentication" element={
+              <div>
+                <div className='Navbar-space'>
+                  <Navbar form="NoSearch"></Navbar>
+                </div>
+                <div className='Page-content-space'>
+                  <LoginPage></LoginPage>
+                </div>
+              </div>
+            }></Route>
+
+            <Route
+              path="*"
+              element={
+                <div>
+                  <div className='Navbar-space'>
+                    <Navbar form="NoSearch"></Navbar>
+                  </div>
+                  <div className='Page-content-space'>
+                    <main style={{ padding: "1rem" }}>
+                      <p>There's nothing here!</p>
+                    </main>
+                  </div>
+                </div>
+              }
+            />
+
+          </Routes>
         </div>
       );
     }

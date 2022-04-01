@@ -37,7 +37,6 @@ class ViewNewsPage extends React.Component {
     }
   }
 
-
   async GetNewsByID() {
     try {
       let res = await fetch("/GetNewsByID", {

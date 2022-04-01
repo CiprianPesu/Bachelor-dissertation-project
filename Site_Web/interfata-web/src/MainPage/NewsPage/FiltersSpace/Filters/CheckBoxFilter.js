@@ -51,7 +51,6 @@ class CheckBoxFilter extends React.Component {
                                         },
                                     }
                                     }
-                                        defaultChecked
                                         onChange={this.handleChange} />}
                                     label={i}
                                 />

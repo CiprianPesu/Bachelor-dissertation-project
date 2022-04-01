@@ -7,7 +7,7 @@ import { ReactComponent as SearchIcon } from "../icons/search.svg";
 import NavItem from "./NavItem";
 import { styled } from '@mui/material/styles';
 import { InputBase } from '@mui/material/';
-
+import { Navigate } from 'react-router-dom';
 import CurentUser from "../stores/CurentUser";
 import { Link } from "react-router-dom";
 
@@ -38,9 +38,24 @@ class Navbar extends React.Component {
   constructor(props) {
     super(props);
     this.children = props.children;
-    this.state = {Searched:""}
 
-    this.handleSearchClick = this.handleSearchClick.bind(this);
+    let CurentUrl = window.location.href.split("?")
+
+    let Searched = ""
+
+    if (CurentUrl.length > 1) {
+      let CurentUrlPrefix = CurentUrl[1].split("Search=")
+
+      if (CurentUrlPrefix.length > 1) {
+        Searched = CurentUrlPrefix[1].split("&")[0]
+      }
+    }
+
+
+    this.state = {
+      LinkTo: "",
+      Searched: Searched
+    }
   }
 
 
@@ -70,26 +85,42 @@ class Navbar extends React.Component {
 
   handleChange = (event) => {
     let val = event.target.value;
+    let newUrl = "";
+
+    let CurentUrl = window.location.href.split("?")
+
+    if (CurentUrl.length == 1) {
+      newUrl = "?Search=" + val
+    }
+    else {
+      if(CurentUrl[1].includes("Search=")){
+        if(CurentUrl[1].includes("&")){
+          newUrl = "?Search=" + val + "&" + CurentUrl[1].substring(CurentUrl[1].indexOf('&')+1)
+        }
+        else{
+          newUrl = "?Search=" + val
+        }
+      }
+      else{
+        newUrl = "?Search=" + val + "&" + CurentUrl[1]
+      }
+    }
 
     this.setState({
       Searched: val,
+      LinkTo: newUrl,
     });
 
   };
 
-  handleSearchClick  = (event) =>{
-    this.props.DoSearch(this.state.Searched);
-  }
-
   render() {
-    if (this.props.empty !== "True") {
+    if (this.props.form == "Full") {
       return (
         <nav className="navbar">
           <div className="left-box">
             <Link to="/" ><a>Latest</a></Link>
             <a>Costume</a>
           </div>
-
           <div className="SearchBox">
             <CostumeInput
               id="standard-search"
@@ -104,11 +135,11 @@ class Navbar extends React.Component {
             />
             <div className="Spacer"></div>
             <div className="Search-Button">
-              <NavItem
-                icon={<SearchIcon />}
-                dropdown="false"
-                onClick={this.handleSearchClick}
-              ></NavItem>
+              <Link to={this.state.LinkTo}>
+                <NavItem
+                  icon={<SearchIcon />}
+                  dropdown="false"
+                ></NavItem></Link>
             </div>
 
           </div>
@@ -125,6 +156,27 @@ class Navbar extends React.Component {
           </div>
         </nav>
       );
+    }
+    else if ((this.props.form == "NoSearch")) {
+      return (
+        <nav className="navbar">
+          <div className="left-box">
+            <Link to="/" ><a>Latest</a></Link>
+            <a>Costume</a>
+          </div>
+
+          <div className="right-box">
+            <NavItem icon={<CaretIcon />} dropdown="true">
+              <DropdownMenu
+                logout={() => this.doLogOut()}
+                tomyaccount={() => this.tomyaccount}
+                ToLogIn={this.props.ToLogIn}
+                username={CurentUser.username}
+              ></DropdownMenu>
+            </NavItem>
+          </div>
+        </nav>
+      )
     }
     else {
       return (

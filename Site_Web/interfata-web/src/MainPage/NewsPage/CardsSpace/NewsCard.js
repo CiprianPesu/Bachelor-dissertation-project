@@ -1,10 +1,13 @@
 import React from "react";
 import "./NewsCard.css";
 import {Navigate} from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 
 import { ReactComponent as BBC } from "../../../icons/bbc-2.svg";
 import { ReactComponent as FoxNews } from "../../../icons/fox-3.svg";
 import { ReactComponent as CNN } from "../../../icons/cnn-logo.svg";
+
+const history = createBrowserHistory();
 
 class NewsCard extends React.Component {
   constructor(props) {
@@ -16,6 +19,7 @@ class NewsCard extends React.Component {
   }
 
   handleClick  = (event) =>{
+    history.push(window.location.href);
     this.setState({redirect:true})
   }
 

@@ -17,3 +17,12 @@ body > #root > div {
   align-items: center;
   justify-content: center;
 }
+
+@keyframes slide{
+  0%{
+      transform: translateX(100%);
+  }
+  100%{
+      transform: translateX(0%);
+  }
+}
