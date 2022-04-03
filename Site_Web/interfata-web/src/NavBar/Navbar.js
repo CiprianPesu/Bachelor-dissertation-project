@@ -94,8 +94,15 @@ class Navbar extends React.Component {
     }
     else {
       if(CurentUrl[1].includes("Search=")){
+
         if(CurentUrl[1].includes("&")){
+
           newUrl = "?Search=" + val + "&" + CurentUrl[1].substring(CurentUrl[1].indexOf('&')+1)
+
+          if(newUrl.includes("page=")){
+            newUrl = newUrl.split("page=")[0];
+          }
+
         }
         else{
           newUrl = "?Search=" + val

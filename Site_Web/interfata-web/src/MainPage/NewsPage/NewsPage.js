@@ -12,8 +12,8 @@ class NewsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            redirect:false,
-            ToRedirect:"/",
+            redirect: false,
+            ToRedirect: "/",
 
             FiltersActive: "false",
             loading: true,
@@ -27,17 +27,16 @@ class NewsPage extends React.Component {
 
             selectedFilters: {
                 ItemsPerPage: this.props.ItemsPerPage,
-                Search:this.props.Searched,
+                Search: this.props.Searched,
                 OrderBy: this.props.OrderBy,
                 Publications: this.props.Publications,
                 WordsCount: this.props.WordsCount,
             },
 
             pageNr: 1,
-            currentPage: 1,
-
-
+            currentPage: this.props.Page,
         };
+
         this.goToNextPage = this.goToNextPage.bind(this);
         this.goToPrevPage = this.goToPrevPage.bind(this);
         this.changePage = this.changePage.bind(this);
@@ -49,22 +48,23 @@ class NewsPage extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(this.state.redirect==true)
-        {
-            this.setState({redirect:false,})
+        if (this.state.redirect == true) {
+            this.setState({ redirect: false, })
         }
+
         if (prevProps.Searched !== this.props.Searched) {
             let oldSelectedFilters = this.state.selectedFilters
             delete oldSelectedFilters['Search']
+
             if (this.props.Searched !== "") {
                 oldSelectedFilters["Search"] = this.props.Searched
             }
-            else{
+            else {
                 delete oldSelectedFilters.Search
             }
             this.setState({
-                buttonDisable: true,
                 currentPage: 1,
+                buttonDisable: true,
                 items: [],
                 loading: true,
             }, () => {
@@ -106,21 +106,16 @@ class NewsPage extends React.Component {
                     oldFilters["WordsCount"] = result.WordsCount;
 
 
-                    if(window.location.href.split("&").length==1)
-                    {
+                    if (window.location.href.split("&").length == 1) {
                         oldSelectedFilters["WordsCount"] = result.WordsCount;
                         oldSelectedFilters["Publications"] = result.Publications;
                     }
-
-
-                    console.log(oldFilters);
 
                     this.setState({
                         Filters: oldFilters,
                         selectedFilters: oldSelectedFilters,
                     });
-
-                    this.getNews(oldSelectedFilters, 0);
+                    this.getNews(oldSelectedFilters, (this.state.currentPage - 1) * oldSelectedFilters.ItemsPerPage);
 
                 } else {
                     alert(result.msg);
@@ -128,11 +123,8 @@ class NewsPage extends React.Component {
             });
         }
         catch (error) {
-            this.setState({
-            });
             console.log(error);
         };
-
     }
 
 
@@ -149,37 +141,33 @@ class NewsPage extends React.Component {
             else {
                 curentFilters[FilterName].push(FilterValue)
             }
-
-            console.log(curentFilters[FilterName]);
-
         }
         else if (FilterType === "DoubleSlider") {
             curentFilters[FilterName] = FilterValue;
         }
-        
-        let ToRedirect="?"
-        if("Search" in curentFilters)
-        {
-            ToRedirect=ToRedirect+"Search="+curentFilters.Search+"&"
+
+        let ToRedirect = "?"
+        if ("Search" in curentFilters) {
+            ToRedirect = ToRedirect + "Search=" + curentFilters.Search + "&"
         }
 
 
-        ToRedirect=ToRedirect+"Publications="+curentFilters.Publications+"&"+
-        "OrderBy="+curentFilters.OrderBy+"&"+
-        "WordsCount="+curentFilters.WordsCount+"&"+
-        "ItemsPerPage="+curentFilters.ItemsPerPage
+        ToRedirect = ToRedirect + "Publications=" + curentFilters.Publications + "&" +
+            "OrderBy=" + curentFilters.OrderBy + "&" +
+            "WordsCount=" + curentFilters.WordsCount + "&" +
+            "ItemsPerPage=" + curentFilters.ItemsPerPage + "&" +
+            "page=" + this.state.currentPage
 
 
-        console.log(ToRedirect);    
-        this.setState({ selectedFilters: curentFilters, loading: true, ToRedirect:ToRedirect,redirect:true, })
-        this.getNews(curentFilters,0);
+        this.setState({ selectedFilters: curentFilters, loading: true, ToRedirect: ToRedirect, redirect: true, })
+        this.getNews(curentFilters, (this.state.currentPage - 1) * curentFilters.ItemsPerPage);
     }
 
 
     async getNews(filters, from) {
         try {
 
-            if(filters.Search==""){
+            if (filters.Search == "") {
                 delete filters.Search
             }
 
@@ -252,12 +240,28 @@ class NewsPage extends React.Component {
 
     changePage(event) {
         const pageNumber = Number(event.target.textContent);
+
+
+        let ToRedirect = "?"
+        if ("Search" in this.state.selectedFilters) {
+            ToRedirect = ToRedirect + "Search=" + this.state.selectedFilters.Search + "&"
+        }
+
+
+        ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+            "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
+            "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
+            "ItemsPerPage=" + this.state.selectedFilters.ItemsPerPage + "&" +
+            "page=" + pageNumber
+
         this.setState({
+            ToRedirect: ToRedirect,
+            redirect: true,
             currentPage: pageNumber,
             items: [],
             loading: true,
         }, () => {
-            this.getNews(this.state.selectedFilters, (this.state.currentPage - 1) * this.state.selectedFilters.ItemsPerPage);
+            this.getNews(this.state.selectedFilters, (pageNumber - 1) * this.state.selectedFilters.ItemsPerPage);
         });
     }
 
@@ -265,14 +269,30 @@ class NewsPage extends React.Component {
 
         if (this.state.currentPage != this.state.pageNr) {
 
+
             var old = this.state.currentPage + 1;
+
+            let ToRedirect = "?"
+            if ("Search" in this.state.selectedFilters) {
+                ToRedirect = ToRedirect + "Search=" + this.state.selectedFilters.Search + "&"
+            }
+
+
+            ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
+                "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
+                "ItemsPerPage=" + this.state.selectedFilters.ItemsPerPage + "&" +
+                "page=" + old
+
             this.setState({
+                ToRedirect: ToRedirect,
+                redirect: true,
                 currentPage: old,
                 items: [],
                 loading: true,
 
             }, () => {
-                this.getNews(this.state.selectedFilters, (this.state.currentPage - 1) * this.state.selectedFilters.ItemsPerPage);
+                this.getNews(this.state.selectedFilters, (old - 1) * this.state.selectedFilters.ItemsPerPage);
             })
         }
     }
@@ -280,12 +300,28 @@ class NewsPage extends React.Component {
     goToPrevPage() {
 
         if (this.state.currentPage != 1) {
+
+            var old = this.state.currentPage - 1;
+
+            let ToRedirect = "?"
+            if ("Search" in this.state.selectedFilters) {
+                ToRedirect = ToRedirect + "Search=" + this.state.selectedFilters.Search + "&"
+            }
+
+            ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
+                "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
+                "ItemsPerPage=" + this.state.selectedFilters.ItemsPerPage + "&" +
+                "page=" + old
+
             this.setState({
-                currentPage: this.state.currentPage - 1,
+                ToRedirect: ToRedirect,
+                redirect: true,
+                currentPage: old,
                 items: [],
                 loading: true,
             }, () => {
-                this.getNews(this.state.selectedFilters, (this.state.currentPage - 1) * this.state.selectedFilters.ItemsPerPage)
+                this.getNews(this.state.selectedFilters, (old - 1) * this.state.selectedFilters.ItemsPerPage)
             });
         }
     }
@@ -327,7 +363,7 @@ class NewsPage extends React.Component {
         return (
             <div className="PageContent">
                 <div className="Filter-Outer">
-                    <div className="Filters-Space"  FiltersActive={this.state.FiltersActive}>
+                    <div className="Filters-Space" FiltersActive={this.state.FiltersActive}>
                         <div className="List" id="scrollableDivFilters">
                             <InfiniteScroll
                                 dataLength={filters.length}

@@ -9,7 +9,6 @@ class CheckBoxFilter extends React.Component {
         super(props);
         this.state = {
             activeMenu: "false",
-            value: "",
         };
     }
 
@@ -50,8 +49,9 @@ class CheckBoxFilter extends React.Component {
                                             color:"#285279",
                                         },
                                     }
-                                    }
-                                        onChange={this.handleChange} />}
+                                }
+                                    checked={this.props.Default.includes(i)}
+                                    onChange={this.handleChange} />}
                                     label={i}
                                 />
                             ))}

@@ -13,6 +13,8 @@ function GetNewsPage() {
     let ItemsPerPage = 25;
     let WordsCount = [0, 0];
     let Publications = [];
+    let Page = 1;
+
     for (const entry of searchParams.entries()) {
         if (entry[0] === "Search") {
             Searched = entry[1]
@@ -23,7 +25,6 @@ function GetNewsPage() {
                     Publications.push(entry[1].split(",")[i])
                 }
             }
-
         }
         else if (entry[0] === "OrderBy") {
             if (entry[1] != "") {
@@ -43,11 +44,16 @@ function GetNewsPage() {
                 ItemsPerPage = entry[1]
             }
         }
-
+        else if (entry[0] === "page") {
+            if (entry[1] != "") {
+                Page = parseInt(entry[1])
+            }
+        }
     }
 
     return (
         <NewsPage
+            Page={Page}
             Searched={Searched}
             ItemsPerPage={ItemsPerPage}
             Publications={Publications}
