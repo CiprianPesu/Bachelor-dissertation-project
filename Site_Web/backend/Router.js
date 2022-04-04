@@ -205,7 +205,7 @@ class Router {
       let password = bcrypt.hashSync(req.body.password, 9);
       let email = req.body.email;
 
-      RegisterUser(db, username, password, email).then((response) => res.json(response));
+      RegisterUser(db, username, password, email, "/costume").then((response) => res.json(response));
       return;
     })
   }
@@ -359,8 +359,6 @@ async function queryElasticFilters(ElasticClient) {
 
 async function queryElasticNews(ElasticClient, filters, from) {
 
-
-  let order = "";
   if (filters.OrderBy === "leatest") {
     sortFilter = [
       {
@@ -500,12 +498,15 @@ async function CheckIsLoggedIn(db, sessionId) {
         success: true,
         username: rows[item].Username,
         admin: rows[item].Admin,
+        email:rows[item].Email,
+        id: rows[item].ID,
+        preference: rows[item].Preference
       })
     }
   }
   else {
     return JSON.stringify({
-      success: error,
+      success: false,
     })
   }
 
@@ -533,7 +534,12 @@ async function CheckLoginCreds(db, username, password) {
             return JSON.stringify({
               success: true,
               msg: "Success",
+              success: true,
+              username: rows[item].Username,
+              admin: rows[item].Admin,
+              email:rows[item].Email,
               id: rows[item].ID,
+              preference: rows[item].Preference,
             })
           }
           return JSON.stringify({
@@ -563,7 +569,7 @@ async function CheckLoginCreds(db, username, password) {
   }
 }
 
-async function RegisterUser(db, username, password, email) {
+async function RegisterUser(db, username, password, email, preference) {
   let values = username;
   const result = await db.query("SELECT * FROM users WHERE Username = ?", values);
   let rows = result[0]
@@ -574,8 +580,8 @@ async function RegisterUser(db, username, password, email) {
   })
 
   if (count == 0) {
-    let values = [username, password, email];
-    let result = await db.query("INSERT INTO users (Username, Password,	Email ,Admin) VALUES (? , ? , ? , 32)", values);
+    let values = [username, password, email, preference];
+    let result = await db.query("INSERT INTO users (Username, Password,	Email, Preference, Admin) VALUES (? , ? , ? , ? ,32)", values);
     if (result == null) {
       return JSON.stringify({
         success: false,

@@ -159,7 +159,7 @@ function DropdownMenu(props) {
             onEnter={calcHeight}
           >
             <div className="menu">
-              <Link to="authentication">
+              <Link to="/authentication">
                 <DropdownItemButton
                   link="#"
                   leftIcon={<UserIcon />}>

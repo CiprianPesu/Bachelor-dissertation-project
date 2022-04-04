@@ -6,8 +6,6 @@ function GetNewsPage() {
 
     const [searchParams] = useSearchParams();
 
-    let entries = searchParams.entries()
-
     let Searched = "";
     let OrderBy = "leatest";
     let ItemsPerPage = 25;

@@ -7,8 +7,9 @@ class CurentUser {
       isLoggedIn: false,
       username: "",
       password: "",
+      email: "",
       admin: 0,
-      curentPage:1,
+      preference:"/costume",
     });
   }
 }

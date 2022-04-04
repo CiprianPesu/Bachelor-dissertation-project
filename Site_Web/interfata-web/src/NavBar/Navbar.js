@@ -7,7 +7,6 @@ import { ReactComponent as SearchIcon } from "../icons/search.svg";
 import NavItem from "./NavItem";
 import { styled } from '@mui/material/styles';
 import { InputBase } from '@mui/material/';
-import { Navigate } from 'react-router-dom';
 import CurentUser from "../stores/CurentUser";
 import { Link } from "react-router-dom";
 
@@ -51,14 +50,11 @@ class Navbar extends React.Component {
       }
     }
 
-
     this.state = {
       LinkTo: "",
       Searched: Searched
     }
   }
-
-
 
   async doLogOut() {
     try {
@@ -93,22 +89,22 @@ class Navbar extends React.Component {
       newUrl = "?Search=" + val
     }
     else {
-      if(CurentUrl[1].includes("Search=")){
+      if (CurentUrl[1].includes("Search=")) {
 
-        if(CurentUrl[1].includes("&")){
+        if (CurentUrl[1].includes("&")) {
 
-          newUrl = "?Search=" + val + "&" + CurentUrl[1].substring(CurentUrl[1].indexOf('&')+1)
+          newUrl = "?Search=" + val + "&" + CurentUrl[1].substring(CurentUrl[1].indexOf('&') + 1)
 
-          if(newUrl.includes("page=")){
+          if (newUrl.includes("page=")) {
             newUrl = newUrl.split("page=")[0];
           }
 
         }
-        else{
+        else {
           newUrl = "?Search=" + val
         }
       }
-      else{
+      else {
         newUrl = "?Search=" + val + "&" + CurentUrl[1]
       }
     }
@@ -126,7 +122,7 @@ class Navbar extends React.Component {
         <nav className="navbar">
           <div className="left-box">
             <Link to="/" ><a>Latest</a></Link>
-            <a>Costume</a>
+            <Link to="/costume"><a>Costume</a></Link>
           </div>
           <div className="SearchBox">
             <CostumeInput
@@ -169,7 +165,7 @@ class Navbar extends React.Component {
         <nav className="navbar">
           <div className="left-box">
             <Link to="/" ><a>Latest</a></Link>
-            <a>Costume</a>
+            <Link to="/costume"><a>Costume</a></Link>
           </div>
 
           <div className="right-box">

@@ -16,7 +16,7 @@ const Router = require("./Router");
 async function SetUpDb() {
   try{
     //await db.query({ sql:"DROP TABLE users"});
-    let result=await db.query({ sql:"CREATE TABLE users ( ID int NOT NULL AUTO_INCREMENT, Username varchar(128) NOT NULL,Password varchar(128),Email varchar(128),Admin	tinyint(1),PRIMARY KEY (ID))"});
+    let result=await db.query({ sql:"CREATE TABLE users ( ID int NOT NULL AUTO_INCREMENT, Username varchar(128) NOT NULL,Password varchar(128),Email varchar(128),Preference varchar(256),Admin	tinyint(1),PRIMARY KEY (ID))"});
   }
   catch(e){
     if(e.code="ER_TABLE_EXISTS_ERROR"){
@@ -27,7 +27,7 @@ async function SetUpDb() {
     }
   }
 
-  console.log("Th database is set up");
+  console.log("The database is set up");
 }
 
 

@@ -6,7 +6,9 @@ import Footer from "./Footer"
 import Filter from "./FiltersSpace/Filter";
 import CardsSpace from "./CardsSpace/CardSpace";
 import { Navigate } from 'react-router-dom';
+import { Button } from '@mui/material/';
 
+import CurentUser from "../../stores/CurentUser";
 
 class NewsPage extends React.Component {
 
@@ -327,6 +329,33 @@ class NewsPage extends React.Component {
         }
     }
 
+    async saveClick() {
+        try {
+            let res = await fetch("/SaveFilters", {
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    UserID: CurentUser.UserID,
+                }),
+            });
+
+            await res.json().then((result) => {
+                if (result && result.success) {
+                    alert("Saved");
+                } else {
+                    alert(result.msg);
+                }
+            });
+        }
+        catch (error) {
+            console.log(error);
+        };
+    }
+
+
     render() {
 
         let filters = [
@@ -366,6 +395,16 @@ class NewsPage extends React.Component {
             <div className="PageContent">
                 <div className="Filter-Outer">
                     <div className="Filters-Space" FiltersActive={this.state.FiltersActive}>
+                        <div className="OuterFilter-Costume">
+                            <div className="FilterTitle"> Filters :
+                                <div className="Filter-Select">
+                                    <Button variant="contained" color="primary" href={CurentUser.preference}>Load</Button>
+                                    <Button variant="contained" color="primary">Save</Button>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div className="List" id="scrollableDivFilters">
                             <InfiniteScroll
                                 dataLength={filters.length}

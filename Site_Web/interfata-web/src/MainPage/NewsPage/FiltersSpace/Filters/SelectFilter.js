@@ -47,8 +47,7 @@ class SelectFilter extends React.Component {
         return (
             <div className="OuterFilter">
                 <div className="FilterTitle">{this.props.Title}
-                    <div className="Spacer"></div>
-                    <div>
+                    <div className="Filter-Select">
                         <FormControl fullWidth>
                             <NativeSelect
                                 defaultValue={this.props.Default}

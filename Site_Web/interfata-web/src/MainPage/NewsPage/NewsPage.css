@@ -108,3 +108,11 @@
 .Filters-Space-Toggle-Button:hover{
     color: var(--pastel_3);
 }
+
+
+
+.Filter-Select > Button{
+    background: var(--pastel_3);
+    margin-left: 10px;
+    height: 30px;
+}

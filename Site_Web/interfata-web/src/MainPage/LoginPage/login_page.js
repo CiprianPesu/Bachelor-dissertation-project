@@ -156,6 +156,8 @@ class Login_Page extends React.Component {
           CurentUser.username = name;
           CurentUser.isLoggedIn = true;
           CurentUser.admin = response.admin;
+          CurentUser.preference = response.preference;
+          CurentUser.email=response.email;
 
           this.setState({redirect:true})
           
