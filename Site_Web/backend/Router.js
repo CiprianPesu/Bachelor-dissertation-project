@@ -17,6 +17,7 @@ class Router {
     this.UpdateUsername(app, db);
     this.UpdatePassworld(app, db);
     this.UpdateEmail(app, db);
+    this.UpdatePreference(app, db);
     this.GetUsers(app, db);
     this.toggleAdmin(app, db);
     this.DeleteUser(app, db);
@@ -199,13 +200,23 @@ class Router {
     });
   }
 
+  UpdatePreference(app, db) {
+    app.post("/UpdatePreference", (req, res) => {
+      let preference = req.body.preference;
+
+      UpdateUserPreference(db, req.session.userID, preference).then((response) => {res.json(response)});
+      return;
+    });
+  }
+
+
   register(app, db) {
     app.post("/register", (req, res) => {
       let username = req.body.username;
       let password = bcrypt.hashSync(req.body.password, 9);
       let email = req.body.email;
 
-      RegisterUser(db, username, password, email, "/costume").then((response) => res.json(response));
+      RegisterUser(db, username, password, email, "/costume").then((response) => {res.json(response)});
       return;
     })
   }
@@ -588,11 +599,34 @@ async function RegisterUser(db, username, password, email, preference) {
         msg: "An error has occured",
       })
     }
+    else{
+      return JSON.stringify({
+        success: true,
+        msg: "New user account has been created",
+      })
+    }
   }
   else {
     return JSON.stringify({
       success: false,
       msg: "Username is already taken",
+    })
+  }
+}
+
+async function UpdateUserPreference(db, id, preference) {
+  let values = [preference, id];
+  let result = await db.query("UPDATE users SET Preference = ? WHERE ID = ?", values);
+  if (result == null) {
+    return JSON.stringify({
+      success: false,
+      msg: "An error has occured",
+    })
+  }
+  else {
+    return JSON.stringify({
+      success: true,
+      msg: "User preference updated",
     })
   }
 }

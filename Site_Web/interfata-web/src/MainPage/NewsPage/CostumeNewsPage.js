@@ -46,6 +46,7 @@ class NewsPage extends React.Component {
         this.getNews = this.getNews.bind(this);
         this.getFiters = this.getFiters.bind(this);
         this.changeSelectedFilters = this.changeSelectedFilters.bind(this);
+        this.saveClicked = this.saveClicked.bind(this);
 
         this.getFiters();
     }
@@ -329,24 +330,38 @@ class NewsPage extends React.Component {
         }
     }
 
-    async saveClick() {
+    async saveClicked() {
         try {
-            let res = await fetch("/SaveFilters", {
+            let PreferenceLink = "/costume?"
+            if ("Search" in this.state.selectedFilters) {
+                PreferenceLink = PreferenceLink + "Search=" + this.state.selectedFilters.Search + "&"
+            }
+    
+    
+            PreferenceLink = PreferenceLink + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
+                "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
+                "ItemsPerPage=" + this.state.selectedFilters.ItemsPerPage
+
+            let res = await fetch("/UpdatePreference", {
                 method: "post",
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    UserID: CurentUser.UserID,
+                    preference: PreferenceLink,
                 }),
             });
 
             await res.json().then((result) => {
-                if (result && result.success) {
-                    alert("Saved");
+                console.log(result);
+                if (result["success"]) {
+                    alert(result["msg"]);
+                    console.log("Saved");
+                    CurentUser.preference = PreferenceLink;
                 } else {
-                    alert(result.msg);
+                    alert(result["msg"]);
                 }
             });
         }
@@ -399,10 +414,9 @@ class NewsPage extends React.Component {
                             <div className="FilterTitle"> Filters :
                                 <div className="Filter-Select">
                                     <Button variant="contained" color="primary" href={CurentUser.preference}>Load</Button>
-                                    <Button variant="contained" color="primary">Save</Button>
+                                    <Button variant="contained" color="primary" onClick={() => this.saveClicked()}>Save</Button>
                                 </div>
                             </div>
-
                         </div>
 
                         <div className="List" id="scrollableDivFilters">
@@ -452,8 +466,7 @@ class NewsPage extends React.Component {
                     goToPrevPage={this.goToPrevPage}
                     goToNextPage={this.goToNextPage}
                     changePage={this.changePage}
-                >
-                </Footer>
+                ></Footer>
 
                 {this.state.redirect && <Navigate to={this.state.ToRedirect} replace={true} />}
             </div>

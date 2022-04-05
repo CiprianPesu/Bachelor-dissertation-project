@@ -8,6 +8,9 @@ import { TextField } from '@mui/material/';
 import { Button } from '@mui/material/';
 import { Navigate } from 'react-router-dom';
 
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
 const CostumeField = styled(TextField)(({ theme }) => ({
   margin: " 0 0 10px 0",
   color: '#74aa9d',
@@ -48,7 +51,13 @@ class Login_Page extends React.Component {
       email: "",
       page: "Login",
       buttonDisable: false,
-      redirect:false
+      redirect: false,
+
+      Alert: {
+        open: false,
+        severity: "error",
+        message: "",
+      }
     };
 
     this.doLogIn = this.doLogIn.bind(this);
@@ -72,18 +81,22 @@ class Login_Page extends React.Component {
     this.setState({
       username: "",
       password: "",
+      email: "",
       buttonDisable: false,
     });
   }
 
   async doRegister() {
     if (!this.state.username) {
+      this.setState({ Alert: { open: true, severity: "error", message: "Please enter your username !" } });
       return;
     }
     if (!this.state.password) {
+      this.setState({ Alert: { open: true, severity: "error", message: "Please enter your password !" } });
       return;
     }
     if (!this.state.email) {
+      this.setState({ Alert: { open: true, severity: "error", message: "Please enter your email !" } });
       return;
     }
 
@@ -106,28 +119,28 @@ class Login_Page extends React.Component {
       });
 
       let result = await res.json();
+      result = JSON.parse(result);
 
       if (result && result.success) {
-        this.reset();
-        this.setState.page = "Login";
-        alert(result.msg);
+        this.setState({ page: "Login", Alert: { open: true, severity: "success", message: "Register Successfully !" } });
       } else {
-        this.reset();
-        alert(result.msg);
+        this.setState({ Alert: { open: true, severity: "error", message: result.msg } });
       }
     } catch (error) {
       console.log(error);
-      this.reset();
     }
+    this.reset();
   }
 
   async doLogIn() {
-    
-   
+
+
     if (!this.state.username) {
+      this.setState({ Alert: { open: true, severity: "error", message: "Please enter your username !" } });
       return;
     }
     if (!this.state.password) {
+      this.setState({ Alert: { open: true, severity: "error", message: "Please enter your password !" } });
       return;
     }
 
@@ -157,14 +170,14 @@ class Login_Page extends React.Component {
           CurentUser.isLoggedIn = true;
           CurentUser.admin = response.admin;
           CurentUser.preference = response.preference;
-          CurentUser.email=response.email;
+          CurentUser.email = response.email;
 
-          this.setState({redirect:true})
-          
+          this.setState({ redirect: true })
+
         }
         else {
           this.reset();
-          alert(response.msg);
+          this.setState({ Alert: { open: true, severity: "error", message: response.msg } });
         }
       });
     } catch (error) {
@@ -181,110 +194,132 @@ class Login_Page extends React.Component {
     this.setState({ page: "Login" });
   }
 
+  handleCloseAlert = (event, reason) => {
+    this.setState({ Alert: { open: false, severity: "error", message: "" } });
+  };
 
   render() {
 
     if (this.state.page == "Login") {
       return (
-          <div className="loginForm">
-            <a className="Text">Autentificare</a>
-            <div className="InputDiv">
-              <CostumeField
-                fullWidth
-                id="standard-search"
-                label="Username"
-                type="text"
-                value={this.state.username}
-                name="username"
-                onChange={this.handleChange}
-                variant="standard"
-              />
-              <CostumeField
-                fullWidth
-                id="standard-search"
-                label="Password"
-                type="password"
-                value={this.state.password}
-                name="password"
-                onChange={this.handleChange}
-                variant="standard"
-              />
-              <CostumeField className="HiddenFiled"
-                fullWidth
-                id="standard-search"
-                label="Password"
-                type="password"
-                name="password"
-                variant="standard"/>
-            </div>
-            <div className="ButtonsDiv">
-              <Button
-                disabled={this.state.disabled}
-                variant="contained"
-                color="success"
-                onClick={() => this.doLogIn()}>
-                LogIn
-              </Button>
-              <Button
-                disabled={this.state.disabled}
-                variant="contained"
-                color="success"
-                onClick={() => this.goRegister()}>
-                Register
-              </Button>
-              {this.state.redirect && <Navigate to='/' replace={true} />}
-            </div>
+        <div className="loginForm">
+
+          <Snackbar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            open={this.state.Alert.open}
+            autoHideDuration={5000}
+            onClose={this.handleCloseAlert}
+            key={"vertical"}>
+            <Alert severity={this.state.Alert.severity} variant="filled" >{this.state.Alert.message}</Alert>
+          </Snackbar>
+
+          <a className="Text">Autentificare</a>
+          <div className="InputDiv">
+            <CostumeField
+              fullWidth
+              id="standard-search"
+              label="Username"
+              type="text"
+              value={this.state.username}
+              name="username"
+              onChange={this.handleChange}
+              variant="standard"
+            />
+            <CostumeField
+              fullWidth
+              id="standard-search"
+              label="Password"
+              type="password"
+              value={this.state.password}
+              name="password"
+              onChange={this.handleChange}
+              variant="standard"
+            />
+            <CostumeField className="HiddenFiled"
+              fullWidth
+              id="standard-search"
+              label="Password"
+              type="password"
+              name="password"
+              variant="standard" />
+          </div>
+          <div className="ButtonsDiv">
+            <Button
+              disabled={this.state.disabled}
+              variant="contained"
+              color="success"
+              onClick={() => this.doLogIn()}>
+              LogIn
+            </Button>
+            <Button
+              disabled={this.state.disabled}
+              variant="contained"
+              color="success"
+              onClick={() => this.goRegister()}>
+              Register
+            </Button>
+            {this.state.redirect && <Navigate to='/' replace={true} />}
+          </div>
         </div>)
     }
     else {
       return (
-          <div className="RegisterForm">
-            <a className="Text">Inregistrare</a>
-            <div className="InputDiv">
-              <CostumeField
-                fullWidth
-                id="standard-search"
-                label="Username"
-                type="text"
-                value={this.state.username}
-                name="username"
-                onChange={this.handleChange}
-                variant="standard"
-              />
-              <CostumeField
-                fullWidth
-                id="standard-search"
-                label="Password"
-                type="password"
-                value={this.state.password}
-                name="password"
-                onChange={this.handleChange}
-                variant="standard"
-              />
-              <CostumeField
-                fullWidth
-                id="standard-search"
-                label="Email"
-                type="email"
-                value={this.state.email}
-                name="email"
-                onChange={this.handleChange}
-                variant="standard"
-              />
-            </div>
-            <div className="ButtonsDiv">
 
-              <Button
-                disabled={this.state.disabled}
-                variant="contained"
-                onClick={() => this.goLogin()}
-              >LogIn</Button>
-              <Button
-                disabled={this.state.disabled}
-                variant="contained"
-                onClick={() => this.doRegister()}>Register</Button>
+        <div className="RegisterForm">
+          <Snackbar
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            open={this.state.Alert.open}
+            autoHideDuration={5000}
+            onClose={this.handleCloseAlert}
+            key={"vertical"}>
+            <Alert severity={this.state.Alert.severity} variant="filled" >{this.state.Alert.message}</Alert>
+          </Snackbar>
+          <a className="Text">Inregistrare</a>
+          <div className="InputDiv">
+            <CostumeField
+              fullWidth
+              id="standard-search"
+              label="Username"
+              type="text"
+              value={this.state.username}
+              name="username"
+              onChange={this.handleChange}
+              variant="standard"
+            />
+            <CostumeField
+              fullWidth
+              id="standard-search"
+              label="Password"
+              type="password"
+              value={this.state.password}
+              name="password"
+              onChange={this.handleChange}
+              variant="standard"
+            />
+            <CostumeField
+              fullWidth
+              id="standard-search"
+              label="Email"
+              type="email"
+              value={this.state.email}
+              name="email"
+              onChange={this.handleChange}
+              variant="standard"
+            />
+          </div>
+          <div className="ButtonsDiv">
 
-            </div>
+            <Button
+              disabled={this.state.disabled}
+              variant="contained"
+              onClick={() => this.goLogin()}
+            >LogIn</Button>
+            <Button
+              disabled={this.state.disabled}
+              variant="contained"
+              onClick={() => this.doRegister()}>Register</Button>
+
+          </div>
         </div>)
 
     }

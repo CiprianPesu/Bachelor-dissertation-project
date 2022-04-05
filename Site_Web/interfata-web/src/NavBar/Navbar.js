@@ -122,7 +122,7 @@ class Navbar extends React.Component {
         <nav className="navbar">
           <div className="left-box">
             <Link to="/" ><a>Latest</a></Link>
-            <Link to="/costume"><a>Costume</a></Link>
+            <Link to={CurentUser.preference}><a>Costume</a></Link>
           </div>
           <div className="SearchBox">
             <CostumeInput
@@ -165,7 +165,7 @@ class Navbar extends React.Component {
         <nav className="navbar">
           <div className="left-box">
             <Link to="/" ><a>Latest</a></Link>
-            <Link to="/costume"><a>Costume</a></Link>
+            <Link to={CurentUser.preference}><a>Costume</a></Link>
           </div>
 
           <div className="right-box">
