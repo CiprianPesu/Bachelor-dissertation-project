@@ -87,6 +87,9 @@ class Login_Page extends React.Component {
   }
 
   async doRegister() {
+    
+
+
     if (!this.state.username) {
       this.setState({ Alert: { open: true, severity: "error", message: "Please enter your username !" } });
       return;
@@ -122,31 +125,29 @@ class Login_Page extends React.Component {
       result = JSON.parse(result);
 
       if (result && result.success) {
-        this.setState({ page: "Login", Alert: { open: true, severity: "success", message: "Register Successfully !" } });
+        this.setState({ page: "Login", buttonDisable: false, Alert: { open: true, severity: "success", message: "Register Successfully !" } });
       } else {
-        this.setState({ Alert: { open: true, severity: "error", message: result.msg } });
+        this.setState({ buttonDisable: false, Alert: { open: true, severity: "error", message: result.msg } });
       }
     } catch (error) {
       console.log(error);
+      this.setState({ buttonDisable: false });
     }
     this.reset();
   }
 
   async doLogIn() {
 
+    this.setState({ buttonDisable: true });
 
     if (!this.state.username) {
-      this.setState({ Alert: { open: true, severity: "error", message: "Please enter your username !" } });
+      this.setState({ buttonDisable: false, Alert: { open: true, severity: "error", message: "Please enter your username !" } });
       return;
     }
     if (!this.state.password) {
-      this.setState({ Alert: { open: true, severity: "error", message: "Please enter your password !" } });
+      this.setState({ buttonDisable: false, Alert: { open: true, severity: "error", message: "Please enter your password !" } });
       return;
     }
-
-    this.setState({
-      buttonDisable: false,
-    });
 
     const name = this.state.username
 
@@ -177,10 +178,11 @@ class Login_Page extends React.Component {
         }
         else {
           this.reset();
-          this.setState({ Alert: { open: true, severity: "error", message: response.msg } });
+          this.setState({ buttonDisable: false, Alert: { open: true, severity: "error", message: response.msg } });
         }
       });
     } catch (error) {
+      this.setState({ buttonDisable: false });
       console.log(error);
       this.reset();
     }
@@ -195,17 +197,17 @@ class Login_Page extends React.Component {
   }
 
   handleCloseAlert = (event, reason) => {
-    this.setState({ Alert: { open: false, severity: "error", message: "" } });
+    let NewAlert = this.state.Alert;
+    NewAlert.open = false;
+    this.setState({ Alert: NewAlert });
   };
-
   render() {
 
     if (this.state.page == "Login") {
       return (
         <div className="loginForm">
-
           <Snackbar
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: "right" }}
             open={this.state.Alert.open}
             autoHideDuration={5000}
             onClose={this.handleCloseAlert}
@@ -245,14 +247,14 @@ class Login_Page extends React.Component {
           </div>
           <div className="ButtonsDiv">
             <Button
-              disabled={this.state.disabled}
+              disabled={this.state.buttonDisable}
               variant="contained"
               color="success"
               onClick={() => this.doLogIn()}>
               LogIn
             </Button>
             <Button
-              disabled={this.state.disabled}
+              disabled={this.state.buttonDisable}
               variant="contained"
               color="success"
               onClick={() => this.goRegister()}>
@@ -267,7 +269,7 @@ class Login_Page extends React.Component {
 
         <div className="RegisterForm">
           <Snackbar
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: 'bottom', horizontal: "right" }}
             open={this.state.Alert.open}
             autoHideDuration={5000}
             onClose={this.handleCloseAlert}
@@ -310,15 +312,14 @@ class Login_Page extends React.Component {
           <div className="ButtonsDiv">
 
             <Button
-              disabled={this.state.disabled}
+              disabled={this.state.buttonDisable}
               variant="contained"
               onClick={() => this.goLogin()}
             >LogIn</Button>
             <Button
-              disabled={this.state.disabled}
+              disabled={this.state.buttonDisable}
               variant="contained"
               onClick={() => this.doRegister()}>Register</Button>
-
           </div>
         </div>)
 

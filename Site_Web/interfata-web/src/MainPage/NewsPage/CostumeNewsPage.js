@@ -10,6 +10,9 @@ import { Button } from '@mui/material/';
 
 import CurentUser from "../../stores/CurentUser";
 
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
 class NewsPage extends React.Component {
 
     constructor(props) {
@@ -20,6 +23,9 @@ class NewsPage extends React.Component {
 
             FiltersActive: "false",
             loading: true,
+
+            pageNr: 1,
+            currentPage: this.props.Page,
 
             items: [],
 
@@ -36,8 +42,11 @@ class NewsPage extends React.Component {
                 WordsCount: this.props.WordsCount,
             },
 
-            pageNr: 1,
-            currentPage: this.props.Page,
+            Alert: {
+                open: false,
+                severity: "error",
+                message: "",
+            }
         };
 
         this.goToNextPage = this.goToNextPage.bind(this);
@@ -336,8 +345,8 @@ class NewsPage extends React.Component {
             if ("Search" in this.state.selectedFilters) {
                 PreferenceLink = PreferenceLink + "Search=" + this.state.selectedFilters.Search + "&"
             }
-    
-    
+
+
             PreferenceLink = PreferenceLink + "Publications=" + this.state.selectedFilters.Publications + "&" +
                 "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
                 "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
@@ -355,21 +364,26 @@ class NewsPage extends React.Component {
             });
 
             await res.json().then((result) => {
-                console.log(result);
+                result = JSON.parse(result);
                 if (result["success"]) {
-                    alert(result["msg"]);
-                    console.log("Saved");
+                    this.setState({ Alert: { open: true, severity: "success", message: "Filters saved successfully" } });
                     CurentUser.preference = PreferenceLink;
                 } else {
-                    alert(result["msg"]);
+                    this.setState({ Alert: { open: true, severity: "success", message:"We were unable to update your preferences" } });
                 }
             });
         }
         catch (error) {
-            console.log(error);
+            this.setState({ Alert: { open: true, severity: "error", message:"We were unable to update your preferences" } });
         };
     }
 
+    handleCloseAlert = (event, reason) => {
+
+        let NewAlert=this.state.Alert
+        NewAlert.open=false
+        this.setState({ Alert: NewAlert });
+    };
 
     render() {
 
@@ -406,8 +420,17 @@ class NewsPage extends React.Component {
             },
         ]
 
+
         return (
             <div className="PageContent">
+                <Snackbar
+                    anchorOrigin={{ vertical: 'bottom', horizontal: "right" }}
+                    open={this.state.Alert.open}
+                    autoHideDuration={5000}
+                    onClose={this.handleCloseAlert}
+                    key={"vertical"}>
+                    <Alert severity={this.state.Alert.severity} variant="filled" >{this.state.Alert.message}</Alert>
+                </Snackbar>
                 <div className="Filter-Outer">
                     <div className="Filters-Space" FiltersActive={this.state.FiltersActive}>
                         <div className="OuterFilter-Costume">
@@ -419,7 +442,7 @@ class NewsPage extends React.Component {
                             </div>
                         </div>
 
-                        <div className="List" id="scrollableDivFilters">
+                        <div className="List-Filters-Costume" id="scrollableDivFilters">
                             <InfiniteScroll
                                 dataLength={filters.length}
                                 scrollableTarget="scrollableDivFilters"
