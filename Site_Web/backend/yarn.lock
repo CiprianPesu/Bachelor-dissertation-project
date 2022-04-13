@@ -660,7 +660,7 @@
     "opencollective-postinstall" "^2.0.0"
     "tz-offset" "0.0.1"
 
-"node-fetch@^2.6.1":
+"node-fetch@^2.1.2", "node-fetch@^2.6.1":
   "integrity" "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ=="
   "resolved" "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.7.tgz"
   "version" "2.6.7"
@@ -876,6 +876,13 @@
   "integrity" "sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA=="
   "resolved" "https://registry.npmjs.org/signal-exit/-/signal-exit-3.0.3.tgz"
   "version" "3.0.3"
+
+"spacy@^0.0.4":
+  "integrity" "sha512-Co39SFfDFBmbONLbUblz6JNVAJv1jXmB4hBNrZoOfZmKzj56noecu8GDNWo1JxeDaETuuzvcOc2N1smMtlfoKw=="
+  "resolved" "https://registry.npmjs.org/spacy/-/spacy-0.0.4.tgz"
+  "version" "0.0.4"
+  dependencies:
+    "node-fetch" "^2.1.2"
 
 "sqlstring@^2.3.2":
   "integrity" "sha512-vF4ZbYdKS8OnoJAWBmMxCQDkiEBkGQYU7UZPtL8flbDRSNkhaXvRJ279ZtI6M+zDaQovVU4tuRgzK5fVhvFAhg=="

@@ -322,9 +322,7 @@ class Login_Page extends React.Component {
               onClick={() => this.doRegister()}>Register</Button>
           </div>
         </div>)
-
     }
-
   }
 }
 

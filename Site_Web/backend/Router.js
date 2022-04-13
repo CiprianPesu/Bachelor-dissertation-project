@@ -2,11 +2,13 @@ const bcrypt = require("bcrypt");
 const path = require('path');
 const { json, raw } = require("express");
 const { response } = require("express");
-const { Client } = require('@elastic/elasticsearch')
+const { Client } = require('@elastic/elasticsearch');
+const req = require("express/lib/request");
+const spawn = require("child_process").spawn;
+
 const ElasticClient = new Client({
   node: 'http://localhost:30200',
 })
-
 
 class Router {
   constructor(app, db) {
@@ -23,7 +25,9 @@ class Router {
     this.DeleteUser(app, db);
     this.getNews(app);
     this.getFilters(app);
+
     this.getNewsByID(app);
+    this.GetSimilarNewsByID(app);
 
     app.get('/*', function (req, res) {
       res.sendFile(path.join(__dirname, '/build/index.html'), function (err) {
@@ -204,7 +208,7 @@ class Router {
     app.post("/UpdatePreference", (req, res) => {
       let preference = req.body.preference;
 
-      UpdateUserPreference(db, req.session.userID, preference).then((response) => {res.json(response)});
+      UpdateUserPreference(db, req.session.userID, preference).then((response) => { res.json(response) });
       return;
     });
   }
@@ -216,7 +220,7 @@ class Router {
       let password = bcrypt.hashSync(req.body.password, 9);
       let email = req.body.email;
 
-      RegisterUser(db, username, password, email, "/costume").then((response) => {res.json(response)});
+      RegisterUser(db, username, password, email, "/costume").then((response) => { res.json(response) });
       return;
     })
   }
@@ -289,23 +293,23 @@ class Router {
           success: "true",
           Publications: publications,
           WordsCount: [response.total_returns.aggregations.min_wordCount.value, response.total_returns.aggregations.max_wordCount.value],
+          SentimentScore: [0, 1]
         });
       });
       return
     });
   }
 
-
   getNewsByID(app) {
     app.post("/GetNewsByID", (req, res) => {
       queryElasticNewsByID(ElasticClient, req.body.ID).then((response) => {
 
-        if(response===false){
+        if (response === false) {
           res.json({
             success: false,
           });
         }
-        else{
+        else {
           res.json({
             success: true,
             data: response,
@@ -316,7 +320,30 @@ class Router {
     });
 
   }
+
+  GetSimilarNewsByID(app) {
+    app.post("/GetSimilarNewsByID", (req, res) => {
+
+      const pythonProcess = spawn('python3', ["./Similarity.py", req.body.ID]);
+
+      let SimilarNews = [];
+      pythonProcess.stdout.on('data', (data) => {
+        SimilarNews = JSON.parse(data.toString());
+      });
+
+      pythonProcess.on("exit", (code) => {
+        res.json({
+          success: true,
+          data: SimilarNews,
+        })
+        return;
+      })
+
+    });
+  }
 }
+
+//////////// Elasticsearch ////////////
 
 async function queryElasticNewsByID(ElasticClient, ID) {
   result = await ElasticClient.search({
@@ -330,6 +357,7 @@ async function queryElasticNewsByID(ElasticClient, ID) {
   try {
     let response = {
       link: result.hits.hits[0]._source.link,
+      image: result.hits.hits[0]._source.image,
       title: result.hits.hits[0]._source.title,
       pubDate: result.hits.hits[0]._source.pubDate,
       content: result.hits.hits[0]._source.content,
@@ -342,9 +370,6 @@ async function queryElasticNewsByID(ElasticClient, ID) {
   } catch (error) {
     return false;
   }
-
-
- 
 }
 
 async function queryElasticFilters(ElasticClient) {
@@ -366,7 +391,6 @@ async function queryElasticFilters(ElasticClient) {
     total_returns: result,
   });
 }
-
 
 async function queryElasticNews(ElasticClient, filters, from) {
 
@@ -409,6 +433,14 @@ async function queryElasticNews(ElasticClient, filters, from) {
                 "Word_Count": {
                   "gte": filters.WordsCount[0],
                   "lte": filters.WordsCount[1]
+                }
+              }
+            },
+            {
+              range: {
+                "Procent_Pozitiv": {
+                  "gte": filters.SentimentScore[0],
+                  "lte": filters.SentimentScore[1]
                 }
               }
             },
@@ -463,8 +495,16 @@ async function queryElasticNews(ElasticClient, filters, from) {
                   "lte": filters.WordsCount[1]
                 }
               }
-            },
 
+            },
+            {
+              range: {
+                "Procent_Pozitiv": {
+                  "gte": filters.SentimentScore[0],
+                  "lte": filters.SentimentScore[1]
+                }
+              }
+            }
           ],
         }
       },
@@ -492,6 +532,7 @@ async function queryElasticNews(ElasticClient, filters, from) {
   });
 }
 
+//////////// MySQL ////////////
 
 async function CheckIsLoggedIn(db, sessionId) {
   let values = sessionId;
@@ -509,7 +550,7 @@ async function CheckIsLoggedIn(db, sessionId) {
         success: true,
         username: rows[item].Username,
         admin: rows[item].Admin,
-        email:rows[item].Email,
+        email: rows[item].Email,
         id: rows[item].ID,
         preference: rows[item].Preference
       })
@@ -520,9 +561,7 @@ async function CheckIsLoggedIn(db, sessionId) {
       success: false,
     })
   }
-
 }
-
 
 async function CheckLoginCreds(db, username, password) {
 
@@ -548,7 +587,7 @@ async function CheckLoginCreds(db, username, password) {
               success: true,
               username: rows[item].Username,
               admin: rows[item].Admin,
-              email:rows[item].Email,
+              email: rows[item].Email,
               id: rows[item].ID,
               preference: rows[item].Preference,
             })
@@ -599,7 +638,7 @@ async function RegisterUser(db, username, password, email, preference) {
         msg: "An error has occured",
       })
     }
-    else{
+    else {
       return JSON.stringify({
         success: true,
         msg: "New user account has been created",

@@ -10,6 +10,7 @@ function GetNewsPage() {
     let OrderBy = "leatest";
     let ItemsPerPage = 25;
     let WordsCount = [0, 0];
+    let SentimentScore=[0 , 1];
     let Publications = [];
     let Page = 1;
 
@@ -28,14 +29,18 @@ function GetNewsPage() {
             if (entry[1] != "") {
                 OrderBy = entry[1]
             }
-
         }
         else if (entry[0] === "WordsCount") {
             if (entry[1] != "") {
                 let counts=entry[1].split(',')
                 WordsCount = [counts[0],counts[1]]
             }
-
+        }
+        else if (entry[0] === "SentimentScore") {
+            if (entry[1] != "") {
+                let sentimets=entry[1].split(',')
+                SentimentScore = [sentimets[0],sentimets[1]]
+            }
         }
         else if (entry[0] === "ItemsPerPage") {
             if (entry[1] != "") {
@@ -57,6 +62,7 @@ function GetNewsPage() {
             Publications={Publications}
             OrderBy={OrderBy}
             WordsCount={WordsCount}
+            SentimentScore={SentimentScore}
         ></NewsPage>
     )
 }

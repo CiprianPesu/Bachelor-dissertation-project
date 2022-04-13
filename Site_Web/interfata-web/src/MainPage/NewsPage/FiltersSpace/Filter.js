@@ -29,6 +29,7 @@ class Filter extends React.Component {
           Title={this.props.Title}
           Type={this.props.Type}
           Limits={this.props.Options.Limits}
+          Step={this.props.Options.Step}
           FilterTarget={this.props.FilterTarget}
         ></DoubleSliderFilter>
       )

@@ -1,6 +1,6 @@
 from __future__ import barry_as_FLUFL
-from ast import Str
 from datetime import date, datetime
+from email.mime import image
 import json
 from time import time
 from goose3.extractors import content
@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from goose3 import Goose
 from goose3.extractors.content import ContentExtractor
 
-from dateutil import parser, tz
+from dateutil import parser
 
 from confluent_kafka import Consumer
 from confluent_kafka import Producer
@@ -177,22 +177,29 @@ class ArticleFetcher():
     def _extract_content(self, html):
         ContentExtractor.calculate_best_node = calculate_best_node
         ContentExtractor.post_cleanup = post_cleanup
-        g = Goose({'enable_image_fetching': False})
+        g = Goose({'enable_image_fetching': True})
         article = g.extract(raw_html=html)
         ContentExtractor.calculate_best_node = f1
         ContentExtractor.post_cleanup = f2
-        return article.cleaned_text
+
+        image="none"
+        if article.top_image is None or article.top_image.src is None:
+            image="none"
+        else:
+            image=article.top_image.src
+
+        return article.cleaned_text,image
 
     def _html_to_infomation(self, html, link):
         soup = BeautifulSoup(html, 'lxml')
         head = soup.head
 
         try:
-            content = self._extract_content(html)
+            content, image = self._extract_content(html)
             content = eliminate_ads(content)
             content = unidecode.unidecode(content)
 
-            return content
+            return content, image
         except Exception:
             return None
 
@@ -271,9 +278,10 @@ try:
                             rss_json["description"])
                         rss_json["title"] = unidecode.unidecode(rss_json["title"])
 
-                        content = article_fatcher._html_to_infomation(html, url)
+                        content, image = article_fatcher._html_to_infomation(html, url)
                         rss_json["Crawlerd_datetime"] = now
                         rss_json["content"] = content
+                        rss_json["image"] = image
                         producer.poll(0)
                         producer.produce('crawled_news', json.dumps(
                             rss_json).encode('utf-8'))
@@ -315,5 +323,4 @@ try:
                     producer.produce('logs', json.dumps(json_logs).encode('utf-8'))
                     print(url + "    --->Invalid")
 finally:
-    # Close down consumer to commit final offsets.
     consumer.close()

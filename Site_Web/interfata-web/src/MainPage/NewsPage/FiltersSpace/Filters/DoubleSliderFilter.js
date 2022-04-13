@@ -160,6 +160,7 @@ class DoubleSliderFilter extends React.Component {
                             valueLabelDisplay="off"
                             max={this.props.Limits[1]}
                             min={this.props.Limits[0]}
+                            step={this.props.Step}
                         />
                         <div className="TextFiledsSpace">
                             <TextField
