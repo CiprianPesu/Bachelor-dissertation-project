@@ -10,7 +10,8 @@ import { Tooltip, Slider } from '@mui/material/';
 import Zoom from '@mui/material/Zoom';
 import { styled } from '@mui/material/styles';
 import "./ViewNewsPage.css";
-import SimilarNewsSpace from "./SimilarNewsSpace";
+import SimilarNewsSpace from "./SimilarNews/SimilarNewsSpace";
+import StoryTimeline from "./StoryTimeline/StoryTimeline";
 
 class ViewNewsPage extends React.Component {
   constructor(props) {
@@ -19,18 +20,18 @@ class ViewNewsPage extends React.Component {
     this.state = {
       loding: true,
       success: false,
-      link: "https://www.foxnews.com/us/shooting-near-nationals-park-after-baseball-game-leaves-4-injured",
-      title: "4 injured in DC shooting near Nationals Park following baseball game",
-      pubDate: "2022-04-10 11:18:21",
-      content: "  Four people were injured in a shooting Saturday night near Nationals Park in Washington, D.C., less than an hour after the conclusion of the baseball game against the New York Mets.    The injured were all located on different sides of the ballpark. A female was taken to the hospital in serious condition. A man with a minor wound was reportedly found. Two additional males were located together with non-life threatening injuries, DC Fire told WJLA.         The victims have been identified as two men and two teens, NBC4 reports. They are a 16-year-old girl and 17-year-old boy.     The shootings took place about 40 minutes after the final out was recorded in the baseball game, according to the TV station.     Police are looking for a man who was reportedly wearing a black sweatshirt, light jeans who was carrying a silver handgun. They would also like to speak with a woman who was wearing a blue hoodie or jacket that had white writing on it.  To find out how to share information regarding these shootings to police, click here.     Three people were shot outside Nationals Park during a game against the San Diego Padres July 2021. A preliminary investigation determined that individuals inside two separate vehicles were firing guns at each other outside the stadium.    Fox News' Danielle Wallace contributed to this report.",
-      Procent_Pozitiv: 0.40824673221661495,
-      Word_Count: 224,
-      RSSTag: "FOX News",
+      link: "",
+      title: "",
+      pubDate: "",
+      content: "",
+      Procent_Pozitiv: 0,
+      Word_Count: 0,
+      RSSTag: "",
       image: "",
+      
 
-
-      SimilarNews: [
-    ],
+      recivedSimilar:false,
+      SimilarNews: [],
     }
 
     this.GetNewsByID = this.GetNewsByID.bind(this);
@@ -48,6 +49,7 @@ class ViewNewsPage extends React.Component {
       this.setState({
         loding: true,
         success: false,
+        recivedSimilar:false,
         SimilarNews: [],
       })
       this.GetNewsByID();
@@ -73,6 +75,7 @@ class ViewNewsPage extends React.Component {
         if (response.success == true) {
           this.setState({
             SimilarNews: response.data,
+            recivedSimilar:true,
           })
 
         }
@@ -213,10 +216,18 @@ class ViewNewsPage extends React.Component {
                     <div className="ViewNewsSpace-Title">{this.state.title}</div>
 
                     <div className="ViewNewsSpace-pubDate" style={{ color: fill }}>{this.state.pubDate}</div>
-                    {(this.state.image !="none") &&  <div className="ViewNewsSpace-Image"> <img src={this.state.image}></img></div>}
+                    {(this.state.image != "none") && <div className="ViewNewsSpace-Image"> <img src={this.state.image}></img></div>}
                     <div className="ViewNewsSpace-Paragraphes">{paragraphes.map((i, index) => (
                       <div className="ViewNewsSpace-Paragraph"> &emsp;{i}</div>
                     ))}</div>
+                    <StoryTimeline
+                      SimilarNews={this.state.SimilarNews}
+                      CurentNews={{
+                        pubDate: this.state.pubDate,
+                        RSSTag: this.state.RSSTag,
+                        curentNews:true,
+                      }}
+                    ></StoryTimeline>
                   </div>
                   <div className="ViewNewsSpace-More">
                     <div className="More-Sentiment">
@@ -239,6 +250,7 @@ class ViewNewsPage extends React.Component {
                     </div>
                     <SimilarNewsSpace
                       SimilarNews={this.state.SimilarNews}
+                      recivedSimilar={this.state.recivedSimilar}
                     ></SimilarNewsSpace>
                   </div>
                 </div>

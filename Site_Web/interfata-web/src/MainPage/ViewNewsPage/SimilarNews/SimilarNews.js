@@ -3,9 +3,10 @@ import "./SimilarNews.css";
 import { Link } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 
-import { ReactComponent as BBC } from "../../icons/bbc-2.svg";
-import { ReactComponent as FoxNews } from "../../icons/fox-3.svg";
-import { ReactComponent as CNN } from "../../icons/cnn-logo.svg";
+import { ReactComponent as BBC } from "../../../icons/bbc-2.svg";
+import { ReactComponent as FoxNews } from "../../../icons/fox-3.svg";
+import { ReactComponent as CNN } from "../../../icons/cnn-logo.svg";
+
 const history = createBrowserHistory();
 
 class SimilarNews extends React.Component {
@@ -31,11 +32,15 @@ class SimilarNews extends React.Component {
         }
 
         return (
-            <Link to={"/news/"+this.props.ID} style={{ textDecoration: "none", color:"black"}}>
+            <Link to={"/news/" + this.props.ID} style={{ textDecoration: "none", color: "black" }}>
                 <div className="Outer-SimilarNews" onClick={this.handleClick} >
                     <div className="SimilarNews-SvgSpace">
                         <a style={{ fill: fill }}><Svg></Svg></a>
+                        <div style={{marginLeft:"auto",fontSize:"20px",marginBottom:"4px"}}>
+                            {(this.props.similarity * 100).toPrecision(4)}%
+                        </div>
                     </div>
+
                     <div className="SimilarNews-Title" >
                         &emsp;{this.props.title}
                     </div>

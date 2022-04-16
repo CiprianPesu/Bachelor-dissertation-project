@@ -1,16 +1,21 @@
-const bcrypt = require("bcrypt");
-const path = require('path');
-const { json, raw } = require("express");
-const { response } = require("express");
-const { Client } = require('@elastic/elasticsearch');
-const req = require("express/lib/request");
-const spawn = require("child_process").spawn;
+import fetch from 'node-fetch';
+import bcrypt from "bcrypt"
+import path from "path";
+import { Client } from '@elastic/elasticsearch'
+import * as url from 'url';
+import { AsyncLocalStorage } from 'async_hooks';
+import { fsync } from 'fs';
+import { response } from 'express';
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const dirPath = path.join(__dirname, '/build/index.html');
 
 const ElasticClient = new Client({
   node: 'http://localhost:30200',
 })
 
-class Router {
+export default class Router {
   constructor(app, db) {
     this.login(app, db);
     this.logout(app, db);
@@ -30,7 +35,7 @@ class Router {
     this.GetSimilarNewsByID(app);
 
     app.get('/*', function (req, res) {
-      res.sendFile(path.join(__dirname, '/build/index.html'), function (err) {
+      res.sendFile(dirPath, function (err) {
         if (err) {
           res.status(500).send(err)
         }
@@ -323,30 +328,26 @@ class Router {
 
   GetSimilarNewsByID(app) {
     app.post("/GetSimilarNewsByID", (req, res) => {
-
-      const pythonProcess = spawn('python3', ["./Similarity.py", req.body.ID]);
-
-      let SimilarNews = [];
-      pythonProcess.stdout.on('data', (data) => {
-        SimilarNews = JSON.parse(data.toString());
-      });
-
-      pythonProcess.on("exit", (code) => {
-        res.json({
-          success: true,
-          data: SimilarNews,
-        })
-        return;
+      RESTGetSimilarNews(req.body.ID).then((response)=> {res.json({
+        success: true,
+        data: response,
       })
-
+      return})
+      
     });
   }
+}
+//////////// REST ////////////
+async function RESTGetSimilarNews(ID) {
+  let response = await fetch('http://localhost:5000/similarity/' + ID);
+  response=await response.json()
+  return response;
 }
 
 //////////// Elasticsearch ////////////
 
 async function queryElasticNewsByID(ElasticClient, ID) {
-  result = await ElasticClient.search({
+  let result = await ElasticClient.search({
     index: 'news',
     query: {
       "match": {
@@ -394,6 +395,7 @@ async function queryElasticFilters(ElasticClient) {
 
 async function queryElasticNews(ElasticClient, filters, from) {
 
+  let sortFilter = "";
   if (filters.OrderBy === "leatest") {
     sortFilter = [
       {
@@ -514,7 +516,7 @@ async function queryElasticNews(ElasticClient, filters, from) {
   }
 
 
-  data = result["hits"]["hits"].map((news) => {
+  let data = result["hits"]["hits"].map((news) => {
     return {
       id: news._id,
       title: news._source.title,
@@ -669,5 +671,3 @@ async function UpdateUserPreference(db, id, preference) {
     })
   }
 }
-
-module.exports = Router;

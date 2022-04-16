@@ -1,28 +1,33 @@
-const express = require("express");
-const app = express();
-const path = require("path");
-const mysql = require("mysql2/promise");
-const session = require("express-session");
-const MySQLStore = require("express-mysql-session");
-const { exit } = require("process");
+import express from "express";
+import path from "path";
+import { dirname } from "path"
+import mysql from "mysql2/promise"
+import session from "express-session";
+import MySQLStore from "express-mysql-session"
+import { exit } from "process";
+import Router from "./Router.js";
 
-app.use(express.static(path.join(__dirname, "build")));
+const dirPath = path.join(dirname("."), '/build');
+
+const app = express();
+
+//load directory build
+
+
+app.use(express.static(dirPath));
 app.use(express.json());
 
 
-const Router = require("./Router");
-
-
 async function SetUpDb() {
-  try{
+  try {
     //await db.query({ sql:"DROP TABLE users"});
-    let result=await db.query({ sql:"CREATE TABLE users ( ID int NOT NULL AUTO_INCREMENT, Username varchar(128) NOT NULL,Password varchar(128),Email varchar(128),Preference varchar(256),Admin	tinyint(1),PRIMARY KEY (ID))"});
+    let result = await db.query({ sql: "CREATE TABLE users ( ID int NOT NULL AUTO_INCREMENT, Username varchar(128) NOT NULL,Password varchar(128),Email varchar(128),Preference varchar(256),Admin	tinyint(1),PRIMARY KEY (ID))" });
   }
-  catch(e){
-    if(e.code="ER_TABLE_EXISTS_ERROR"){
+  catch (e) {
+    if (e.code = "ER_TABLE_EXISTS_ERROR") {
       console.log("User Table exists")
     }
-    else{ 
+    else {
       throw "Error in database";
     }
   }
@@ -62,8 +67,8 @@ app.use(
   })
 );
 
-try{
-  SetUpDb().catch((error) => { console.log(error);exit();});
+try {
+  SetUpDb().catch((error) => { console.log(error); exit(); });
 
   new Router(app, db);
   app.get("/", function (req, res) {
@@ -73,7 +78,7 @@ try{
   app.listen(3000);
 
 }
-catch(e){
+catch (e) {
   console.log(e)
 }
 

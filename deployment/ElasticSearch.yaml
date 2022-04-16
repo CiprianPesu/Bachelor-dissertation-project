@@ -21,7 +21,7 @@ spec:
         - name: discovery.type
           value: single-node
         - name: ES_JAVA_OPTS
-          value: -Xms512m -Xmx512m
+          value: -Xms1024m -Xmx1024m
         ports:
         - containerPort: 9200
         - containerPort: 9300
