@@ -133,17 +133,21 @@ def calculate_best_node(ce_inst, doc):
 def eliminate_ads(content):
 
     lines = content.splitlines()
-    new_content = ""
+
+    new_content=""
     for line in lines:
         if IsValidContent(line) == True:
-            new_content = new_content+" "+line
-
+            new_content=new_content+line+"*NewPARAGRAF*"
     return new_content
 
 
 def IsValidContent(line):
     if line.isupper() == True:
         return False
+    elif line.isspace() == True:
+        return False
+    elif line == "":
+        return False    
     elif line.find("Last updated on") != -1:
         return False
     elif line.find("The BBC is not responsible for the content of external sites") != -1:
@@ -196,10 +200,9 @@ class ArticleFetcher():
 
         try:
             content, image = self._extract_content(html)
-            content = eliminate_ads(content)
             content = unidecode.unidecode(content)
-
-            return content, image
+            contentParagraphes = eliminate_ads(content)
+            return contentParagraphes, image
         except Exception:
             return None
 
@@ -283,8 +286,8 @@ try:
                         rss_json["content"] = content
                         rss_json["image"] = image
                         producer.poll(0)
-                        producer.produce('crawled_news', json.dumps(
-                            rss_json).encode('utf-8'))
+
+                        producer.produce(topic="crawled_news", value=json.dumps(rss_json))
 
                         json_logs = json.dumps({'link':  rss_json["link"],
                                                 'source':  rss_json["source"],

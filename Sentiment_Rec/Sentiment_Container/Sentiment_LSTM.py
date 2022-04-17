@@ -81,11 +81,8 @@ while True:
         try:
             news_json = json.loads(msg.value())
             
-            paragrafe=str(news_json["content"]).split("  ")
-            while("" in paragrafe) :
-                 paragrafe.remove("")
-
-            
+            paragrafe=news_json["content"].split("*NewPARAGRAF*")
+            print(paragrafe[0])
 
             paragrafe=list(map(clean_punct, paragrafe))
             
@@ -98,9 +95,7 @@ while True:
             while("" in paragrafe) :
                  paragrafe.remove("")
 
-            for paragarf in paragrafe:
-                print(paragarf)
-                print("")
+
 
             X_train = tokenizer.texts_to_sequences(paragrafe)
             X_train = pad_sequences(X_train, maxlen = 128)
@@ -119,20 +114,23 @@ while True:
             procent_neg=sum_neg/nr_paragrafe
             procent_poz=sum_poz/nr_paragrafe
 
+            ParagrafPozitiv=[]
+            for i in range(0,len(paragrafe)):
+                ParagrafPozitiv.append(results[i][1])
+
             news_json["Procent_Pozitiv"]=procent_poz
+            news_json["Paragraf_Pozitiv"]=str(ParagrafPozitiv)
             news_json["Word_Count"]=len_cuvinte
             
             print("")
             print(len_cuvinte)
-            print(len(paragrafe))
-            print("  "+str(procent_neg)+"  "+str(procent_poz))
-            print(news_json["link"])
-
+            print(json.dumps(news_json))
 
             producer.poll(0)
-            producer.produce('procesed_news',json.dumps(news_json).encode('utf-8'))
+            producer.produce('procesed_news', json.dumps(news_json))
 
-        except:
+        except Exception as e:
+            print(e)
             print("Invalid")
 
 

@@ -180,10 +180,8 @@ class ViewNewsPage extends React.Component {
     }));
 
 
-    let paragraphes = this.state.content.split("  ");
-    paragraphes = paragraphes.filter((paragraphe) => {
-      return paragraphe !== "";
-    });
+    let paragraphes = this.state.content.split("*NewPARAGRAF*");
+
 
     if (this.state.loding) {
       return (
