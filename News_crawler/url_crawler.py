@@ -2,6 +2,7 @@ from __future__ import barry_as_FLUFL
 from datetime import date, datetime
 from email.mime import image
 import json
+import re
 from time import time
 from goose3.extractors import content
 import unidecode
@@ -35,6 +36,7 @@ def post_cleanup(ce_inst):
     target_node = ce_inst.article.top_node
     node = ce_inst.add_siblings(target_node)
     for elm in ce_inst.parser.getChildren(node):
+
         e_tag = ce_inst.parser.getTag(elm)
         if e_tag not in parse_tags:
             if ce_inst.is_highlink_density(elm) or ce_inst.is_table_and_no_para_exist(elm):
@@ -137,7 +139,46 @@ def eliminate_ads(content):
     new_content=""
     for line in lines:
         if IsValidContent(line) == True:
-            new_content=new_content+line+"*NewPARAGRAF*"
+            words = line.split()
+            if len(words) > 256:
+                line=line.replace("...", "*3Points*")
+                line=line.replace(".)", "*Point)*")
+                line=line.replace(".\"", "*Point**")
+
+                line=line.replace("1.", "*1Point*")
+                line=line.replace("2.", "*2Point*")
+                line=line.replace("3.", "*3Point*")
+                line=line.replace("4.", "*4Point*")
+                line=line.replace("5.", "*5Point*")
+                line=line.replace("6.", "*6Point*")
+                line=line.replace("7.", "*7Point*")
+                line=line.replace("8.", "*8Point*")
+                line=line.replace("9.", "*9Point*")
+                line=line.replace("0.", "*0Point*")
+
+                sublines=line.split(".")
+
+                for subline in sublines:
+                    if IsValidContent(subline) == True:
+                        subline=subline.replace("*3Points*","...")
+                        subline=subline.replace("*Point)*",".)")
+                        subline=subline.replace("*Point**",".\"")
+                        
+                        subline=subline.replace("*1Point*","1.")
+                        subline=subline.replace("*2Point*","2.")
+                        subline=subline.replace("*3Point*","3.")
+                        subline=subline.replace("*4Point*","4.")
+                        subline=subline.replace("*5Point*","5.")
+                        subline=subline.replace("*6Point*","6.")
+                        subline=subline.replace("*7Point*","7.")
+                        subline=subline.replace("*8Point*","8.")
+                        subline=subline.replace("*9Point*","9.")
+                        subline=subline.replace("*0Point*","0.")
+
+                        new_content += unidecode.unidecode(subline) + "."+"*NewPARAGRAF*"
+            else:
+                new_content += unidecode.unidecode(line) +"*NewPARAGRAF*"
+
     return new_content
 
 
@@ -195,12 +236,11 @@ class ArticleFetcher():
         return article.cleaned_text,image
 
     def _html_to_infomation(self, html, link):
-        soup = BeautifulSoup(html, 'lxml')
+        soup = BeautifulSoup(html, 'html.parser')
         head = soup.head
 
         try:
             content, image = self._extract_content(html)
-            content = unidecode.unidecode(content)
             contentParagraphes = eliminate_ads(content)
             return contentParagraphes, image
         except Exception:

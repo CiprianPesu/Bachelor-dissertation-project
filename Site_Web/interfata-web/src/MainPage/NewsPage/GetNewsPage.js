@@ -57,7 +57,7 @@ function GetNewsPage() {
     return (
         <NewsPage
             Page={Page}
-            Searched={Searched}
+            Searched={Searched.replace("%20", " ")}
             ItemsPerPage={ItemsPerPage}
             Publications={Publications}
             OrderBy={OrderBy}

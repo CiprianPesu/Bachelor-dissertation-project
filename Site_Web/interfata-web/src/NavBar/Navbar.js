@@ -46,7 +46,7 @@ class Navbar extends React.Component {
       let CurentUrlPrefix = CurentUrl[1].split("Search=")
 
       if (CurentUrlPrefix.length > 1) {
-        Searched = CurentUrlPrefix[1].split("&")[0]
+        Searched = CurentUrlPrefix[1].split("&")[0].replace("%20", " ")
       }
     }
 

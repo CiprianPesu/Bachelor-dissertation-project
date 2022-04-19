@@ -41,7 +41,6 @@
     background-color: rgba(150, 150, 150, 0.50);
     overflow: auto;
     max-width: 1000px;
-    min-width: 700px;
     min-height: calc(100vh - 40px);
 }
 
