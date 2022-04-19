@@ -3,9 +3,7 @@ import bcrypt from "bcrypt"
 import path from "path";
 import { Client } from '@elastic/elasticsearch'
 import * as url from 'url';
-import { AsyncLocalStorage } from 'async_hooks';
-import { fsync } from 'fs';
-import { response } from 'express';
+
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
