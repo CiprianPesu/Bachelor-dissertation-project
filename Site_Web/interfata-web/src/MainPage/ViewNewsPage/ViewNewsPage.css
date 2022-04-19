@@ -55,18 +55,6 @@
     flex-direction: column;
 }
 
-.ViewNewsSpace-Paragraphes {
-    font-size: 20px;
-    line-height: 30px;
-    margin-bottom: 30px;
-    font-weight: 400;
-    text-align: left;
-}
-
-.ViewNewsSpace-Paragraph {
-    margin: 20px;
-}
-
 .scrollableDivContent {
     height: 100%;
 }

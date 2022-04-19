@@ -1,0 +1,21 @@
+.ViewNewsSpace-Paragraphes {
+    font-size: 20px;
+    line-height: 30px;
+    margin-bottom: 30px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.ViewNewsSpace-Paragraph {
+    display: flex;
+    flex-direction: row;
+}
+
+.ViewNewsSpace-Paragraph-Color {
+    width: 30px;
+}
+
+.ViewNewsSpace-Paragraph-Text {
+    width: 100%;
+    margin: 20px;
+}

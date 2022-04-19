@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import "./ViewNewsPage.css";
 import SimilarNewsSpace from "./SimilarNews/SimilarNewsSpace";
 import StoryTimeline from "./StoryTimeline/StoryTimeline";
+import ParagarfSpace from "./ParagrafSpace/ParagarfSpace";
 
 class ViewNewsPage extends React.Component {
   constructor(props) {
@@ -24,12 +25,13 @@ class ViewNewsPage extends React.Component {
       title: "",
       pubDate: "",
       content: "",
+      Paragraf_Pozitiv: "",
       Procent_Pozitiv: 0,
       Word_Count: 0,
       RSSTag: "",
       image: "",
       
-
+      
       recivedSimilar:false,
       SimilarNews: [],
     }
@@ -115,6 +117,7 @@ class ViewNewsPage extends React.Component {
             Procent_Pozitiv: response.data.Procent_Pozitiv,
             Word_Count: response.data.Word_Count,
             RSSTag: response.data.RSSTag,
+            Paragraf_Pozitiv: response.data.Paragraf_Pozitiv,
           })
 
         }
@@ -180,9 +183,19 @@ class ViewNewsPage extends React.Component {
     }));
 
 
+    let sentiments = (this.state.Paragraf_Pozitiv).replace('[','').replace(']','').split(',');
     let paragraphes = this.state.content.split("*NewPARAGRAF*");
 
+    let Paragraf_Objects = [];
+    for (let i = 0; i < sentiments.length; i++) {
+      Paragraf_Objects.push({
+        Text: paragraphes[i],
+        Sentiment: sentiments[i],
+      })
+    }
 
+
+    
     if (this.state.loding) {
       return (
         <div>
@@ -215,9 +228,9 @@ class ViewNewsPage extends React.Component {
 
                     <div className="ViewNewsSpace-pubDate" style={{ color: fill }}>{this.state.pubDate}</div>
                     {(this.state.image != "none") && <div className="ViewNewsSpace-Image"> <img src={this.state.image}></img></div>}
-                    <div className="ViewNewsSpace-Paragraphes">{paragraphes.map((i, index) => (
-                      <div className="ViewNewsSpace-Paragraph"> &emsp;{i}</div>
-                    ))}</div>
+                    <ParagarfSpace
+                      Paragraf_Objects={Paragraf_Objects}
+                    ></ParagarfSpace>
                     <StoryTimeline
                       SimilarNews={this.state.SimilarNews}
                       CurentNews={{

@@ -363,12 +363,14 @@ async function queryElasticNewsByID(ElasticClient, ID) {
       pubDate: result.hits.hits[0]._source.pubDate,
       content: result.hits.hits[0]._source.content,
       Procent_Pozitiv: result.hits.hits[0]._source.Procent_Pozitiv,
+      Paragraf_Pozitiv:result.hits.hits[0]._source.Paragraf_Pozitiv,
       Word_Count: result.hits.hits[0]._source.Word_Count,
       RSSTag: result.hits.hits[0]._source.RSSTag,
     }
 
     return (response)
   } catch (error) {
+    console.log(error);
     return false;
   }
 }

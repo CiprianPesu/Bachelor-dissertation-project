@@ -1,10 +1,9 @@
+import os
 from flask import Flask
 from datetime import datetime
 from datetime import timedelta
-import sys
 from elasticsearch import Elasticsearch
 import json
-import string
 import spacy_universal_sentence_encoder
 
 app = Flask(__name__)
@@ -12,6 +11,7 @@ app = Flask(__name__)
 nlp = spacy_universal_sentence_encoder.load_model('en_use_lg')
 es = Elasticsearch([{'host': 'localhost', 'port': 30200, 'scheme': ""}])
 
+print("Elasticsearch connection established")
 
 @app.route('/similarity/<id>')
 def index(id):
@@ -41,16 +41,16 @@ def index(id):
     result = es.search(index="news",
                        query={
                            "bool": {
-                            #    "must": [
-                            #        {
-                            #            "range": {
-                            #                "pubDate": {
-                            #                    "gte": startDate,
-                            #                    "lte": endDate,
-                            #                }
-                            #            }
-                            #        },
-                            #    ],
+                               "must": [
+                                   {
+                                       "range": {
+                                           "pubDate": {
+                                               "gte": startDate,
+                                               "lte": endDate,
+                                           }
+                                       }
+                                   },
+                               ],
                                "must_not": {
                                    "match": {
                                        "_id": id,
@@ -87,7 +87,8 @@ def index(id):
                 similarity = similarity_content
                 news["similarity"] = similarity
                 ProcesedNews.append(news)
-        except:
+        except Exception as e:
+            print(e)
             continue
 
     ProcesedNews.sort(key=lambda x: x["similarity"], reverse=True)
