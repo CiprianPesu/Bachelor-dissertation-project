@@ -1,4 +1,4 @@
-FROM localhost:32000/rssparser2
+FROM ubuntu:latest
 COPY ./myapp/* /usr/src/myapp/
 WORKDIR /usr/src/myapp
 RUN apt-get update && apt-get install -y openjdk-8-jre

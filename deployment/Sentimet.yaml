@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sentiment
+  name: sentiment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sentiment
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sentiment
+    spec:
+      hostNetwork: true
+      containers:
+      - image: localhost:32000/sentiment
+        name: sentiment
+        resources: {}
+status: {}

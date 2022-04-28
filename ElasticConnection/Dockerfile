@@ -5,6 +5,7 @@ WORKDIR /usr/src/myapp
 RUN apt-get update && apt-get install -y python3
 RUN apt-get update && apt-get install -y python3-pip
 RUN apt-get update && apt-get install -y gcc
+RUN apt-get update && apt-get install -y librdkafka-dev
 RUN pip install --no-input confluent-kafka
 RUN pip install --no-input elasticsearch
 CMD bash ./bash.sh
