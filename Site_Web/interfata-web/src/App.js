@@ -11,6 +11,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import { Routes, Route } from "react-router-dom";
 
 import LoginPage from "./MainPage/LoginPage/login_page";
+import StatsPage from "./MainPage/StatsPage/StatsPage";
 import GetViewNewsPage from "./MainPage/ViewNewsPage/GetViewNewsPage";
 import GetNewsPage from "./MainPage/NewsPage/GetNewsPage";
 import GetCostumeNewsPage from "./MainPage/NewsPage/GetCostumeNewsPage";
@@ -29,7 +30,7 @@ class App extends React.Component {
     CurentUser.isLoggedIn = isLoggedIn;
     CurentUser.admin = admin;
     CurentUser.preference = preference;
-    CurentUser.email=email;
+    CurentUser.email = email;
 
   }
 
@@ -121,7 +122,6 @@ class App extends React.Component {
               }></Route>
             </Route>
 
-
             <Route path="authentication" element={
               <div>
                 <div className='Navbar-space'>
@@ -129,6 +129,17 @@ class App extends React.Component {
                 </div>
                 <div className='Page-content-space'>
                   <LoginPage></LoginPage>
+                </div>
+              </div>
+            }></Route>
+
+            <Route path="stats" element={
+              <div>
+                <div className='Navbar-space'>
+                  <Navbar form="NoSearch"></Navbar>
+                </div>
+                <div className='Page-content-space'>
+                  <StatsPage></StatsPage>
                 </div>
               </div>
             }></Route>

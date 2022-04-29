@@ -191,6 +191,10 @@ def IsValidContent(line):
         return False    
     elif line.find("Last updated on") != -1:
         return False
+    elif line.find("Newsbeat") != -1:
+        return False
+    elif line.find("READ MORE") != -1:
+        return False
     elif line.find("The BBC is not responsible for the content of external sites") != -1:
         return False
     elif line.find("enable JavaScript") != -1:
@@ -198,8 +202,10 @@ def IsValidContent(line):
     elif line.find("You can now listen to Fox News articles") != -1:
         return False
     elif line.find("video can not be played") != -1:
-        return False
+        return False 
     elif line.find("Editor's Note") != -1:
+        return False
+    elif line.find("Follow BBC") != -1:
         return False
     else:
         return True

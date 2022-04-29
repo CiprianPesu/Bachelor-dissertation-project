@@ -29,6 +29,8 @@ export default class Router {
     this.getNews(app);
     this.getFilters(app);
 
+    this.GetStats(app);
+
     this.getNewsByID(app);
     this.GetSimilarNewsByID(app);
 
@@ -326,23 +328,112 @@ export default class Router {
 
   GetSimilarNewsByID(app) {
     app.post("/GetSimilarNewsByID", (req, res) => {
-      RESTGetSimilarNews(req.body.ID).then((response)=> {res.json({
-        success: true,
-        data: response,
+      RESTGetSimilarNews(req.body.ID).then((response) => {
+        res.json({
+          success: true,
+          data: response,
+        })
+        return
       })
-      return})
-      
+
     });
   }
+
+  GetStats(app) {
+    app.post("/GetStats", (req, res) => {
+      queryElasticGetStats(ElasticClient).then((response) => {
+        res.json({
+          success: true,
+          data: response,
+        });
+      });
+      return
+    });
+  }
+
 }
 //////////// REST ////////////
 async function RESTGetSimilarNews(ID) {
   let response = await fetch('http://localhost:5000/similarity/' + ID);
-  response=await response.json()
+  response = await response.json()
   return response;
 }
 
 //////////// Elasticsearch ////////////
+
+async function queryElasticGetStats(ElasticClient) {
+  let response = await ElasticClient.search({
+    index: "news",
+    body: {
+      "size": 0,
+      "aggs": {
+        "avrageWordCount": { "avg": { "field": "Word_Count" } },
+        "avragePositivity": { "avg": { "field": "Procent_Pozitiv" } }
+      }
+    }
+  });
+
+  let avrageWordCount = response.aggregations.avrageWordCount.value;
+  let avragePositivity = response.aggregations.avragePositivity.value;
+
+  //get the number of news with Procent_Pozitiv lower then 0.3 from each RSSTag
+  let response2 = await ElasticClient.search({
+    index: "news",
+    body: {
+      "size": 0,
+      "aggs": {
+        "RSSTags": {
+          "terms": {
+            "field": "RSSTag",
+            "size": 100
+          },
+          "aggs": {
+            "NegativenewsCount": {
+              "filter": {
+                "range": {
+                  "Procent_Pozitiv": {
+                    "lte": 0.3
+                  }
+                }
+              }
+            },
+            "NeutralnewsCount": {
+              "filter": {
+                "range": {
+                  "Procent_Pozitiv": {
+                    "gt": 0.3,
+                    "lt": 0.7,
+                  }
+                }
+              }
+            },
+            "PozitivenewsCount": {
+              "filter": {
+                "range": {
+                  "Procent_Pozitiv": {
+                    "gte": 0.7,
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+
+  let RSSTags = response2.aggregations.RSSTags.buckets;
+
+  return {
+    avrageWordCount: avrageWordCount,
+    avragePositivity: avragePositivity,
+
+    RSSTagsNewsCount:RSSTags
+  }
+
+
+}
+
 
 async function queryElasticNewsByID(ElasticClient, ID) {
   let result = await ElasticClient.search({
@@ -361,7 +452,7 @@ async function queryElasticNewsByID(ElasticClient, ID) {
       pubDate: result.hits.hits[0]._source.pubDate,
       content: result.hits.hits[0]._source.content,
       Procent_Pozitiv: result.hits.hits[0]._source.Procent_Pozitiv,
-      Paragraf_Pozitiv:result.hits.hits[0]._source.Paragraf_Pozitiv,
+      Paragraf_Pozitiv: result.hits.hits[0]._source.Paragraf_Pozitiv,
       Word_Count: result.hits.hits[0]._source.Word_Count,
       RSSTag: result.hits.hits[0]._source.RSSTag,
     }
