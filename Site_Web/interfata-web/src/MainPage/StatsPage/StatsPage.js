@@ -3,6 +3,7 @@ import "./StatsPage.css";
 import { observer } from "mobx-react";
 import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut, Bar } from 'react-chartjs-2';
+import BeatLoader from "react-spinners/BeatLoader";
 
 import {
     CategoryScale,
@@ -21,20 +22,20 @@ class StatsPage extends React.Component {
 
             loading: true,
             success: false,
-            newsCountPozitiveCNN: 300,
-            newsCountPozitiveFOX: 200,
-            newsCountPozitiveBBC: 100,
+            newsCountPozitiveCNN: 0,
+            newsCountPozitiveFOX: 0,
+            newsCountPozitiveBBC: 0,
 
-            newsCountNegativeCNN: 300,
-            newsCountNegativeFOX: 200,
-            newsCountNegativeBBC: 100,
+            newsCountNegativeCNN: 0,
+            newsCountNegativeFOX: 0,
+            newsCountNegativeBBC: 0,
 
-            newsCountNeutralCNN: 300,
-            newsCountNeutralFOX: 200,
-            newsCountNeutralBBC: 100,
+            newsCountNeutralCNN: 0,
+            newsCountNeutralFOX: 0,
+            newsCountNeutralBBC: 0,
 
-            avragePositivity: 0.54,
-            avrageWordCount: 543.32,
+            avragePositivity: 0,
+            avrageWordCount: 0,
         };
 
     }
@@ -51,12 +52,12 @@ class StatsPage extends React.Component {
             });
 
             await res.json().then((response) => {
-                
+
 
                 if (response.success == true) {
 
                     let RSSTagsNewsCount = response.data.RSSTagsNewsCount;
-                    
+
                     let newsCountPozitiveCNN = 0;
                     let newsCountPozitiveFOX = 0;
                     let newsCountPozitiveBBC = 0;
@@ -68,7 +69,7 @@ class StatsPage extends React.Component {
                     let newsCountNeutralCNN = 0;
                     let newsCountNeutralFOX = 0;
                     let newsCountNeutralBBC = 0;
-                    
+
                     for (let i = 0; i < RSSTagsNewsCount.length; i++) {
                         if (RSSTagsNewsCount[i].key == "CNN") {
                             newsCountPozitiveCNN = RSSTagsNewsCount[i].PozitivenewsCount.doc_count;
@@ -173,76 +174,106 @@ class StatsPage extends React.Component {
                 ],
             };
 
-        return (
-            <div className="statsPage">
-                <div className="statsPage-content">
-                    <div className="statsPage-content-Sources" style={{ width: "300px", hight: "300px" }}>
-                        <h2>Sources</h2>
-                        <Doughnut
-                            data={this.data_economii}
-                            options={{
-                                legend: {
-                                    display: true,
-                                },
-                                labels: {
-                                    display: true,
-                                    fontSize: 20,
-                                    color: "black",
-                                    FontWeight: "bolder",
-                                },
-                                tooltips: {
-                                    enabled: true,
-                                },
+        if (this.state.loading) {
+            return (
+                <div>
+                    <BeatLoader></BeatLoader>
+                </div>
+            )
+        }
+        else if (this.state.success === false) {
+            return (
+                <main style={{ padding: "1rem" }}>
+                    <p>
+                        <h1>
+                            <span style={{ color: "red" }}>
+                                <i className="fas fa-exclamation-triangle"></i>
+                            </span>
+                            <span style={{ color: "red" }}>
+                                <b>
+                                    {" "}
+                                    Error!
+                                </b>
+                            </span>
+                        </h1>
 
-                            }}
-                        />
-                    </div>
+                    </p>
+                </main>
+            )
+        }
+        else {
 
-                    <div className="statsPage-content-Sources" style={{ width: "500px", hight: "400px" }}>
-                        <h2>Sentiment by source</h2>
-                        <Bar data={data} width="500" height="300"
-                            options={{
-                                responsive: true,
-
-                                scales: {
-                                    x: {
-                                        stacked: true,
+            return (
+                <div className="statsPage">
+                    <div className="statsPage-content">
+                        <div className="statsPage-content-Sources" style={{ width: "300px", hight: "300px" }}>
+                            <h2>Sources</h2>
+                            <Doughnut
+                                data={this.data_economii}
+                                options={{
+                                    legend: {
+                                        display: true,
                                     },
-                                    y: {
-                                        stacked: true,
+                                    labels: {
+                                        display: true,
+                                        fontSize: 20,
+                                        color: "black",
+                                        FontWeight: "bolder",
                                     },
-                                },
-                                labels: {
-                                    display: true,
-                                    fontSize: 20,
-                                    color: "black",
-                                    FontWeight: "bolder",
-                                },
-                            }} />
-                    </div>
+                                    tooltips: {
+                                        enabled: true,
+                                    },
 
-                    <div className="statsPage-content-Average" style={{ width: "500px", hight: "400px" }}>
-                        <h2>Averages</h2>
-                        <div className="statsPage-content-Average-items" style={{ width: "400px", hight: "400px" }}>
-                            <div>
-                                <div className="statsPage-content-Average-item">
-                                    Sentiment:
-                                    <div className="statsPage-content-Average-item-value">
-                                        {this.state.avragePositivity}
+                                }}
+                            />
+                        </div>
+
+                        <div className="statsPage-content-Sources" style={{ width: "500px", hight: "400px" }}>
+                            <h2>Sentiment by source</h2>
+                            <Bar data={data} width="500" height="300"
+                                options={{
+                                    responsive: true,
+
+                                    scales: {
+                                        x: {
+                                            stacked: true,
+                                        },
+                                        y: {
+                                            stacked: true,
+                                        },
+                                    },
+                                    labels: {
+                                        display: true,
+                                        fontSize: 20,
+                                        color: "black",
+                                        FontWeight: "bolder",
+                                    },
+                                }} />
+                        </div>
+
+                        <div className="statsPage-content-Average" style={{ width: "500px", hight: "400px" }}>
+                            <h2>Averages</h2>
+                            <div className="statsPage-content-Average-items" style={{ width: "400px", hight: "400px" }}>
+                                <div>
+                                    <div className="statsPage-content-Average-item">
+                                        Sentiment:
+                                        <div className="statsPage-content-Average-item-value">
+                                            {this.state.avragePositivity.toFixed(2)}
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="statsPage-content-Average-item">
-                                    Word Count:
-                                    <div className="statsPage-content-Average-item-value">
-                                        {this.state.avrageWordCount}
+                                    <div className="statsPage-content-Average-item">
+                                        Word Count:
+                                        <div className="statsPage-content-Average-item-value">
+                                            {this.state.avrageWordCount.toFixed(2)}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
 
     }
 }
