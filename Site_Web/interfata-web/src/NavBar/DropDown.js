@@ -9,6 +9,7 @@ import { ReactComponent as ChevronIcon } from "../icons/chevron.svg";
 import { ReactComponent as ArrowIcon } from "../icons/arrow.svg";
 import { ReactComponent as BoltIcon } from "../icons/bolt.svg";
 import { ReactComponent as UserIcon } from "../icons/user.svg";
+import { ReactComponent as HelpIcon } from "../icons/help.svg";
 import { observer } from "mobx-react";
 
 function DropdownMenu(props) {
@@ -103,6 +104,13 @@ function DropdownMenu(props) {
               >
                 {CurentUser.username}
               </DropdownItemButton>
+              <Link to="/stats">
+                <DropdownItemButton
+                  link="#"
+                  leftIcon={<HelpIcon />}>
+                  Statistics
+                </DropdownItemButton>
+              </Link>
               <DropdownItem
                 leftIcon={<CogIcon />}
                 rightIcon={<ChevronIcon />}
@@ -114,21 +122,6 @@ function DropdownMenu(props) {
               <DropdownItemButton link="#" onClick={props.logout} leftIcon={<UserIcon />}>
                 Log Out
               </DropdownItemButton>
-            </div>
-          </CSSTransition>
-
-          <CSSTransition
-            in={activeMenu === "settings"}
-            timeout={500}
-            classNames="menu-secondary"
-            unmountOnExit
-            onEnter={calcHeight}
-          >
-            <div className="menu">
-              <DropdownItem goToMenu="main" leftIcon={<ArrowIcon />}>
-                Back
-              </DropdownItem>
-              <DropdownItem leftIcon={<BoltIcon />}>HTML</DropdownItem>
             </div>
           </CSSTransition>
 
@@ -166,6 +159,13 @@ function DropdownMenu(props) {
                   Log In
                 </DropdownItemButton>
               </Link>
+              <Link to="/stats">
+                <DropdownItemButton
+                  link="#"
+                  leftIcon={<HelpIcon />}>
+                  Statistics
+                </DropdownItemButton>
+              </Link>
 
               <DropdownItem
                 leftIcon={<CogIcon />}
@@ -175,21 +175,6 @@ function DropdownMenu(props) {
                 Settings
               </DropdownItem>
 
-            </div>
-          </CSSTransition>
-
-          <CSSTransition
-            in={activeMenu === "settings"}
-            timeout={500}
-            classNames="menu-secondary"
-            unmountOnExit
-            onEnter={calcHeight}
-          >
-            <div className="menu">
-              <DropdownItem goToMenu="main" leftIcon={<ArrowIcon />}>
-                Back
-              </DropdownItem>
-              <DropdownItem leftIcon={<BoltIcon />}>HTML</DropdownItem>
             </div>
           </CSSTransition>
 
@@ -238,25 +223,16 @@ function DropdownMenu(props) {
               >
                 Settings
               </DropdownItem>
-
+              <Link to="/stats">
+                <DropdownItemButton
+                  link="#"
+                  leftIcon={<HelpIcon />}>
+                  Statistics
+                </DropdownItemButton>
+              </Link>
               <DropdownItemButton link="#" onClick={props.logout} leftIcon={<UserIcon />}>
                 Log Out
               </DropdownItemButton>
-            </div>
-          </CSSTransition>
-
-          <CSSTransition
-            in={activeMenu === "settings"}
-            timeout={500}
-            classNames="menu-secondary"
-            unmountOnExit
-            onEnter={calcHeight}
-          >
-            <div className="menu">
-              <DropdownItem goToMenu="main" leftIcon={<ArrowIcon />}>
-                Back
-              </DropdownItem>
-              <DropdownItem leftIcon={<BoltIcon />}>HTML</DropdownItem>
             </div>
           </CSSTransition>
 
@@ -293,6 +269,13 @@ function DropdownMenu(props) {
                 leftIcon={<UserIcon />}>
                 Log In
               </DropdownItemButton>
+              <Link to="/stats">
+                <DropdownItemButton
+                  link="#"
+                  leftIcon={<HelpIcon />}>
+                  Statistics
+                </DropdownItemButton>
+              </Link>
               <DropdownItem
                 leftIcon={<CogIcon />}
                 rightIcon={<ChevronIcon />}
@@ -300,21 +283,6 @@ function DropdownMenu(props) {
               >
                 Settings
               </DropdownItem>
-            </div>
-          </CSSTransition>
-
-          <CSSTransition
-            in={activeMenu === "settings"}
-            timeout={500}
-            classNames="menu-secondary"
-            unmountOnExit
-            onEnter={calcHeight}
-          >
-            <div className="menu">
-              <DropdownItem goToMenu="main" leftIcon={<ArrowIcon />}>
-                Back
-              </DropdownItem>
-              <DropdownItem leftIcon={<BoltIcon />}>HTML</DropdownItem>
             </div>
           </CSSTransition>
 

@@ -121,6 +121,14 @@
   align-items: flex-end;
 }
 
+.right-box > .nav-item > .icon-button{
+  fill: var(--pastel_3);
+}
+
+.Search-Button > a > .nav-item > .icon-button{
+  fill: var(--pastel_3);
+}
+
 .HomeButton{
   display: flex;
   justify-content: center;

@@ -14,7 +14,6 @@
   }
 
 .icon-button{
-  fill:var(--pastel_3);
   background:transparent;
   background-size: 500%;
   border: none;
@@ -35,13 +34,11 @@ a{
   text-decoration: none;
 }
 
-
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 100%;
-    }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
   }
+  100% {
+    background-position: 100%;
+  }
+}

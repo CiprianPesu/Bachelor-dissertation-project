@@ -28,13 +28,15 @@
 
 .statsPage-content-Average-items{
     font-size: 20px;
+    
 }
 
 .statsPage-content-Average-item{
     display: flex;
     flex-direction: row;
-    width: 100%;
     height: 100%;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
 .statsPage-content-Average-item-value{

@@ -206,7 +206,7 @@ class StatsPage extends React.Component {
             return (
                 <div className="statsPage">
                     <div className="statsPage-content">
-                        <div className="statsPage-content-Sources" style={{ width: "300px", hight: "300px" }}>
+                        <div className="statsPage-content-Sources" style={{ width: "300px", hight: "300px",background: "rgba(180,180,180,0.75)",borderRadius:"50px" }}>
                             <h2>Sources</h2>
                             <Doughnut
                                 data={this.data_economii}
@@ -228,7 +228,7 @@ class StatsPage extends React.Component {
                             />
                         </div>
 
-                        <div className="statsPage-content-Sources" style={{ width: "500px", hight: "400px" }}>
+                        <div className="statsPage-content-Sources" style={{ width: "500px", hight: "400px",background: "rgba(180,180,180,0.75)",borderRadius:"50px" }}>
                             <h2>Sentiment by source</h2>
                             <Bar data={data} width="500" height="300"
                                 options={{
@@ -251,10 +251,9 @@ class StatsPage extends React.Component {
                                 }} />
                         </div>
 
-                        <div className="statsPage-content-Average" style={{ width: "500px", hight: "400px" }}>
+                        <div className="statsPage-content-Average" style={{ width: "500px", hight: "400px", background: "rgba(180,180,180,0.75)",borderRadius:"50px" }}>
                             <h2>Averages</h2>
-                            <div className="statsPage-content-Average-items" style={{ width: "400px", hight: "400px" }}>
-                                <div>
+                            <div className="statsPage-content-Average-items" style={{hight: "400px" }}>
                                     <div className="statsPage-content-Average-item">
                                         Sentiment:
                                         <div className="statsPage-content-Average-item-value">
@@ -267,7 +266,6 @@ class StatsPage extends React.Component {
                                             {this.state.avrageWordCount.toFixed(2)}
                                         </div>
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>

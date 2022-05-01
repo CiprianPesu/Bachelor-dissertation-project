@@ -207,6 +207,8 @@ def IsValidContent(line):
         return False
     elif line.find("Follow BBC") != -1:
         return False
+    elif line.find("* None") != -1:
+        return False
     else:
         return True
 
