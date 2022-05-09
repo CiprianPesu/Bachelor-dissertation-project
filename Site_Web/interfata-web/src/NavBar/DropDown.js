@@ -111,13 +111,6 @@ function DropdownMenu(props) {
                   Statistics
                 </DropdownItemButton>
               </Link>
-              <DropdownItem
-                leftIcon={<CogIcon />}
-                rightIcon={<ChevronIcon />}
-                goToMenu="settings"
-              >
-                Settings
-              </DropdownItem>
 
               <DropdownItemButton link="#" onClick={props.logout} leftIcon={<UserIcon />}>
                 Log Out
@@ -167,14 +160,6 @@ function DropdownMenu(props) {
                 </DropdownItemButton>
               </Link>
 
-              <DropdownItem
-                leftIcon={<CogIcon />}
-                rightIcon={<ChevronIcon />}
-                goToMenu="settings"
-              >
-                Settings
-              </DropdownItem>
-
             </div>
           </CSSTransition>
 
@@ -216,13 +201,7 @@ function DropdownMenu(props) {
               >
                 {CurentUser.username}
               </DropdownItemButton>
-              <DropdownItem
-                leftIcon={<CogIcon />}
-                rightIcon={<ChevronIcon />}
-                goToMenu="settings"
-              >
-                Settings
-              </DropdownItem>
+
               <Link to="/stats">
                 <DropdownItemButton
                   link="#"
@@ -276,13 +255,7 @@ function DropdownMenu(props) {
                   Statistics
                 </DropdownItemButton>
               </Link>
-              <DropdownItem
-                leftIcon={<CogIcon />}
-                rightIcon={<ChevronIcon />}
-                goToMenu="settings"
-              >
-                Settings
-              </DropdownItem>
+>
             </div>
           </CSSTransition>
 
