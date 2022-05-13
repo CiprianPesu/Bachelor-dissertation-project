@@ -23,8 +23,10 @@ class Paragraf extends React.Component {
 
         return(
             <div className="ViewNewsSpace-Paragraph">
-                <div className="ViewNewsSpace-Paragraph-Color" style={{background:color,marginRight:"10px"}}></div>
-                <div className="ViewNewsSpace-Paragraph-Text">{this.props.Paragraf}</div>
+                <div className="ViewNewsSpace-Paragraph-Color" style={{background:color,marginRight:"10px"}}>
+                    {parseInt(parseFloat(this.props.sentiment)*100).toString()+"%"}
+                </div>
+                <div className="ViewNewsSpace-Paragraph-Text">&emsp;&emsp;{this.props.Paragraf}</div>
             </div>)
     }
 }
