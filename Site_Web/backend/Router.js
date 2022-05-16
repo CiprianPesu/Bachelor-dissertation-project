@@ -293,10 +293,11 @@ export default class Router {
       queryElasticFilters(ElasticClient).then((response) => {
         let publications = [];
         response.total_returns.aggregations.publications.buckets.forEach(element => publications.push(element.key))
-
+        let Categories = ["SCIENCE", "ARTS AND CULTURE", "BUSINESS", "TRAVEL", "POLITICS", "HEALTHY LIVING", "FOOD AND DRINK", "CRIME", "HOME AND LIVING", "RELIGION", "STYLE AND BEAUTY", "SPORTS", "ENVIRONMENT", "ENTERTAINMENT", "EDUCATION", "No category"];
         res.json({
           success: "true",
           Publications: publications,
+          Categories: Categories,
           WordsCount: [response.total_returns.aggregations.min_wordCount.value, response.total_returns.aggregations.max_wordCount.value],
           SentimentScore: [0, 1]
         });
@@ -428,7 +429,7 @@ async function queryElasticGetStats(ElasticClient) {
     avrageWordCount: avrageWordCount,
     avragePositivity: avragePositivity,
 
-    RSSTagsNewsCount:RSSTags
+    RSSTagsNewsCount: RSSTags
   }
 
 
@@ -479,6 +480,7 @@ async function queryElasticFilters(ElasticClient) {
 
   })
 
+
   return ({
     success: true,
     total_returns: result,
@@ -508,8 +510,27 @@ async function queryElasticNews(ElasticClient, filters, from) {
     sortFilter = ["_score"];
   }
 
-  let result = ""
+  let Categories = filters.Categories;
 
+  for (let i = 0; i < Categories.length; i++) {
+    Categories[i] = Categories[i].replace(/\sAND\s/g, " & ");
+  }
+
+
+  let regexString = ".*(";
+  for (let i = 0; i < Categories.length; i++) {
+    regexString += Categories[i];
+    if (i < Categories.length - 1) {
+      regexString += "|";
+    }
+  }
+  regexString += ").*";
+
+  if(Categories.length<1){
+    regexString = "NO MATCH";
+  }
+
+  let result = ""
   if (filters.Search != null) {
     result = await ElasticClient.search({
       index: 'news',
@@ -581,6 +602,14 @@ async function queryElasticNews(ElasticClient, filters, from) {
               terms: {
                 "RSSTag": filters.Publications,
               }
+            },
+            {
+              regexp: {
+                "category": {
+                  "value": regexString,
+                  max_determinized_states: 100000
+                }
+              },
             },
             {
               range: {

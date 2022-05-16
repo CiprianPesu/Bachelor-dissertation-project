@@ -6,12 +6,14 @@ function GetNewsPage() {
 
     const [searchParams] = useSearchParams();
 
+    
     let Searched = "";
     let OrderBy = "leatest";
     let ItemsPerPage = 25;
     let WordsCount = [0, 0];
     let SentimentScore=[0 , 1];
     let Publications = [];
+    let Categories = [];
     let Page = 1;
 
     for (const entry of searchParams.entries()) {
@@ -22,6 +24,13 @@ function GetNewsPage() {
             if (entry[1] != "") {
                 for (const i in entry[1].split(",")){
                     Publications.push(entry[1].split(",")[i])
+                }
+            }
+        }
+        else if (entry[0] === "Categories") {
+            if (entry[1] != "") {
+                for (const i in entry[1].split(",")){
+                    Categories.push(entry[1].split(",")[i])
                 }
             }
         }
@@ -60,6 +69,7 @@ function GetNewsPage() {
             Searched={Searched.replace("%20", " ")}
             ItemsPerPage={ItemsPerPage}
             Publications={Publications}
+            Categories={Categories}
             OrderBy={OrderBy}
             WordsCount={WordsCount}
             SentimentScore={SentimentScore}

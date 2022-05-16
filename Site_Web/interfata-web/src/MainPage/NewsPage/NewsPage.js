@@ -23,6 +23,7 @@ class NewsPage extends React.Component {
 
             Filters: {
                 Publications: this.props.Publications,
+                Categories: this.props.Categories,
                 WordsCount: this.props.WordsCount,
                 SentimentScore: this.props.SentimentScore,
             },
@@ -32,6 +33,7 @@ class NewsPage extends React.Component {
                 Search: this.props.Searched,
                 OrderBy: this.props.OrderBy,
                 Publications: this.props.Publications,
+                Categories: this.props.Categories,
                 WordsCount: this.props.WordsCount,
                 SentimentScore: this.props.SentimentScore,
             },
@@ -107,12 +109,14 @@ class NewsPage extends React.Component {
 
                     oldFilters["Publications"] = result.Publications;
                     oldFilters["WordsCount"] = result.WordsCount;
+                    oldFilters["Categories"]= result.Categories;
                     oldFilters["SentimentScore"] = result.SentimentScore;
 
 
                     if (window.location.href.split("&").length == 1) {
                         oldSelectedFilters["WordsCount"] = result.WordsCount;
                         oldSelectedFilters["Publications"] = result.Publications;
+                        oldSelectedFilters["Categories"] = result.Categories;
                         oldSelectedFilters["SentimentScore"] = result.SentimentScore;
                     }
 
@@ -158,6 +162,7 @@ class NewsPage extends React.Component {
 
 
         ToRedirect = ToRedirect + "Publications=" + curentFilters.Publications + "&" +
+            "Categories=" + curentFilters.Categories + "&" +
             "OrderBy=" + curentFilters.OrderBy + "&" +
             "WordsCount=" + curentFilters.WordsCount + "&" +
             "SentimentScore=" + curentFilters.SentimentScore + "&" +
@@ -255,6 +260,7 @@ class NewsPage extends React.Component {
 
 
         ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+            "Categories=" + this.state.selectedFilters.Categories + "&" +
             "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
             "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
             "SentimentScore=" + this.state.selectedFilters.SentimentScore + "&" +
@@ -286,6 +292,7 @@ class NewsPage extends React.Component {
 
 
             ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "Categories=" + this.state.selectedFilters.Categories + "&" +
                 "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
                 "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
                 "SentimentScore=" + this.state.selectedFilters.SentimentScore + "&" +
@@ -317,6 +324,7 @@ class NewsPage extends React.Component {
             }
 
             ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "Categories=" + this.state.selectedFilters.Categories + "&" +
                 "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
                 "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
                 "SentimentScore=" + this.state.selectedFilters.SentimentScore + "&" +
@@ -377,6 +385,13 @@ class NewsPage extends React.Component {
                     "Step":0.01
                 },
                 "FilterTarget": "SentimentScore",
+            },
+            {
+                "Title": "Categories",
+                "Type": "CheckBox",
+                "Options": this.state.Filters.Categories,
+                "Default": this.state.selectedFilters.Categories,
+                "FilterTarget": "Categories",
             },
         ]
 

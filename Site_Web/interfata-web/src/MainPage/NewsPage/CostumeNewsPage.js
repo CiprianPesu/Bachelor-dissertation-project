@@ -32,6 +32,7 @@ class NewsPage extends React.Component {
             Filters: {
                 Publications: this.props.Publications,
                 WordsCount: this.props.WordsCount,
+                Categories: this.props.Categories,
                 SentimentScore: this.props.SentimentScore,
             },
 
@@ -40,6 +41,7 @@ class NewsPage extends React.Component {
                 Search: this.props.Searched,
                 OrderBy: this.props.OrderBy,
                 Publications: this.props.Publications,
+                Categories: this.props.Categories,
                 WordsCount: this.props.WordsCount,
                 SentimentScore: this.props.SentimentScore,
             },
@@ -119,12 +121,14 @@ class NewsPage extends React.Component {
 
                     oldFilters["Publications"] = result.Publications;
                     oldFilters["WordsCount"] = result.WordsCount;
+                    oldFilters["Categories"] = result.Categories;
                     oldFilters["SentimentScore"] = result.SentimentScore;
 
 
                     if (window.location.href.split("&").length == 1) {
                         oldSelectedFilters["WordsCount"] = result.WordsCount;
                         oldFilters["SentimentScore"] = result.SentimentScore;
+                        oldSelectedFilters["Categories"] = result.Categories;
                         oldSelectedFilters["Publications"] = result.Publications;
                     }
 
@@ -171,6 +175,7 @@ class NewsPage extends React.Component {
 
         ToRedirect = ToRedirect + "Publications=" + curentFilters.Publications + "&" +
             "OrderBy=" + curentFilters.OrderBy + "&" +
+            "Categories=" + curentFilters.Categories + "&" +
             "WordsCount=" + curentFilters.WordsCount + "&" +
             "SentimentScore=" + curentFilters.SentimentScore + "&" +
             "ItemsPerPage=" + curentFilters.ItemsPerPage + "&" +
@@ -267,6 +272,7 @@ class NewsPage extends React.Component {
 
 
         ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+            "Categories=" + this.state.selectedFilters.Categories + "&" +
             "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
             "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
             "SentimentScore=" + this.state.selectedFilters.SentimentScore + "&" +
@@ -298,6 +304,7 @@ class NewsPage extends React.Component {
 
 
             ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "Categories=" + this.state.selectedFilters.Categories + "&" +
                 "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
                 "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
                 "SentimentScore=" + this.state.selectedFilters.SentimentScore + "&" +
@@ -329,6 +336,7 @@ class NewsPage extends React.Component {
             }
 
             ToRedirect = ToRedirect + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "Categories=" + this.state.selectedFilters.Categories + "&" +
                 "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
                 "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
                 "SentimentScore=" + this.state.selectedFilters.SentimentScore + "&" +
@@ -356,6 +364,7 @@ class NewsPage extends React.Component {
 
 
             PreferenceLink = PreferenceLink + "Publications=" + this.state.selectedFilters.Publications + "&" +
+                "Categories=" + this.state.selectedFilters.Categories + "&" +
                 "OrderBy=" + this.state.selectedFilters.OrderBy + "&" +
                 "WordsCount=" + this.state.selectedFilters.WordsCount + "&" +
                 "SentimentScore=" + this.state.selectedFilters.SentimentScore + "&" +
@@ -378,19 +387,19 @@ class NewsPage extends React.Component {
                     this.setState({ Alert: { open: true, severity: "success", message: "Filters saved successfully" } });
                     CurentUser.preference = PreferenceLink;
                 } else {
-                    this.setState({ Alert: { open: true, severity: "success", message:"We were unable to update your preferences" } });
+                    this.setState({ Alert: { open: true, severity: "success", message: "We were unable to update your preferences" } });
                 }
             });
         }
         catch (error) {
-            this.setState({ Alert: { open: true, severity: "error", message:"We were unable to update your preferences" } });
+            this.setState({ Alert: { open: true, severity: "error", message: "We were unable to update your preferences" } });
         };
     }
 
     handleCloseAlert = (event, reason) => {
 
-        let NewAlert=this.state.Alert
-        NewAlert.open=false
+        let NewAlert = this.state.Alert
+        NewAlert.open = false
         this.setState({ Alert: NewAlert });
     };
 
@@ -424,7 +433,7 @@ class NewsPage extends React.Component {
                 "Type": "DoubleSlider",
                 "Options": {
                     "Limits": this.state.Filters.WordsCount,
-                    "Step":1,
+                    "Step": 1,
                 },
                 "FilterTarget": "WordsCount",
             },
@@ -433,9 +442,16 @@ class NewsPage extends React.Component {
                 "Type": "DoubleSlider",
                 "Options": {
                     "Limits": this.state.Filters.SentimentScore,
-                    "Step":0.01
+                    "Step": 0.01
                 },
                 "FilterTarget": "SentimentScore",
+            },
+            {
+                "Title": "Categories",
+                "Type": "CheckBox",
+                "Options": this.state.Filters.Categories,
+                "Default": this.state.selectedFilters.Categories,
+                "FilterTarget": "Categories",
             },
         ]
 
