@@ -1,0 +1,38 @@
+.Category-Outer{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    backface-visibility: hidden;
+    border: 2px solid #000;
+    padding: 5px;
+    border-radius: 10px;
+    justify-content: center;
+}
+
+.Category-Outer:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+    z-index: 1;
+}
+
+.Category-Outer:hover .Category-Category{
+    z-index: -1;
+    color: transparent;
+    font-size: 0px !important;
+}
+
+.Category-Outer:hover .Category-Procent{
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.Category-Category{
+    font-weight: bold;
+}
+
+
+.Category-Procent{
+    font-weight: bold;
+    display: none;
+}

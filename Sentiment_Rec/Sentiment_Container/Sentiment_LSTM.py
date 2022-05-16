@@ -54,7 +54,7 @@ conf = {'bootstrap.servers': "10.0.0.1:9092",
 es = Elasticsearch([{'host': 'localhost', 'port': 30200, 'scheme':""}])
 
 consumer = Consumer(conf)
-consumer.subscribe(["crawled_news"])
+consumer.subscribe(["categorised_news"])
 
 conf_p = {'bootstrap.servers': '10.0.0.1:9092'}
 producer = Producer(conf_p)

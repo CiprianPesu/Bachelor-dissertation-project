@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: category
+  name: category
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: category
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: category
+    spec:
+      hostNetwork: true
+      containers:
+      - image: localhost:32000/category
+        name: category
+        resources: {}
+status: {}

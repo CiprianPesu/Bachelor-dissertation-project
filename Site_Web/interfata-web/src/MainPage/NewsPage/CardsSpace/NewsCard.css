@@ -109,3 +109,15 @@
         transform: scale(1);
     }
 }
+
+.OuterCard-Category-Category{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 20px;
+}   
+
+.Card-Category{
+    display: flex;
+}

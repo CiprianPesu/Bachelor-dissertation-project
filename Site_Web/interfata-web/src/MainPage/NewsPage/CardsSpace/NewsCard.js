@@ -1,7 +1,8 @@
 import React from "react";
 import "./NewsCard.css";
-import {Navigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import Category from "../../ViewNewsPage/Category";
 
 import { ReactComponent as BBC } from "../../../icons/bbc-2.svg";
 import { ReactComponent as FoxNews } from "../../../icons/fox-3.svg";
@@ -14,13 +15,13 @@ class NewsCard extends React.Component {
     super(props);
     this.state = {
       ID: props.ID,
-      redirect:false,
+      redirect: false,
     };
   }
 
-  handleClick  = (event) =>{
+  handleClick = (event) => {
     history.push(window.location.href);
-    this.setState({redirect:true})
+    this.setState({ redirect: true })
   }
 
   render() {
@@ -36,21 +37,40 @@ class NewsCard extends React.Component {
       Svg = CNN;
     }
 
+    let categoris = this.props.Category.split("-");
+    categoris.pop();
+
     return (
       <div className="OuterCard"
-      onClick={this.handleClick}
+        onClick={this.handleClick}
       >
         <div className="News" Publication={this.props.Publication}>
           <div className="SvgSpace">
             <Svg />
           </div>
 
+          <div className="Card-Category">
+            {
+              categoris.map((item, index) => {
+                return (
+                  <Category
+                    key={index}
+                    Category={item.split("*")[0]}
+                    Procent={item.split("*")[1]}
+                    Size="small"
+                  ></Category>)
+              })
+
+            }</div>
+
           <div className="News-Title">
-          &emsp;{this.props.Title}</div>
+            &emsp;{this.props.Title}</div>
+
+         
           <div className="News-Description">&emsp;{this.props.Description}</div>
           <div className="News-pubDate">{this.props.PubDate}</div>
         </div>
-        {this.state.redirect && <Navigate to={"/news/"+this.state.ID} replace={true} />}
+        {this.state.redirect && <Navigate to={"/news/" + this.state.ID} replace={true} />}
       </div>
     );
   }

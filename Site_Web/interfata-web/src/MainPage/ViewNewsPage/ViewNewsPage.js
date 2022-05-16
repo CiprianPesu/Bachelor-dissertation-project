@@ -13,6 +13,7 @@ import "./ViewNewsPage.css";
 import SimilarNewsSpace from "./SimilarNews/SimilarNewsSpace";
 import StoryTimeline from "./StoryTimeline/StoryTimeline";
 import ParagarfSpace from "./ParagrafSpace/ParagarfSpace";
+import Category from "./Category";
 
 class ViewNewsPage extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class ViewNewsPage extends React.Component {
       Word_Count: 0,
       RSSTag: "",
       image: "",
-      
+      category:"",
       
       recivedSimilar:false,
       SimilarNews: [],
@@ -118,6 +119,7 @@ class ViewNewsPage extends React.Component {
             Word_Count: response.data.Word_Count,
             RSSTag: response.data.RSSTag,
             Paragraf_Pozitiv: response.data.Paragraf_Pozitiv,
+            category: response.data.Category,
           })
 
         }
@@ -193,8 +195,10 @@ class ViewNewsPage extends React.Component {
         Sentiment: sentiments[i],
       })
     }
-
-
+    
+    let categoris = this.state.category.split("-");
+    categoris.pop();
+  
     
     if (this.state.loding) {
       return (
@@ -227,7 +231,25 @@ class ViewNewsPage extends React.Component {
                     <div className="ViewNewsSpace-Title">{this.state.title}</div>
 
                     <div className="ViewNewsSpace-pubDate" style={{ color: fill }}>{this.state.pubDate}</div>
+
+                    <div className="ViewNewsSpace-Category">
+                      {
+                        categoris.map((item, index) => {
+                      
+                          return (
+                            <Category
+                              key={index}
+                              Category={item.split("*")[0]}
+                              Procent={item.split("*")[1]}
+                            ></Category>)                         
+                        })
+                      
+                    }</div>
+
                     {(this.state.image != "none") && <div className="ViewNewsSpace-Image"> <img src={this.state.image}></img></div>}
+
+                    
+
                     <ParagarfSpace
                       Paragraf_Objects={Paragraf_Objects}
                     ></ParagarfSpace>

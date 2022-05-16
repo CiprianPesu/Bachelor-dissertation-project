@@ -46,6 +46,7 @@ class CardsSpace extends React.Component {
                                         Description={i["description"]}
                                         PubDate={i["pubDate"]}
                                         Publication={i["publication"]}
+                                        Category={i["Category"]}
                                     ></Card>
                                 ))}
                             </div>

@@ -455,6 +455,7 @@ async function queryElasticNewsByID(ElasticClient, ID) {
       Paragraf_Pozitiv: result.hits.hits[0]._source.Paragraf_Pozitiv,
       Word_Count: result.hits.hits[0]._source.Word_Count,
       RSSTag: result.hits.hits[0]._source.RSSTag,
+      Category: result.hits.hits[0]._source.category,
     }
 
     return (response)
@@ -615,6 +616,7 @@ async function queryElasticNews(ElasticClient, filters, from) {
       pubDate: news._source.pubDate,
       source: news._source.source,
       publication: news._source.RSSTag,
+      Category: news._source.category,
     }
   })
 

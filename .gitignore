@@ -13,3 +13,23 @@ Sentiment_Rec/Burt/classfication_model.pt
 .*/node_modules/.*
 Site_Web/backend/node_modules/*
 
+Clasificare/.ipynb_checkpoints/Predict-jvsc-5d7538a2-3cc6-4ae4-a24a-f420501d1d9c-checkpoint.ipynb
+Clasificare/.ipynb_checkpoints/Clasificare-jvsc-7451e1cc-a562-423e-8651-b8bdd82f1d2f-checkpoint.ipynb
+Site_Web/backend/build/static/js/main.e805c6af.js.map
+Site_Web/backend/build/static/js/main.d3a4cb41.js.map
+Site_Web/backend/build/static/js/main.d3a4cb41.js.LICENSE.txt
+Site_Web/backend/build/asset-manifest.json
+Site_Web/backend/build/index.html
+Site_Web/backend/build/static/css/main.4b19326f.css
+Site_Web/backend/build/static/css/main.4b19326f.css.map
+Site_Web/backend/build/static/css/main.6d9015ed.css
+Site_Web/backend/build/static/css/main.6d9015ed.css.map
+Site_Web/backend/build/static/js/main.d3a4cb41.js
+Site_Web/backend/build/static/js/main.e805c6af.js
+Site_Web/backend/build/static/js/main.e805c6af.js.LICENSE.txt
+Site_Web/backend/build/static/js/main.e805c6af.js.map
+Clasificare/word_weights.txt
+Clasificare/tokenizer.pickle
+Clasificare/model_dbow.model
+Clasificare/model2.h5
+Clasificare/model.h5
