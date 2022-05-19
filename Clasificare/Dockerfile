@@ -14,5 +14,6 @@ RUN apt-get update && apt-get install -y librdkafka-dev
 RUN pip install --no-input --upgrade pip
 RUN pip install --no-input nltk
 RUN pip install --no-input tensorflow
+RUN pip install --no-input tf-nightly
 RUN pip install --no-input confluent-kafka
 CMD bash ./bash.sh

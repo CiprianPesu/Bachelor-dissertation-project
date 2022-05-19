@@ -51,7 +51,7 @@ class Navbar extends React.Component {
     }
 
     this.state = {
-      LinkTo: "",
+      LinkTo: "/",
       Searched: Searched
     }
   }

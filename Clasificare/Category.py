@@ -2,6 +2,7 @@ from pydoc import describe
 from nltk import *
 import pickle
 from keras import models, preprocessing as kprocessing
+from keras.preprocessing import  sequence
 import json
 import nltk
 
@@ -70,7 +71,7 @@ while True:
                  
             tokParagrafe=tokenizer.texts_to_sequences(paragrafe)
 	    
-            padParagrafe=kprocessing.sequence.pad_sequences(tokParagrafe,  maxlen=128, padding="post", truncating="post")
+            padParagrafe=sequence.pad_sequences(tokParagrafe,  maxlen=128, padding="post", truncating="post")
             
             results=model.predict(padParagrafe)
 
