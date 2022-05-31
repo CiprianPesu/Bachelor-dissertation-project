@@ -255,7 +255,6 @@ function DropdownMenu(props) {
                   Statistics
                 </DropdownItemButton>
               </Link>
->
             </div>
           </CSSTransition>
 

@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import path from "path";
 import { Client } from '@elastic/elasticsearch'
 import * as url from 'url';
+import c from 'spacy';
 
 const __filename = url.fileURLToPath(import.meta.url);
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -31,8 +32,9 @@ export default class Router {
 
     this.GetStats(app);
 
-    this.getNewsByID(app);
+    this.getNewsByID(app, db);
     this.GetSimilarNewsByID(app);
+    this.GetRecomandedNews(app, db);
 
     app.get('/*', function (req, res) {
       res.sendFile(dirPath, function (err) {
@@ -212,7 +214,6 @@ export default class Router {
   UpdatePreference(app, db) {
     app.post("/UpdatePreference", (req, res) => {
       let preference = req.body.preference;
-
       UpdateUserPreference(db, req.session.userID, preference).then((response) => { res.json(response) });
       return;
     });
@@ -224,8 +225,8 @@ export default class Router {
       let username = req.body.username;
       let password = bcrypt.hashSync(req.body.password, 9);
       let email = req.body.email;
-
-      RegisterUser(db, username, password, email, "/costume").then((response) => { res.json(response) });
+      let visited = "SCIENCE:0-ARTS AND CULTURE:0-BUSINESS TRAVEL:0-POLITICS:0-HEALTHY LIVING:0-FOOD AND DRINK:0-CRIME:0-HOME AND LIVING:0-RELIGION:0-STYLE AND BEAUTY:0-SPORTS:0-ENVIRONMENT:0-ENTERTAINMENT:0-EDUCATION:0-";
+      RegisterUser(db, username, password, email, "/costume", visited).then((response) => { res.json(response) });
       return;
     })
   }
@@ -306,7 +307,7 @@ export default class Router {
     });
   }
 
-  getNewsByID(app) {
+  getNewsByID(app, db) {
     app.post("/GetNewsByID", (req, res) => {
       queryElasticNewsByID(ElasticClient, req.body.ID).then((response) => {
 
@@ -320,11 +321,26 @@ export default class Router {
             success: true,
             data: response,
           });
+
+          UpdateVisited(db, req.session.userID, response.Category).then((response) => {
+          });
         }
       });
       return
     });
 
+  }
+
+  GetRecomandedNews(app, db) {
+    app.post("/GetRecomandedNews", (req, res) => {
+      GetRecomandedNewsForUser(db, ElasticClient, req.session.userID).then((response) => {
+        res.json({
+          success: "true",
+          data: response,
+        });
+      });
+      return
+    });
   }
 
   GetSimilarNewsByID(app) {
@@ -435,7 +451,6 @@ async function queryElasticGetStats(ElasticClient) {
 
 }
 
-
 async function queryElasticNewsByID(ElasticClient, ID) {
   let result = await ElasticClient.search({
     index: 'news',
@@ -526,7 +541,7 @@ async function queryElasticNews(ElasticClient, filters, from) {
   }
   regexString += ").*";
 
-  if(Categories.length<1){
+  if (Categories.length < 1) {
     regexString = "NO MATCH";
   }
 
@@ -687,6 +702,65 @@ async function CheckIsLoggedIn(db, sessionId) {
   }
 }
 
+async function UpdateVisited(db, sessionId, Categories) {
+
+  let values = sessionId;
+  const result = await db.query("SELECT Visited FROM users WHERE ID = ?", values);
+
+  let rows = result[0]
+
+  let count = 0
+  rows.forEach(item => {
+    count++;
+  })
+
+  if (count > 0) {
+    let Visited = rows[0].Visited;
+
+    let VisitedArray = Visited.split("-");
+
+    VisitedArray.pop();
+
+    let VisitedObjects = VisitedArray.map(item => {
+      return item.split(":");
+    })
+
+    let VisitedDictionary = {};
+    VisitedObjects.forEach(item => {
+      VisitedDictionary[item[0]] = item[1];
+    })
+
+
+
+    let CategoriesArray = Categories.split("-");
+
+
+    let CategoriesObjects = CategoriesArray.map(item => {
+      return item.split("*");
+    })
+
+    let CategoriesDictionary = {};
+    CategoriesObjects.forEach(item => {
+      CategoriesDictionary[item[0]] = item[1];
+    })
+
+    for (const key in CategoriesDictionary) {
+      if (VisitedDictionary[key] != null) {
+        VisitedDictionary[key] = parseInt(VisitedDictionary[key]) + 1;
+      }
+    }
+
+    let VisitedString = "";
+    for (const key in VisitedDictionary) {
+      VisitedString += key + ":" + VisitedDictionary[key] + "-";
+    }
+
+    let values = [VisitedString, sessionId];
+    const result = await db.query("UPDATE users SET Visited = ? WHERE ID = ?", values);
+  }
+
+}
+
 async function CheckLoginCreds(db, username, password) {
 
   try {
@@ -743,7 +817,7 @@ async function CheckLoginCreds(db, username, password) {
   }
 }
 
-async function RegisterUser(db, username, password, email, preference) {
+async function RegisterUser(db, username, password, email, preference, visited) {
   let values = username;
   const result = await db.query("SELECT * FROM users WHERE Username = ?", values);
   let rows = result[0]
@@ -754,8 +828,8 @@ async function RegisterUser(db, username, password, email, preference) {
   })
 
   if (count == 0) {
-    let values = [username, password, email, preference];
-    let result = await db.query("INSERT INTO users (Username, Password,	Email, Preference, Admin) VALUES (? , ? , ? , ? ,32)", values);
+    let values = [username, password, email, preference, visited];
+    let result = await db.query("INSERT INTO users (Username, Password,	Email, Preference,Visited) VALUES (? , ? , ? , ?, ?)", values);
     if (result == null) {
       return JSON.stringify({
         success: false,
@@ -792,4 +866,112 @@ async function UpdateUserPreference(db, id, preference) {
       msg: "User preference updated",
     })
   }
+}
+
+async function GetRecomandedNewsForUser(db, ElasticClient, id) {
+  let values = id;
+  const result = await db.query("SELECT Visited FROM users WHERE ID = ?", values);
+
+  let rows = result[0]
+
+  let count = 0
+  rows.forEach(item => {
+    count++;
+  })
+
+  if (count > 0) {
+    let Visited = rows[0].Visited;
+    console.log(Visited);
+    console.log("----");
+    let VisitedArray = Visited.split("-");
+
+    VisitedArray.pop();
+
+    let VisitedObjects = VisitedArray.map(item => {
+      return item.split(":");
+    })
+
+    let VisitedDictionary = {};
+    VisitedObjects.forEach(item => {
+      VisitedDictionary[item[0]] = item[1];
+    })
+
+    //turn the values in dictionary into procentages
+
+    let total = 0;
+    for (const key in VisitedDictionary) {
+      total += parseInt(VisitedDictionary[key]);
+    }
+
+    for (const key in VisitedDictionary) {
+      VisitedDictionary[key] = parseInt(parseFloat(VisitedDictionary[key]) / total * 100);
+    }
+
+    console.log(VisitedDictionary);
+
+    //get 5 random category from the dictionary based on the procentage
+
+    let Categories = [];
+    for (let i = 0; i < 5; i++) {
+      let random = Math.floor(Math.random() * 100);
+      let count = 0;
+      for (const key in VisitedDictionary) {
+        count += VisitedDictionary[key];
+        if (count >= random) {
+          Categories.push(key);
+          break;
+        }
+      }
+    }
+
+    console.log(Categories);
+
+
+    //query ElasticSearch and get a news from the each category with regex
+      
+    let News = [];
+    for (const key in Categories) {
+      let value = Categories[key];
+      let regexString = ".*" + value + ".*";
+
+      let result = await ElasticClient.search({
+        index: 'news',
+        body: {
+          query: {
+            regexp: {
+              "category": {
+                "value": regexString,
+                max_determinized_states: 100000
+              }
+            },
+          }
+        }
+      });
+
+      let hits = result.hits.hits;
+
+      let news = [];
+      hits.forEach(item => {
+        news.push(item._source);
+      })
+
+      let random = Math.floor(Math.random() * news.length);
+
+
+      //get only the Publication and title
+
+      let newsObject = {
+        publication: news[random].RSSTag,
+        title: news[random].title,
+        pubDate: news[random].pubDate,
+        Category: news[random].category,
+      }
+      
+      News.push(newsObject);
+    }
+    
+    return News;
+
+  }
+
 }

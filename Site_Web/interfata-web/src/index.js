@@ -5,16 +5,16 @@ import reportWebVitals from './reportWebVitals';
 
 
 import {
-  BrowserRouter,
+  BrowserRouter as Router,
 
 } from "react-router-dom";
 
 import App from './App';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <Router>
     <App />
-  </BrowserRouter>,
+  </Router>,
 
   document.getElementById('root')
 );

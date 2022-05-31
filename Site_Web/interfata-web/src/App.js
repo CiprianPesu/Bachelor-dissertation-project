@@ -51,7 +51,7 @@ class App extends React.Component {
           this.setCurentUser(response.username, false, true, response.admin, response.email, response.preference);
         }
         else {
-          this.setCurentUser(CurentUser.username, false, false, CurentUser.admin, response.email, response.preference);
+          this.setCurentUser(CurentUser.username, false, false, CurentUser.admin, CurentUser.email, CurentUser.preference);
         }
       });
     } catch (error) {
@@ -143,7 +143,6 @@ class App extends React.Component {
                 </div>
               </div>
             }></Route>
-
             <Route
               path="*"
               element={

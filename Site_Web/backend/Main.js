@@ -21,7 +21,7 @@ app.use(express.json());
 async function SetUpDb() {
   try {
     //await db.query({ sql:"DROP TABLE users"});
-    let result = await db.query({ sql: "CREATE TABLE users ( ID int NOT NULL AUTO_INCREMENT, Username varchar(128) NOT NULL,Password varchar(128),Email varchar(128),Preference varchar(512),PRIMARY KEY (ID))" });
+    let result = await db.query({ sql: "CREATE TABLE users ( ID int NOT NULL AUTO_INCREMENT, Username varchar(128) NOT NULL,Password varchar(128),Email varchar(128),Preference varchar(512),Visited varchar(512),PRIMARY KEY (ID))" });
   }
   catch (e) {
     if (e.code = "ER_TABLE_EXISTS_ERROR") {

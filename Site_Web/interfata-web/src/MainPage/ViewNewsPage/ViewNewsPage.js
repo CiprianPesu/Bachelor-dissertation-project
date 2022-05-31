@@ -35,16 +35,21 @@ class ViewNewsPage extends React.Component {
       
       recivedSimilar:false,
       SimilarNews: [],
+
+      recivedRecomanded:false,
+      RecomandedNews: [],
     }
 
     this.GetNewsByID = this.GetNewsByID.bind(this);
     this.GetSimilarNews = this.GetSimilarNews.bind(this);
+    this.GetRecomandedNews = this.GetRecomandedNews.bind(this);
   }
 
 
   componentDidMount() {
     this.GetNewsByID();
     this.GetSimilarNews();
+    this.GetRecomandedNews();
   }
 
   componentDidUpdate(prevProps) {
@@ -57,9 +62,38 @@ class ViewNewsPage extends React.Component {
       })
       this.GetNewsByID();
       this.GetSimilarNews();
+      this.GetRecomandedNews();
     }
   }
 
+
+  async GetRecomandedNews() {
+    try {
+      let res = await fetch("/GetRecomandedNews", {
+        method: "post",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      await res.json().then((response) => {
+        if (response.success == true) {
+          this.setState({
+            RecomandedNews: response.data,
+            recivedRecomanded:true,
+          })
+
+        }
+        else {
+        }
+      }
+      );
+    }
+    catch (error) {
+
+    }
+  }
 
   async GetSimilarNews() {
     try {

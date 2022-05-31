@@ -72,6 +72,7 @@ class NewsPage extends React.Component {
                 buttonDisable: true,
                 items: [],
                 loading: true,
+                ToRedirect: "/",
             }, () => {
                 this.getNews(oldSelectedFilters, 0)
             });
