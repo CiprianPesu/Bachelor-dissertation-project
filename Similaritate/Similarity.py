@@ -71,6 +71,7 @@ def index(id):
             "pubDate": i["_source"]["pubDate"],
             "content": i["_source"]["content"],
             "RSSTag": i["_source"]["RSSTag"],
+            "Category": i["_source"]["category"],
         }
         try:
 

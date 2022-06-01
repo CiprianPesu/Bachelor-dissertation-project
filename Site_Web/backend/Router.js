@@ -335,7 +335,7 @@ export default class Router {
     app.post("/GetRecomandedNews", (req, res) => {
       GetRecomandedNewsForUser(db, ElasticClient, req.session.userID).then((response) => {
         res.json({
-          success: "true",
+          success: true,
           data: response,
         });
       });
@@ -881,8 +881,6 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
 
   if (count > 0) {
     let Visited = rows[0].Visited;
-    console.log(Visited);
-    console.log("----");
     let VisitedArray = Visited.split("-");
 
     VisitedArray.pop();
@@ -951,7 +949,11 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
       let hits = result.hits.hits;
 
       let news = [];
-      hits.forEach(item => {
+      hits.forEach(item => {  
+
+        
+        item._source._id = item._id;
+
         news.push(item._source);
       })
 
@@ -965,6 +967,7 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
         title: news[random].title,
         pubDate: news[random].pubDate,
         Category: news[random].category,
+        id: news[random]._id,
       }
       
       News.push(newsObject);

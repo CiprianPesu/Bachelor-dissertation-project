@@ -11,6 +11,7 @@ import Zoom from '@mui/material/Zoom';
 import { styled } from '@mui/material/styles';
 import "./ViewNewsPage.css";
 import SimilarNewsSpace from "./SimilarNews/SimilarNewsSpace";
+import RecomandedNewsSpace from "./RecomandedNews/RecomandedNewsSpace";
 import StoryTimeline from "./StoryTimeline/StoryTimeline";
 import ParagarfSpace from "./ParagrafSpace/ParagarfSpace";
 import Category from "./Category";
@@ -20,8 +21,8 @@ class ViewNewsPage extends React.Component {
     super(props);
 
     this.state = {
-      loding: true,
-      success: false,
+      loding: false,
+      success: true,
       link: "",
       title: "",
       pubDate: "",
@@ -31,13 +32,15 @@ class ViewNewsPage extends React.Component {
       Word_Count: 0,
       RSSTag: "",
       image: "",
-      category:"",
-      
-      recivedSimilar:false,
+      category: "",
+
+      recivedSimilar: false,
       SimilarNews: [],
 
-      recivedRecomanded:false,
+
+      recivedRecomanded: false,
       RecomandedNews: [],
+
     }
 
     this.GetNewsByID = this.GetNewsByID.bind(this);
@@ -57,7 +60,7 @@ class ViewNewsPage extends React.Component {
       this.setState({
         loding: true,
         success: false,
-        recivedSimilar:false,
+        recivedSimilar: false,
         SimilarNews: [],
       })
       this.GetNewsByID();
@@ -81,7 +84,7 @@ class ViewNewsPage extends React.Component {
         if (response.success == true) {
           this.setState({
             RecomandedNews: response.data,
-            recivedRecomanded:true,
+            recivedRecomanded: true,
           })
 
         }
@@ -112,7 +115,7 @@ class ViewNewsPage extends React.Component {
         if (response.success == true) {
           this.setState({
             SimilarNews: response.data,
-            recivedSimilar:true,
+            recivedSimilar: true,
           })
 
         }
@@ -219,7 +222,7 @@ class ViewNewsPage extends React.Component {
     }));
 
 
-    let sentiments = (this.state.Paragraf_Pozitiv).replace('[','').replace(']','').split(',');
+    let sentiments = (this.state.Paragraf_Pozitiv).replace('[', '').replace(']', '').split(',');
     let paragraphes = this.state.content.split("*NewPARAGRAF*");
 
     let Paragraf_Objects = [];
@@ -229,11 +232,11 @@ class ViewNewsPage extends React.Component {
         Sentiment: sentiments[i],
       })
     }
-    
+
     let categoris = this.state.category.split("-");
     categoris.pop();
-  
-    
+
+
     if (this.state.loding) {
       return (
         <div>
@@ -269,20 +272,20 @@ class ViewNewsPage extends React.Component {
                     <div className="ViewNewsSpace-Category">
                       {
                         categoris.map((item, index) => {
-                      
+
                           return (
                             <Category
                               key={index}
                               Category={item.split("*")[0]}
                               Procent={item.split("*")[1]}
-                            ></Category>)                         
+                            ></Category>)
                         })
-                      
-                    }</div>
+
+                      }</div>
 
                     {(this.state.image != "none") && <div className="ViewNewsSpace-Image"> <img src={this.state.image}></img></div>}
 
-                    
+
 
                     <ParagarfSpace
                       Paragraf_Objects={Paragraf_Objects}
@@ -292,7 +295,7 @@ class ViewNewsPage extends React.Component {
                       CurentNews={{
                         pubDate: this.state.pubDate,
                         RSSTag: this.state.RSSTag,
-                        curentNews:true,
+                        curentNews: true,
                       }}
                     ></StoryTimeline>
                   </div>
@@ -319,6 +322,11 @@ class ViewNewsPage extends React.Component {
                       SimilarNews={this.state.SimilarNews}
                       recivedSimilar={this.state.recivedSimilar}
                     ></SimilarNewsSpace>
+
+                    <RecomandedNewsSpace
+                      RecomandedNews={this.state.RecomandedNews}
+                      recived={this.state.recivedRecomanded}
+                    ></RecomandedNewsSpace>
                   </div>
                 </div>
               </InfiniteScroll>

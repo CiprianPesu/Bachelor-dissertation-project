@@ -1,5 +1,5 @@
 import React from "react";
-import "./SimilarNews.css";
+import "./RecomandedNews.css";
 import { Link } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 
@@ -7,10 +7,11 @@ import { createBrowserHistory } from 'history';
 import { ReactComponent as FoxNews } from "../../../icons/fox-3.svg";
 import { ReactComponent as BBC } from "../../../icons/bbc-2.svg";
 import { ReactComponent as CNN } from "../../../icons/cnn-logo.svg";
+import Category from "../Category";
 
 const history = createBrowserHistory();
 
-class SimilarNews extends React.Component {
+class RecomandedNews extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -90,30 +91,27 @@ class SimilarNews extends React.Component {
         }
 
         return (
-             <Link to={"/news/" + this.props.ID} style={{ textDecoration: "none", color: "black" }}>
-             <div className="Outer-SimilarNews" onClick={this.handleClick} >
-                 <div className="SimilarNews-Content">
-                     <div className="SimilarNews-SvgSpace">
-                         <a style={{ fill: fill }}><Svg></Svg></a>
-                         <div style={{marginLeft:"auto",fontSize:"20px",marginBottom:"4px"}}>
-                            {(this.props.similarity * 100).toPrecision(4)}%
+            <Link to={"/news/" + this.props.ID} style={{ textDecoration: "none", color: "black" }}>
+                <div className="Outer-RecomandedNews" onClick={this.handleClick} >
+                    <div className="RecomandedNews-Content">
+                        <div className="RecomandedNews-SvgSpace">
+                            <a style={{ fill: fill }}><Svg></Svg></a>
                         </div>
-                     </div>
 
-                     <div className="SimilarNews-Title" >
-                         &emsp;{this.props.title}
-                     </div>
-                     <div className="SimilarNews-pubDate" style={{ color: fill, textAlign: "right", marginTop: "10px" }}>{this.props.pubDate}</div>
+                        <div className="RecomandedNews-Title" >
+                            &emsp;{this.props.title}
+                        </div>
+                        <div className="RecomandedNews-pubDate" style={{ color: fill, textAlign: "right", marginTop: "10px" }}>{this.props.pubDate}</div>
 
-                     <div className="SimilarNews-line"></div>
-                 </div>
-                 <div className="SimilarNews-Category" style={{ background: color }}>
+                        <div className="RecomandedNews-line"></div>
+                    </div>
+                    <div className="RecomandedNews-Category" style={{ background: color }}>
 
-                 </div>
-             </div>
-         </Link>
+                    </div>
+                </div>
+            </Link>
         )
     }
 }
 
-export default SimilarNews;
+export default RecomandedNews;
