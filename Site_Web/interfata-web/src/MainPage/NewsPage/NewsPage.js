@@ -379,7 +379,7 @@ class NewsPage extends React.Component {
                 "FilterTarget": "WordsCount",
             },
             {
-                "Title": "Semtiment Score",
+                "Title": "Sentiment Score",
                 "Type": "DoubleSlider",
                 "Options": {
                     "Limits": this.state.Filters.SentimentScore,

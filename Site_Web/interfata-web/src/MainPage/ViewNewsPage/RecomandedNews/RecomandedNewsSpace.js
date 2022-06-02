@@ -12,39 +12,69 @@ class RecomandedNewsSpace extends React.Component {
     }
 
     render() {
-        if (this.props.recived === false) {
-            return (
-                <div className="More-RecomandedNews">
-                    <div className="More-RecomandedNews-Title">
-                        <Tooltip
-                            placement="bottom"
-                            TransitionComponent={Zoom}
-                            title={"Similar news are determined using the cosine similarity between the vectors representing the current article and vectors representing news from our database"}>
-                            <TooltipIcon></TooltipIcon>
-                        </Tooltip>
-                        <div style={{ "margin": "auto", }}>Recomanded News</div>
+        if (this.props.isLoggedIn) {
+
+
+
+            if (this.props.recived === false) {
+                return (
+                    <div className="More-RecomandedNews">
+                        <div className="More-RecomandedNews-Title">
+                            <Tooltip
+                                placement="bottom"
+                                TransitionComponent={Zoom}
+                                title={"the news are recommended based on the category on the news formally assessed"}>
+                                <TooltipIcon></TooltipIcon>
+                            </Tooltip>
+                            <div style={{ "margin": "auto", }}>Recomanded News</div>
+                        </div>
+                        <div className="More-RecomandedNews-NewsSpace">
+                            <BeatLoader></BeatLoader>
+                        </div>
+                    </div>)
+            }
+            else if (this.props.RecomandedNews.length === 0) {
+                return (
+                    <div className="More-RecomandedNews">
+                        <div className="More-RecomandedNews-Title">
+                            <Tooltip
+                                placement="bottom"
+                                TransitionComponent={Zoom}
+                                title={"the news are recommended based on the category on the news formally assessed"}>
+                                <TooltipIcon></TooltipIcon>
+                            </Tooltip>
+                            <div style={{ "margin": "auto", }}>Recomanded News</div>
+                        </div>
+                        <div className="More-RecomandedNews-NewsSpace">
+                            <div style={{ margin: "10px" }}>No recomanded news were found</div>
+                        </div>
+                    </div>)
+            }
+            else {
+                return (
+                    <div className="More-RecomandedNews">
+                        <div className="More-RecomandedNews-Title">
+                            <Tooltip
+                                placement="bottom"
+                                TransitionComponent={Zoom}
+                                title={"the news are recommended based on the category on the news formally assessed"}>
+                                <TooltipIcon></TooltipIcon>
+                            </Tooltip>
+                            <div style={{ "margin": "auto", }}>Recomanded News</div>
+                        </div>
+                        <div className="More-RecomandedNews-NewsSpace">
+                            {this.props.RecomandedNews.map((i, index) => (
+                                <RecomandedNews
+                                    title={i.title}
+                                    RSSTag={i.RSSTag}
+                                    pubDate={i.pubDate}
+                                    ID={i.id}
+                                    Category={i.Category}
+                                ></RecomandedNews>
+                            ))}</div>
                     </div>
-                    <div className="More-RecomandedNews-NewsSpace">
-                        <BeatLoader></BeatLoader>
-                    </div>
-                </div>)
-        }
-        else if (this.props.RecomandedNews.length === 0) {
-            return (
-                <div className="More-RecomandedNews">
-                    <div className="More-RecomandedNews-Title">
-                        <Tooltip
-                            placement="bottom"
-                            TransitionComponent={Zoom}
-                            title={"Similar news are determined using the cosine similarity between the vectors representing the current article and vectors representing news from our database"}>
-                            <TooltipIcon></TooltipIcon>
-                        </Tooltip>
-                        <div style={{ "margin": "auto", }}>Recomanded News</div>
-                    </div>
-                    <div className="More-RecomandedNews-NewsSpace">
-                        <div style={{ margin:"10px" }}>No recomanded news were found</div>
-                    </div>
-                </div>)
+                )
+            }
         }
         else {
             return (
@@ -53,23 +83,15 @@ class RecomandedNewsSpace extends React.Component {
                         <Tooltip
                             placement="bottom"
                             TransitionComponent={Zoom}
-                            title={"Similar news are determined using the cosine similarity between the vectors representing the current article and vectors representing news from our database"}>
+                            title={"the news are recommended based on the category on the news formally assessed"}>
                             <TooltipIcon></TooltipIcon>
                         </Tooltip>
                         <div style={{ "margin": "auto", }}>Recomanded News</div>
                     </div>
                     <div className="More-RecomandedNews-NewsSpace">
-                        {this.props.RecomandedNews.map((i, index) => (
-                            <RecomandedNews
-                                title={i.title}
-                                RSSTag={i.RSSTag}
-                                pubDate={i.pubDate}
-                                ID={i.id}
-                                Category={i.Category}
-                            ></RecomandedNews>
-                        ))}</div>
-                </div>
-            )
+                        <div style={{ margin: "10px" }}>You need to be logged in</div>
+                    </div>
+                </div>)
         }
     }
 }

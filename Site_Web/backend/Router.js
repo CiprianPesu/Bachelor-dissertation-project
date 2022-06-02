@@ -321,9 +321,6 @@ export default class Router {
             success: true,
             data: response,
           });
-
-          UpdateVisited(db, req.session.userID, response.Category).then((response) => {
-          });
         }
       });
       return
@@ -333,12 +330,14 @@ export default class Router {
 
   GetRecomandedNews(app, db) {
     app.post("/GetRecomandedNews", (req, res) => {
-      GetRecomandedNewsForUser(db, ElasticClient, req.session.userID).then((response) => {
-        res.json({
-          success: true,
-          data: response,
+      if (req.session.userID) {
+        GetRecomandedNewsForUser(db, ElasticClient, req.session.userID, req.body.ID).then((response) => {
+          res.json({
+            success: true,
+            data: response,
+          });
         });
-      });
+      }
       return
     });
   }
@@ -702,64 +701,6 @@ async function CheckIsLoggedIn(db, sessionId) {
   }
 }
 
-async function UpdateVisited(db, sessionId, Categories) {
-
-  let values = sessionId;
-  const result = await db.query("SELECT Visited FROM users WHERE ID = ?", values);
-
-  let rows = result[0]
-
-  let count = 0
-  rows.forEach(item => {
-    count++;
-  })
-
-  if (count > 0) {
-    let Visited = rows[0].Visited;
-
-    let VisitedArray = Visited.split("-");
-
-    VisitedArray.pop();
-
-    let VisitedObjects = VisitedArray.map(item => {
-      return item.split(":");
-    })
-
-    let VisitedDictionary = {};
-    VisitedObjects.forEach(item => {
-      VisitedDictionary[item[0]] = item[1];
-    })
-
-
-
-    let CategoriesArray = Categories.split("-");
-
-
-    let CategoriesObjects = CategoriesArray.map(item => {
-      return item.split("*");
-    })
-
-    let CategoriesDictionary = {};
-    CategoriesObjects.forEach(item => {
-      CategoriesDictionary[item[0]] = item[1];
-    })
-
-    for (const key in CategoriesDictionary) {
-      if (VisitedDictionary[key] != null) {
-        VisitedDictionary[key] = parseInt(VisitedDictionary[key]) + 1;
-      }
-    }
-
-    let VisitedString = "";
-    for (const key in VisitedDictionary) {
-      VisitedString += key + ":" + VisitedDictionary[key] + "-";
-    }
-
-    let values = [VisitedString, sessionId];
-    const result = await db.query("UPDATE users SET Visited = ? WHERE ID = ?", values);
-  }
-
-}
 
 async function CheckLoginCreds(db, username, password) {
 
@@ -868,9 +809,26 @@ async function UpdateUserPreference(db, id, preference) {
   }
 }
 
-async function GetRecomandedNewsForUser(db, ElasticClient, id) {
+async function GetRecomandedNewsForUser(db, ElasticClient, id, ID) {
+
+
+
+  let result = await ElasticClient.search({
+    index: 'news',
+    query: {
+      "match": {
+        _id: ID,
+      }
+    },
+  })
+
+  let Categories = result.hits.hits[0]._source.category;
+
+
+  /////////////////
+
   let values = id;
-  const result = await db.query("SELECT Visited FROM users WHERE ID = ?", values);
+  result = await db.query("SELECT Visited FROM users WHERE ID = ?", values);
 
   let rows = result[0]
 
@@ -881,6 +839,7 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
 
   if (count > 0) {
     let Visited = rows[0].Visited;
+
     let VisitedArray = Visited.split("-");
 
     VisitedArray.pop();
@@ -894,8 +853,38 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
       VisitedDictionary[item[0]] = item[1];
     })
 
-    //turn the values in dictionary into procentages
 
+
+    let CategoriesArray = Categories.split("-");
+
+
+    let CategoriesObjects = CategoriesArray.map(item => {
+      return item.split("*");
+    })
+
+    let CategoriesDictionary = {};
+    CategoriesObjects.forEach(item => {
+      CategoriesDictionary[item[0]] = item[1];
+    })
+
+    for (const key in CategoriesDictionary) {
+      if (VisitedDictionary[key] != null) {
+        VisitedDictionary[key] = parseInt(VisitedDictionary[key]) + 1;
+      }
+    }
+
+    let VisitedString = "";
+    for (const key in VisitedDictionary) {
+      VisitedString += key + ":" + VisitedDictionary[key] + "-";
+    }
+
+    let values = [VisitedString, id];
+    const result = await db.query("UPDATE users SET Visited = ? WHERE ID = ?", values);
+
+
+    ///////////////////////////////
+
+    //make VisitedDictionary values into procentages
     let total = 0;
     for (const key in VisitedDictionary) {
       total += parseInt(VisitedDictionary[key]);
@@ -905,34 +894,32 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
       VisitedDictionary[key] = parseInt(parseFloat(VisitedDictionary[key]) / total * 100);
     }
 
-    console.log(VisitedDictionary);
+    console.log(VisitedDictionary)
 
-    //get 5 random category from the dictionary based on the procentage
-
-    let Categories = [];
+    let GetCategories = [];
     for (let i = 0; i < 5; i++) {
       let random = Math.floor(Math.random() * 100);
       let count = 0;
       for (const key in VisitedDictionary) {
         count += VisitedDictionary[key];
         if (count >= random) {
-          Categories.push(key);
+          GetCategories.push(key);
           break;
         }
       }
     }
 
-    console.log(Categories);
+    console.log(GetCategories);
 
 
     //query ElasticSearch and get a news from the each category with regex
-      
+
     let News = [];
-    for (const key in Categories) {
-      let value = Categories[key];
+    for (const key in GetCategories) {
+      let value = GetCategories[key];
       let regexString = ".*" + value + ".*";
 
-      let result = await ElasticClient.search({
+      let result2 = await ElasticClient.search({
         index: 'news',
         body: {
           query: {
@@ -946,21 +933,17 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
         }
       });
 
-      let hits = result.hits.hits;
+      let hits = result2.hits.hits;
 
       let news = [];
-      hits.forEach(item => {  
 
-        
+      hits.forEach(item => {
+
         item._source._id = item._id;
-
         news.push(item._source);
       })
 
       let random = Math.floor(Math.random() * news.length);
-
-
-      //get only the Publication and title
 
       let newsObject = {
         publication: news[random].RSSTag,
@@ -969,12 +952,9 @@ async function GetRecomandedNewsForUser(db, ElasticClient, id) {
         Category: news[random].category,
         id: news[random]._id,
       }
-      
+
       News.push(newsObject);
     }
-    
     return News;
-
   }
-
 }

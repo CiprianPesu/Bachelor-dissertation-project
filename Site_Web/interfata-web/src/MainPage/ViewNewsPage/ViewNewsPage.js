@@ -16,12 +16,14 @@ import StoryTimeline from "./StoryTimeline/StoryTimeline";
 import ParagarfSpace from "./ParagrafSpace/ParagarfSpace";
 import Category from "./Category";
 
+import CurentUser from "../../stores/CurentUser";
+
 class ViewNewsPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loding: false,
+      loding: true,
       success: true,
       link: "",
       title: "",
@@ -36,7 +38,6 @@ class ViewNewsPage extends React.Component {
 
       recivedSimilar: false,
       SimilarNews: [],
-
 
       recivedRecomanded: false,
       RecomandedNews: [],
@@ -78,6 +79,9 @@ class ViewNewsPage extends React.Component {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        body: JSON.stringify({
+          ID: this.props.NewsID,
+        }),
       });
 
       await res.json().then((response) => {
@@ -86,12 +90,11 @@ class ViewNewsPage extends React.Component {
             RecomandedNews: response.data,
             recivedRecomanded: true,
           })
-
         }
         else {
         }
-      }
-      );
+      });
+
     }
     catch (error) {
 
@@ -326,6 +329,7 @@ class ViewNewsPage extends React.Component {
                     <RecomandedNewsSpace
                       RecomandedNews={this.state.RecomandedNews}
                       recived={this.state.recivedRecomanded}
+                      isLoggedIn={CurentUser.isLoggedIn}
                     ></RecomandedNewsSpace>
                   </div>
                 </div>
